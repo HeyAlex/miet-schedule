@@ -14,7 +14,10 @@ import retrofit2.http.GET;
 
 public interface UniversityApi {
 
-
+    /**
+     * Returns Observable of set of {@link NewsModel}
+     * @return observable
+     */
     Observable<Set<NewsModel>> getNews();
 
 

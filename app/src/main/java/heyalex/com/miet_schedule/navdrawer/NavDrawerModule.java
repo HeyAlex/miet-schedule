@@ -11,8 +11,8 @@ import dagger.Provides;
 @Module
 public class NavDrawerModule {
 
+    @Singleton
     @Provides
-    @NavDrawerScope
     public NavDrawerPresenter provideNavDrawerPresenter(){
         return new NavDrawerPresenterImpl() ;
     }
