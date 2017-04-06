@@ -1,6 +1,7 @@
 package heyalex.com.miet_schedule.api;
 
 import java.util.List;
+import java.util.Set;
 
 import heyalex.com.miet_schedule.model.news.ArticleResponse;
 import heyalex.com.miet_schedule.model.schedule.SemestrData;
@@ -16,14 +17,14 @@ import retrofit2.http.Query;
 public interface UniversityService {
 
     @GET("rss/news")
-    Call<ArticleResponse> getNews();
+    Observable<ArticleResponse> getNews();
     /**
      * Returns a list of group names schedule for is available via this service
      * @return list of strings
      */
     @GET("groups")
-    Call<List<String>> getGroupNames();
+    Observable<Set<String>> getGroupNames();
 
     @GET("data")
-    Call<SemestrData> getScheduleResponse(@Query("group") String groupName);
+    Observable<SemestrData> getScheduleResponse(@Query("group") String groupName);
 }
