@@ -19,7 +19,7 @@ public interface UniversityService {
     @GET("rss/news")
     Observable<ArticleResponse> getNews();
     /**
-     * Returns a list of group names schedule for is available via this service
+     * Returns a list of group names heyalex.com.miet_schedule.schedule for is available via this service
      * @return list of strings
      */
     @GET("groups")

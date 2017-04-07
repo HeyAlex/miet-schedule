@@ -10,7 +10,7 @@ public class UniversityServiceGenerator {
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
     public final static String SERVICE_MIET_ENDPOINT = "https://miet.ru";
-    public final static String SCHEDULE_POINT = "/schedule/";
+    public final static String SCHEDULE_POINT = "/heyalex/com/miet_schedule/schedule/";
     public static String NEWS_POINT = "/rss/news/";
 
     private static Retrofit.Builder retrofitScheduleBuilder
