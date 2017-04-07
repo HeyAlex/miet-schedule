@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import heyalex.com.miet_schedule.api.UniversityApiModule;
 import heyalex.com.miet_schedule.navdrawer.DaggerNavDrawerComponent;
 import heyalex.com.miet_schedule.navdrawer.NavDrawerComponent;
 import heyalex.com.miet_schedule.navdrawer.NavDrawerModule;
@@ -43,7 +44,8 @@ public class ScheduleApp extends Application{
     protected DaggerApplicationComponent.Builder prepareApplicationComponent(){
         return DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
-                .navDrawerModule(new NavDrawerModule());
+                .navDrawerModule(new NavDrawerModule())
+                .universityApiModule(new UniversityApiModule());
     }
 
     @NonNull
