@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#1565C0</color>
+    <color name="colorAccent">#f0806a</color>
+    <color name="color_white">#FFF</color>
+    <color name="color_black">#000000</color>
+    <color name="iron_darker">#4b4b4b</color>
+    <color name="scheduleTO">#fea9acb6</color>
+    <color name="scheduleFROM">#455473</color>
+    <color name="iron">#cccccc</color>
+    <color name="circle_none">#f1f1f1</color>
+    <color name="kms_top">#e6e6e6</color>
+    <color name="iron_divider">#e9e6e6e6</color>
+    <color name="transparent">#00ffffff</color>
+    <color name="colorBrightPrimary">#64B5F6</color>
 </resources>
