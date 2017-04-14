@@ -3,4 +3,11 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
+
+    <!-- Strings related to navigation drawer -->
+    <string name="nav_drawer_open">Open navigation drawer</string>
+    <string name="nav_drawer_close">Close navigation drawer</string>
+    <string name="nav_learning_title">Learning</string>
+    <string name="nav_settings_title">Settings</string>
+
 </resources>

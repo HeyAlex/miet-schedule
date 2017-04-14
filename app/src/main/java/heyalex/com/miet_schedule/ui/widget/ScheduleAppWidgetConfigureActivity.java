@@ -61,6 +61,7 @@ public class ScheduleAppWidgetConfigureActivity extends Activity {
         } else {
           //  return context.getString(R.string.appwidget_text);
         }
+        return titleValue;
     }
 
     static void deleteTitlePref(Context context, int appWidgetId) {

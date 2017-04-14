@@ -1,8 +1,14 @@
 package heyalex.com.miet_schedule.navdrawer;
 
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.IdRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -10,85 +16,136 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import heyalex.com.miet_schedule.R;
+import heyalex.com.miet_schedule.ScheduleApp;
+import heyalex.com.miet_schedule.ui.BaseNavigationActivity;
+import heyalex.com.miet_schedule.util.NavigationUtil;
 
 /**
  * Created by alexf on 04.04.2017.
  */
 
-public class NavDrawerActivity extends AppCompatActivity {
+public class NavDrawerActivity extends BaseNavigationActivity implements NavDrawerView ,
+        NavAdapter.OnItemClickedListener {
 
-    @Nullable
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    private static final String FRAGMENT_TAG_GROUPS = "FRAGMENT_TAG_GROUPS";
+    private static final String FRAGMENT_TAG_SETTINGS = "FRAGMENT_TAG_SETTINGS";
+    private static final String FRAGMENT_TAG_ORIOKS = "FRAGMENT_TAG_ORIOKS";
+    private static final String FRAGMENT_TAG_NEWS = "FRAGMENT_TAG_NEWS";
 
-    @Nullable
-    @BindView(R.id.rv_drawer_recycler)
-    RecyclerView mRecyclerView;
-
-    @Nullable
-    @BindView(R.id.drawer_layout)
-    DrawerLayout drawerLayout;
-
-    private ActionBarDrawerToggle drawerToggle;
-
-
-    private static final int NAV_DRAWER_NO_ITEM = -1;
+    private NavAdapter navAdapter;
 
     @Inject
     NavDrawerPresenter navDrawerPresenter;
 
-    @IdRes
-    protected int getNavDrawerItemId(){
-        return NAV_DRAWER_NO_ITEM;
-    }
-
-    protected boolean hasParentActivity(){
-        return false;
-    }
-
-    protected void setupToolbar(){
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            ActionBar actionBar = getSupportActionBar();
-
-            if (actionBar != null) {
-                actionBar.setDisplayHomeAsUpEnabled(true);
-            }
-        }
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_navdrawer_main);
+        navDrawerPresenter.showLastFrament();
     }
 
     @Override
-    public void onBackPressed(){
-        if (isNavDrawerOpened()) {
-            closeNavDrawer();
-        } else {
-            super.onBackPressed();
+    protected void setupNavListView() {
+        navAdapter = new NavAdapter(this);
+        if (mRecyclerView != null) {
+            mRecyclerView.setAdapter(navAdapter);
         }
+
+        // inject navigation presenter
+        DaggerHeaderComponent.builder()
+                .applicationComponent(ScheduleApp.get(this).getApplicationComponent())
+                .build()
+                .inject(this);
     }
 
-    private boolean isNavDrawerOpened(){
-        /**
-         * Simplified from
-         * {@code   if (drawerLayout != null) {
-         *              return drawerLayout.isDrawerOpen(GravityCompat.START);
-         *          } else {
-         *               return false;
-         *          }
-         * }
-         */
-        return drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START);
-    }
-
-    private void closeNavDrawer(){
+    @Override
+    public void onItemClicked(int position) {
+        navAdapter.setCurrentPos(position);
+        navDrawerPresenter.onNavigationItemClicked(position);
+        if (toolbar != null) {
+            toolbar.setTitle(NavigationUtil.drawerList[position]);
+        }
         if (drawerLayout != null) {
-            drawerLayout.closeDrawer(GravityCompat.START);
+            drawerLayout.closeDrawers();
         }
+        navDrawerPresenter.onViewAttached(this);
     }
 
+    @Override
+    public void showNews() {
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_NEWS);
+        if (fragment == null) {
+            fragment = new NewsFragment();
+            fragment.setRetainInstance(true);
+        }
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_NEWS)
+                .commitNow();
+    }
 
+    @Override
+    public void showScheduleGroups() {
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_GROUPS);
+        if (fragment == null) {
+            fragment = new GroupFragment();
+            fragment.setRetainInstance(true);
+        }
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_GROUPS)
+                .commitNow();
+
+    }
+
+    @Override
+    public void showOrioks() {
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_ORIOKS);
+        if (fragment == null) {
+            fragment = new OrioksFragment();
+            fragment.setRetainInstance(true);
+        }
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_ORIOKS)
+                .commitNow();
+
+    }
+
+    @Override
+    public void showSettings() {
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_SETTINGS);
+        if (fragment == null) {
+            fragment = new SettingsFragment();
+            fragment.setRetainInstance(true);
+        }
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_SETTINGS)
+                .commitNow();
+
+    }
+
+    @Override
+    public void showCurrentPosition(int postion) {
+        navAdapter.setCurrentPos(postion);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (navDrawerPresenter != null) {
+            navDrawerPresenter.onViewDetached();
+        }
+        super.onDestroy();
+    }
 }
