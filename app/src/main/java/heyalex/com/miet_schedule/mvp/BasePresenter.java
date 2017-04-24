@@ -8,6 +8,7 @@ package heyalex.com.miet_schedule.mvp;
 public interface BasePresenter<V> {
     /**
      * Called when view attached to this presenter
+     *
      * @param view to attach
      */
     void onViewAttached(V view);

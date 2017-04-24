@@ -10,4 +10,13 @@
     <string name="nav_learning_title">Learning</string>
     <string name="nav_settings_title">Settings</string>
 
+
+    <string name="nav_discipline">ОРИОКС</string>
+    <string name="nav_news">Новости</string>
+    <string name="nav_week">Текучка</string>
+    <string name="nav_exit">Выход</string>
+    <string name="resources">Ресурсы</string>
+    <string name="schedule">Расписание</string>
+    <string name="news_detail">Просмотр новости</string>
+
 </resources>

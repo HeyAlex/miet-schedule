@@ -29,20 +29,20 @@ public class NavDrawerPresenterImpl implements NavDrawerPresenter {
     @Override
     public void onNavigationItemClicked(int position) {
         mCurrentPosition = position;
-        switch (position){
-            case 0:{
+        switch (position) {
+            case 0: {
                 view.showScheduleGroups();
                 break;
             }
-            case 1:{
+            case 1: {
                 view.showOrioks();
                 break;
             }
-            case 2:{
+            case 2: {
                 view.showNews();
                 break;
             }
-            case 3:{
+            case 3: {
                 view.showSettings();
                 break;
             }
@@ -51,8 +51,8 @@ public class NavDrawerPresenterImpl implements NavDrawerPresenter {
 
     @Override
     public void showLastFrament() {
-        view.showCurrentPosition(mCurrentPosition);
-        onNavigationItemClicked(mCurrentPosition);
+      //  view.showCurrentPosition(mCurrentPosition);
+     //   onNavigationItemClicked(mCurrentPosition);
 
     }
 

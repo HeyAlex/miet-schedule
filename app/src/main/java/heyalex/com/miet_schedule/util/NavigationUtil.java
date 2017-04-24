@@ -7,9 +7,8 @@ import heyalex.com.miet_schedule.R;
  */
 public class NavigationUtil {
     public static final int drawerList[] = {R.string.nav_discipline,
-            R.string.schedule ,  R.string.nav_news };
-    public static final String fragmentList[] = {DisciplineFragment.class.getName(),
-            GroupFragment.class.getName(), NewsFragment.class.getName() };
+            R.string.schedule, R.string.nav_news};
+
     public static final String weekDayList[] = {"Понедельник", "Вторник", "Среда",
             "Четверг", "Пятница", "Суббота", "Воскресенье"};
     public static final String downloadschedule[] = {"Понедельник", "Понедельник", "Вторник",

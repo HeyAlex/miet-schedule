@@ -10,7 +10,7 @@ public class UniversityApiModule {
 
     @Provides
     @Singleton
-    public UniversityService provideScheduleApi(){
+    public UniversityService provideScheduleApi() {
         return UniversityApiFactory.getUniversityApi();
     }
 }

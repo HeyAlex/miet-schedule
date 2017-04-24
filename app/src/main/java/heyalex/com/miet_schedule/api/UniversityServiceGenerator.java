@@ -23,12 +23,12 @@ public class UniversityServiceGenerator {
             .baseUrl(SERVICE_MIET_ENDPOINT + NEWS_POINT)
             .addConverterFactory(SimpleXmlConverterFactory.create());
 
-    public static <S> S createScheduleService(Class<S> serviceClass){
+    public static <S> S createScheduleService(Class<S> serviceClass) {
         Retrofit retrofit = retrofitScheduleBuilder.client(httpClient.build()).build();
         return retrofit.create(serviceClass);
     }
 
-    public static <S> S createNewsService(Class<S> serviceClass){
+    public static <S> S createNewsService(Class<S> serviceClass) {
         Retrofit retrofit = retrofitNewsBuilder.client(httpClient.build()).build();
         return retrofit.create(serviceClass);
     }

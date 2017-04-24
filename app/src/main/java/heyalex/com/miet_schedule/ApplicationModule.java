@@ -21,7 +21,7 @@ public final class ApplicationModule {
 
     @Provides
     @Singleton
-    public Context provideContext(){
+    public Context provideContext() {
         return context;
     }
 }

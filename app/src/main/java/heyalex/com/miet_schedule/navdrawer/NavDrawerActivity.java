@@ -1,30 +1,12 @@
 package heyalex.com.miet_schedule.navdrawer;
 
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.preference.PreferenceManager;
-import android.support.annotation.IdRes;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
-
-import java.util.HashMap;
-import java.util.Map;
+import android.support.v7.widget.LinearLayoutManager;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
 import heyalex.com.miet_schedule.ui.BaseNavigationActivity;
@@ -34,7 +16,7 @@ import heyalex.com.miet_schedule.util.NavigationUtil;
  * Created by alexf on 04.04.2017.
  */
 
-public class NavDrawerActivity extends BaseNavigationActivity implements NavDrawerView ,
+public class NavDrawerActivity extends BaseNavigationActivity implements NavDrawerView,
         NavAdapter.OnItemClickedListener {
 
     private static final String FRAGMENT_TAG_GROUPS = "FRAGMENT_TAG_GROUPS";
@@ -58,11 +40,12 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
     protected void setupNavListView() {
         navAdapter = new NavAdapter(this);
         if (mRecyclerView != null) {
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
             mRecyclerView.setAdapter(navAdapter);
         }
 
         // inject navigation presenter
-        DaggerHeaderComponent.builder()
+        DaggerNavDrawerComponent.builder()
                 .applicationComponent(ScheduleApp.get(this).getApplicationComponent())
                 .build()
                 .inject(this);
@@ -85,7 +68,7 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
     public void showNews() {
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_NEWS);
         if (fragment == null) {
-            fragment = new NewsFragment();
+        //    fragment = new NewsFragment();
             fragment.setRetainInstance(true);
         }
         getSupportFragmentManager()
@@ -98,7 +81,7 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
     public void showScheduleGroups() {
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_GROUPS);
         if (fragment == null) {
-            fragment = new GroupFragment();
+        //    fragment = new GroupFragment();
             fragment.setRetainInstance(true);
         }
         getSupportFragmentManager()
@@ -112,7 +95,7 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
     public void showOrioks() {
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_ORIOKS);
         if (fragment == null) {
-            fragment = new OrioksFragment();
+        //    fragment = new OrioksFragment();
             fragment.setRetainInstance(true);
         }
         getSupportFragmentManager()
@@ -126,7 +109,7 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
     public void showSettings() {
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_SETTINGS);
         if (fragment == null) {
-            fragment = new SettingsFragment();
+        //    fragment = new SettingsFragment();
             fragment.setRetainInstance(true);
         }
         getSupportFragmentManager()
