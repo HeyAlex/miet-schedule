@@ -14,7 +14,7 @@ import timber.log.Timber;
  * Created by mac on 04.04.17.
  */
 
-public class ScheduleApp extends Application{
+public class ScheduleApp extends Application {
 
     @NonNull // initialized in onCreate()
     private ApplicationComponent applicationComponent;
@@ -31,6 +31,7 @@ public class ScheduleApp extends Application{
 
     /**
      * Static method returns {@link ScheduleApp} instance from context
+     *
      * @param context to get {@link ScheduleApp}
      * @return {@link ScheduleApp} instance
      */
@@ -41,7 +42,7 @@ public class ScheduleApp extends Application{
         return (ScheduleApp) context.getApplicationContext();
     }
 
-    protected DaggerApplicationComponent.Builder prepareApplicationComponent(){
+    protected DaggerApplicationComponent.Builder prepareApplicationComponent() {
         return DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .navDrawerModule(new NavDrawerModule())
@@ -49,16 +50,16 @@ public class ScheduleApp extends Application{
     }
 
     @NonNull
-    public ApplicationComponent getApplicationComponent(){
+    public ApplicationComponent getApplicationComponent() {
         return applicationComponent;
     }
 
-    private void initDaggerComponents(){
+    private void initDaggerComponents() {
         this.navDrawerComponent = initNavDrawerComponent();
 
     }
 
-    private NavDrawerComponent initNavDrawerComponent(){
+    private NavDrawerComponent initNavDrawerComponent() {
         return DaggerNavDrawerComponent.builder()
                 .applicationComponent(applicationComponent)
                 .build();

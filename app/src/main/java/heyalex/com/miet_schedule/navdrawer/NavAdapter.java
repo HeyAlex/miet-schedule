@@ -22,7 +22,7 @@ import heyalex.com.miet_schedule.util.NavigationUtil;
  * Created by alexf on 14.04.2017.
  */
 
-public class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder>{
+public class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder> {
 
     private Context context;
     private final Integer[] iconId = new Integer[]{R.drawable.calendar,
@@ -35,9 +35,10 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder>{
     public NavAdapter(Context context) {
         this.context = context;
         this.data = Arrays.asList(iconId);
+        notifyDataSetChanged();
     }
 
-    public interface OnItemClickedListener{
+    public interface OnItemClickedListener {
         void onItemClicked(int position);
     }
 
@@ -55,7 +56,7 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-
+        holder.fillView(position);
     }
 
     @Override
@@ -68,9 +69,7 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder>{
     }
 
 
-
-
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.drawer_item)
         LinearLayout mDrawerItem;
@@ -100,7 +99,6 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder>{
                 mItemTextView.setTextColor(context.getResources().getColor(R.color.iron_darker));
             }
         }
-
 
     }
 

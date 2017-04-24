@@ -8,9 +8,10 @@ public class Preconditions {
     /**
      * Tests whether provided reference is null.
      * If it's null {@link NullPointerException} will be thrown
+     *
      * @param reference to check
-     * @param msg optional message for {@link NullPointerException}
-     * @param <T> type of reference
+     * @param msg       optional message for {@link NullPointerException}
+     * @param <T>       type of reference
      * @return reference
      */
     public static <T> T checkNotNull(T reference, String msg) {
@@ -24,8 +25,9 @@ public class Preconditions {
     /**
      * Tests whether provided reference is null.
      * If it's null {@link NullPointerException} will be thrown
+     *
      * @param reference to check
-     * @param <T> type of reference
+     * @param <T>       type of reference
      * @return reference
      */
     public static <T> T checkNotNull(T reference) {

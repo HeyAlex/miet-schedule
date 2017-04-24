@@ -10,6 +10,7 @@ package heyalex.com.miet_schedule.mvp;
 public interface BaseView<P> {
     /**
      * Associates this view with provided presenter
+     *
      * @param presenter
      */
     void setPresenter(P presenter);

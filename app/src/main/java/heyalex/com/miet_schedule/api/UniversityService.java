@@ -1,12 +1,10 @@
 package heyalex.com.miet_schedule.api;
 
-import java.util.List;
 import java.util.Set;
 
 import heyalex.com.miet_schedule.model.news.ArticleResponse;
 import heyalex.com.miet_schedule.model.schedule.SemestrData;
 import io.reactivex.Observable;
-import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -21,6 +19,7 @@ public interface UniversityService {
 
     /**
      * Returns a list of group names heyalex.com.miet_schedule.schedule for is available via this service
+     *
      * @return list of strings
      */
     @GET("groups")

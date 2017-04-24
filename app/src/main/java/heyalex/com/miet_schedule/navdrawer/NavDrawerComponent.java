@@ -8,5 +8,5 @@ import heyalex.com.miet_schedule.ui.BaseActivity;
 @Component(dependencies = ApplicationComponent.class)
 public interface NavDrawerComponent {
 
-    void inject(BaseActivity activity);
+    void inject(NavDrawerActivity activity);
 }

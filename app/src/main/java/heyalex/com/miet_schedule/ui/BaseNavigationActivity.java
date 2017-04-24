@@ -39,11 +39,11 @@ public abstract class BaseNavigationActivity extends AppCompatActivity {
 
     protected abstract void setupNavListView();
 
-    protected boolean hasParentActivity(){
+    protected boolean hasParentActivity() {
         return false;
     }
 
-    protected void setupToolbar(){
+    protected void setupToolbar() {
         if (toolbar != null) {
             setSupportActionBar(toolbar);
             ActionBar actionBar = getSupportActionBar();
@@ -65,7 +65,7 @@ public abstract class BaseNavigationActivity extends AppCompatActivity {
 
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         if (isNavDrawerOpened()) {
             closeNavDrawer();
         } else {
@@ -73,7 +73,7 @@ public abstract class BaseNavigationActivity extends AppCompatActivity {
         }
     }
 
-    private boolean isNavDrawerOpened(){
+    private boolean isNavDrawerOpened() {
         /**
          * Simplified from
          * {@code   if (drawerLayout != null) {
@@ -86,7 +86,7 @@ public abstract class BaseNavigationActivity extends AppCompatActivity {
         return drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START);
     }
 
-    private void closeNavDrawer(){
+    private void closeNavDrawer() {
         if (drawerLayout != null) {
             drawerLayout.closeDrawer(GravityCompat.START);
         }
@@ -99,6 +99,7 @@ public abstract class BaseNavigationActivity extends AppCompatActivity {
             drawerToggle.syncState();
         }
     }
+
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
@@ -113,8 +114,8 @@ public abstract class BaseNavigationActivity extends AppCompatActivity {
     }
 
 
-    private void setupNavDrawer(){
-        if (drawerLayout != null &&  toolbar != null) {
+    private void setupNavDrawer() {
+        if (drawerLayout != null && toolbar != null) {
             drawerToggle = new ActionBarDrawerToggle(this,
                     drawerLayout,
                     toolbar,

@@ -32,7 +32,7 @@ public class UniversityApiFactory {
         }
     };
 
-    public static UniversityService getUniversityApi(){
+    public static UniversityService getUniversityApi() {
         return instance;
     }
 }
