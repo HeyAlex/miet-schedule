@@ -31,10 +31,12 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder> {
     private List<Integer> data;
 
     private int mCurrentPos = 0;
+    private OnItemClickedListener clickedListener;
 
-    public NavAdapter(Context context) {
+    public NavAdapter(Context context, OnItemClickedListener clickedListener) {
         this.context = context;
         this.data = Arrays.asList(iconId);
+        this.clickedListener = clickedListener;
         notifyDataSetChanged();
     }
 
@@ -44,8 +46,12 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder> {
 
     public void setCurrentPos(int currentPos) {
         mCurrentPos = currentPos;
-        notifyDataSetChanged();
     }
+
+    public int getCurrentPos() {
+        return mCurrentPos;
+    }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -98,6 +104,14 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder> {
                 mDrawerItem.setBackgroundColor(Color.parseColor("#ffffff"));
                 mItemTextView.setTextColor(context.getResources().getColor(R.color.iron_darker));
             }
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    setCurrentPos(getAdapterPosition());
+                    clickedListener.onItemClicked(mCurrentPos);
+                    notifyDataSetChanged();
+                }
+            });
         }
 
     }

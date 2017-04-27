@@ -33,16 +33,16 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navdrawer_main);
+        navDrawerPresenter.onViewAttached(this);
         navDrawerPresenter.showLastFrament();
+
     }
 
     @Override
     protected void setupNavListView() {
-        navAdapter = new NavAdapter(this);
-        if (mRecyclerView != null) {
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-            mRecyclerView.setAdapter(navAdapter);
-        }
+        navAdapter = new NavAdapter(this,this);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setAdapter(navAdapter);
 
         // inject navigation presenter
         DaggerNavDrawerComponent.builder()
@@ -53,7 +53,6 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
 
     @Override
     public void onItemClicked(int position) {
-        navAdapter.setCurrentPos(position);
         navDrawerPresenter.onNavigationItemClicked(position);
         if (toolbar != null) {
             toolbar.setTitle(NavigationUtil.drawerList[position]);
@@ -61,67 +60,69 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
         if (drawerLayout != null) {
             drawerLayout.closeDrawers();
         }
-        navDrawerPresenter.onViewAttached(this);
     }
 
     @Override
     public void showNews() {
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_NEWS);
-        if (fragment == null) {
-        //    fragment = new NewsFragment();
-            fragment.setRetainInstance(true);
-        }
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_NEWS)
-                .commitNow();
+//        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_NEWS);
+//        if (fragment == null) {
+//        //    fragment = new NewsFragment();
+//            fragment.setRetainInstance(true);
+//        }
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_NEWS)
+//                .commitNow();
     }
 
     @Override
     public void showScheduleGroups() {
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_GROUPS);
-        if (fragment == null) {
-        //    fragment = new GroupFragment();
-            fragment.setRetainInstance(true);
-        }
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_GROUPS)
-                .commitNow();
+//        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_GROUPS);
+//        if (fragment == null) {
+//        //    fragment = new GroupFragment();
+//            fragment.setRetainInstance(true);
+//        }
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_GROUPS)
+//                .commitNow();
 
     }
 
     @Override
     public void showOrioks() {
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_ORIOKS);
-        if (fragment == null) {
-        //    fragment = new OrioksFragment();
-            fragment.setRetainInstance(true);
-        }
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_ORIOKS)
-                .commitNow();
+//        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_ORIOKS);
+//        if (fragment == null) {
+//        //    fragment = new OrioksFragment();
+//            fragment.setRetainInstance(true);
+//        }
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_ORIOKS)
+//                .commitNow();
 
     }
 
     @Override
     public void showSettings() {
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_SETTINGS);
-        if (fragment == null) {
-        //    fragment = new SettingsFragment();
-            fragment.setRetainInstance(true);
-        }
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_SETTINGS)
-                .commitNow();
+//        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_SETTINGS);
+//        if (fragment == null) {
+//        //    fragment = new SettingsFragment();
+//            fragment.setRetainInstance(true);
+//        }
+//        getSupportFragmentManager()
+//                .beginTransaction()
+//                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_SETTINGS)
+//                .commitNow();
 
     }
 
     @Override
     public void showCurrentPosition(int postion) {
         navAdapter.setCurrentPos(postion);
+        if (toolbar != null) {
+            getSupportActionBar().setTitle(NavigationUtil.drawerList[postion]);
+        }
     }
 
     @Override

@@ -23,7 +23,7 @@ public class NavDrawerPresenterImpl implements NavDrawerPresenter {
 
     @Override
     public void onViewDetached() {
-
+        this.view = null;
     }
 
     @Override
@@ -31,10 +31,12 @@ public class NavDrawerPresenterImpl implements NavDrawerPresenter {
         mCurrentPosition = position;
         switch (position) {
             case 0: {
+                mCurrentPosition = position;
                 view.showScheduleGroups();
                 break;
             }
             case 1: {
+                mCurrentPosition = position;
                 view.showOrioks();
                 break;
             }
@@ -51,9 +53,7 @@ public class NavDrawerPresenterImpl implements NavDrawerPresenter {
 
     @Override
     public void showLastFrament() {
-      //  view.showCurrentPosition(mCurrentPosition);
-     //   onNavigationItemClicked(mCurrentPosition);
-
+        view.showCurrentPosition(mCurrentPosition);
     }
 
 }
