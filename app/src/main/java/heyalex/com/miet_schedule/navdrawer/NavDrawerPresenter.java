@@ -7,5 +7,4 @@ public interface NavDrawerPresenter extends BasePresenter<NavDrawerView> {
     void onNavigationItemClicked(int position);
 
     void showLastFrament();
-
 }

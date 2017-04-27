@@ -8,8 +8,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:openDrawer="start"
-    app:layout_collapseParallaxMultiplier="1.0">
+    tools:openDrawer="start">
 
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -22,14 +21,14 @@
             android:background="@color/color_white"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:background="@color/colorPrimary"
-                android:layout_height="24dp" />
-
-            <include
+            <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
-                layout="@layout/layout_toolbar" />
+                app:titleTextColor="@color/color_white"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:fitsSystemWindows="true"
+                android:minHeight="?attr/actionBarSize"
+                android:background="?attr/colorPrimary" />
 
             <FrameLayout
                 android:id="@+id/fl_content"
