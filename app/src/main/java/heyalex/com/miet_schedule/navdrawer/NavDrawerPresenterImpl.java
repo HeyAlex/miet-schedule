@@ -32,20 +32,20 @@ public class NavDrawerPresenterImpl implements NavDrawerPresenter {
         switch (position) {
             case 0: {
                 mCurrentPosition = position;
-                view.showScheduleGroups();
+                view.navigateToScheduleGroups();
                 break;
             }
             case 1: {
                 mCurrentPosition = position;
-                view.showOrioks();
+                view.navigateToOrioks();
                 break;
             }
             case 2: {
-                view.showNews();
+                view.navigateToNews();
                 break;
             }
             case 3: {
-                view.showSettings();
+                view.navigateToSettings();
                 break;
             }
         }

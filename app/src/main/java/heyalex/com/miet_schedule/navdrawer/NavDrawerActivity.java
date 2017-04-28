@@ -63,7 +63,7 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
     }
 
     @Override
-    public void showNews() {
+    public void navigateToNews() {
 //        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_NEWS);
 //        if (fragment == null) {
 //        //    fragment = new NewsFragment();
@@ -76,7 +76,7 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
     }
 
     @Override
-    public void showScheduleGroups() {
+    public void navigateToScheduleGroups() {
 //        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_GROUPS);
 //        if (fragment == null) {
 //        //    fragment = new GroupFragment();
@@ -90,7 +90,7 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
     }
 
     @Override
-    public void showOrioks() {
+    public void navigateToOrioks() {
 //        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_ORIOKS);
 //        if (fragment == null) {
 //        //    fragment = new OrioksFragment();
@@ -104,7 +104,7 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
     }
 
     @Override
-    public void showSettings() {
+    public void navigateToSettings() {
 //        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_SETTINGS);
 //        if (fragment == null) {
 //        //    fragment = new SettingsFragment();
