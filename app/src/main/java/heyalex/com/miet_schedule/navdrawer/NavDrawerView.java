@@ -6,14 +6,13 @@ package heyalex.com.miet_schedule.navdrawer;
 
 public interface NavDrawerView {
 
-    void showNews();
+    void navigateToNews();
 
-    void showScheduleGroups();
+    void navigateToScheduleGroups();
 
-    void showOrioks();
+    void navigateToOrioks();
 
-    void showSettings();
+    void navigateToSettings();
 
     void showCurrentPosition(int postion);
-
 }
