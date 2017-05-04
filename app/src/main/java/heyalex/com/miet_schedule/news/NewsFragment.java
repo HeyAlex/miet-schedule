@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.aspsine.swipetoloadlayout.OnRefreshListener;
-import com.aspsine.swipetoloadlayout.SwipeToLoadLayout;
 
 import java.util.List;
 
@@ -26,18 +24,12 @@ import heyalex.com.miet_schedule.ScheduleApp;
  * Created by mac on 28.04.17.
  */
 
-public class NewsFragment extends Fragment implements NewsView, OnRefreshListener, CommonRecyclerAdapter.ItemClickListener  {
+public class NewsFragment extends Fragment implements NewsView {
 
-    @BindView(R.id.swipe_target)
-    RecyclerView mRecyclerView;
 
-    @BindView(R.id.swipe_refresh)
-    SwipeToLoadLayout mSwipeRefresh;
 
     @Inject
     NewsPresenter presenter;
-
-    private NewsAdapter mAdapter;
 
 
     @Override
@@ -47,14 +39,11 @@ public class NewsFragment extends Fragment implements NewsView, OnRefreshListene
 
     @Override
     public void showNews(List<NewsModel> news) {
-        mAdapter.setData(news);
+
     }
 
     private void initNewsRecycler(){
-        mAdapter = new NewsAdapter(getActivity());
-        mAdapter.setItemClickListener(this);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.setAdapter(mAdapter);
+
     }
     @Override
     public void showErrorView() {
@@ -63,20 +52,13 @@ public class NewsFragment extends Fragment implements NewsView, OnRefreshListene
 
     @Override
     public void setRefreshing(final boolean refreshing) {
-        mSwipeRefresh.post(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeRefresh.setRefreshing(refreshing);
-            }
-        });
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_swipe_to_load, container, false);
+        View root = inflater.inflate(R.layout.activity_navdrawer_main, container, false);
         ButterKnife.bind(this, root);
-        mSwipeRefresh.setOnRefreshListener(this);
         return root;
     }
 
@@ -84,10 +66,8 @@ public class NewsFragment extends Fragment implements NewsView, OnRefreshListene
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (presenter == null) {
-            // inject navigation presenter
-            DaggerNewsComponent.builder()
-                    .applicationComponent(ScheduleApp.get(getActivity()).getApplicationComponent())
-                    .build()
+            ScheduleApp.get(getContext())
+                    .getScheduleComponent()
                     .inject(this);
         }
         presenter.onViewAttached(this);
@@ -103,18 +83,4 @@ public class NewsFragment extends Fragment implements NewsView, OnRefreshListene
         }
     }
 
-    @Override
-    public void onRefresh() {
-        presenter.onRefreshRequest();
-    }
-
-    @Override
-    public void onItemClick(int position) {
-
-    }
-
-    @Override
-    public void onLongItemClick(int position) {
-
-    }
 }
