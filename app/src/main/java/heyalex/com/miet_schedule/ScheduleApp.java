@@ -8,6 +8,9 @@ import heyalex.com.miet_schedule.api.UniversityApiModule;
 import heyalex.com.miet_schedule.navdrawer.DaggerNavDrawerComponent;
 import heyalex.com.miet_schedule.navdrawer.NavDrawerComponent;
 import heyalex.com.miet_schedule.navdrawer.NavDrawerModule;
+import heyalex.com.miet_schedule.news.DaggerNewsComponent;
+import heyalex.com.miet_schedule.news.NewsComponent;
+import heyalex.com.miet_schedule.news.NewsModule;
 import timber.log.Timber;
 
 /**
@@ -20,6 +23,7 @@ public class ScheduleApp extends Application {
     private ApplicationComponent applicationComponent;
 
     private NavDrawerComponent navDrawerComponent;
+    private NewsComponent newsComponent;
 
     @Override
     public void onCreate() {
@@ -27,6 +31,7 @@ public class ScheduleApp extends Application {
         Timber.plant(new Timber.DebugTree());
         applicationComponent = prepareApplicationComponent().build();
         initDaggerComponents();
+        initNewsComponent();
     }
 
     /**
@@ -46,6 +51,7 @@ public class ScheduleApp extends Application {
         return DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .navDrawerModule(new NavDrawerModule())
+                .newsModule(new NewsModule())
                 .universityApiModule(new UniversityApiModule());
     }
 
@@ -56,11 +62,18 @@ public class ScheduleApp extends Application {
 
     private void initDaggerComponents() {
         this.navDrawerComponent = initNavDrawerComponent();
+        this.newsComponent = initNewsComponent();
 
     }
 
     private NavDrawerComponent initNavDrawerComponent() {
         return DaggerNavDrawerComponent.builder()
+                .applicationComponent(applicationComponent)
+                .build();
+    }
+
+    private NewsComponent initNewsComponent() {
+        return DaggerNewsComponent.builder()
                 .applicationComponent(applicationComponent)
                 .build();
     }

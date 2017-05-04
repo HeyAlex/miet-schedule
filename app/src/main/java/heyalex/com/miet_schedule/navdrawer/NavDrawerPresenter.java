@@ -5,6 +5,4 @@ import heyalex.com.miet_schedule.mvp.BasePresenter;
 public interface NavDrawerPresenter extends BasePresenter<NavDrawerView> {
 
     void onNavigationItemClicked(int position);
-
-    void showLastFrament();
 }

@@ -19,6 +19,7 @@ public class NavDrawerPresenterImpl implements NavDrawerPresenter {
     @Override
     public void onViewAttached(NavDrawerView view) {
         this.view = view;
+        view.showCurrentPosition(mCurrentPosition);
     }
 
     @Override
@@ -49,11 +50,6 @@ public class NavDrawerPresenterImpl implements NavDrawerPresenter {
                 break;
             }
         }
-    }
-
-    @Override
-    public void showLastFrament() {
-        view.showCurrentPosition(mCurrentPosition);
     }
 
 }
