@@ -5,6 +5,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 import heyalex.com.miet_schedule.api.UniversityApiModule;
+import heyalex.com.miet_schedule.data.DataModule;
 import heyalex.com.miet_schedule.navdrawer.DaggerNavDrawerComponent;
 import heyalex.com.miet_schedule.navdrawer.NavDrawerComponent;
 import heyalex.com.miet_schedule.navdrawer.NavDrawerModule;
@@ -51,7 +52,7 @@ public class ScheduleApp extends Application {
         return DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .navDrawerModule(new NavDrawerModule())
-                .newsModule(new NewsModule())
+                .dataModule(new DataModule(getApplicationContext()))
                 .universityApiModule(new UniversityApiModule());
     }
 
@@ -75,7 +76,12 @@ public class ScheduleApp extends Application {
     private NewsComponent initNewsComponent() {
         return DaggerNewsComponent.builder()
                 .applicationComponent(applicationComponent)
+                .newsModule(new NewsModule())
                 .build();
+    }
+
+    public NewsComponent getScheduleComponent() {
+        return newsComponent;
     }
 
 }

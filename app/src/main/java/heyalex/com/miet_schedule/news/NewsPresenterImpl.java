@@ -29,12 +29,12 @@ import io.reactivex.subscribers.DisposableSubscriber;
 public class NewsPresenterImpl implements NewsPresenter {
 
     private NewsView view;
-   // private NewsRepository newsRepository;
+    private NewsRepository newsRepository;
     private final CompositeDisposable newsResponseSubscription = new CompositeDisposable();
 
     @Inject
-    public NewsPresenterImpl(){//NewsRepository newsRepository) {
-     //   this.newsRepository = newsRepository;
+    public NewsPresenterImpl(NewsRepository newsRepository) {
+        this.newsRepository = newsRepository;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class NewsPresenterImpl implements NewsPresenter {
     }
 
     @Override
-    public void showSchedule() {
+    public void showNews() {
 
     }
 
@@ -59,7 +59,7 @@ public class NewsPresenterImpl implements NewsPresenter {
     public void onViewAttached(NewsView view) {
         this.view = view;
         this.view.setRefreshing(newsResponseSubscription.size() != 0);
- //       this.view.showNews(newsRepository.getAll());
+        this.view.showNews(newsRepository.getAll());
     }
 
     @Override
@@ -77,9 +77,9 @@ public class NewsPresenterImpl implements NewsPresenter {
 
         @Override
         public void onNext(ArticleResponse articleResponse) {
-   //         newsRepository.deleteAll();
+            newsRepository.deleteAll();
             List<NewsModel> newsModelList = transfromResponseToDaoModel(articleResponse);
-   //         newsRepository.saveAll(newsModelList);
+            newsRepository.saveAll(newsModelList);
 
             if(view != null){
                 view.setRefreshing(false);

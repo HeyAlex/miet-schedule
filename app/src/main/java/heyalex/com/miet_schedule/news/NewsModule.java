@@ -15,9 +15,10 @@ import heyalex.com.miet_schedule.navdrawer.NavDrawerPresenterImpl;
 
 @Module
 public class NewsModule{
-        @Singleton
+
         @Provides
-        public NewsPresenter provideNewsPresenter() {
-            return new NewsPresenterImpl();
+        @NewsScope
+        public NewsPresenter provideNewsPresenter(NewsRepository newsRepository) {
+            return new NewsPresenterImpl(newsRepository);
         }
 }

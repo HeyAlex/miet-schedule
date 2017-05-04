@@ -8,7 +8,7 @@ import heyalex.com.miet_schedule.ApplicationComponent;
  */
 
 @NewsScope
-@Component(dependencies = ApplicationComponent.class)
+@Component(modules = NewsModule.class, dependencies = ApplicationComponent.class)
 public interface NewsComponent {
     void inject(NewsFragment fragment);
 }
