@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
+import heyalex.com.miet_schedule.news.NewsFragment;
 import heyalex.com.miet_schedule.ui.BaseNavigationActivity;
 import heyalex.com.miet_schedule.util.NavigationUtil;
 
@@ -34,7 +35,7 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navdrawer_main);
         navDrawerPresenter.onViewAttached(this);
-        navDrawerPresenter.showLastFrament();
+        //navDrawerPresenter.showLastFrament();
 
     }
 
@@ -64,15 +65,15 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
 
     @Override
     public void navigateToNews() {
-//        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_NEWS);
-//        if (fragment == null) {
-//        //    fragment = new NewsFragment();
-//            fragment.setRetainInstance(true);
-//        }
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_NEWS)
-//                .commitNow();
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_NEWS);
+        if (fragment == null) {
+            fragment = new NewsFragment();
+            fragment.setRetainInstance(true);
+        }
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_NEWS)
+                .commitNow();
     }
 
     @Override

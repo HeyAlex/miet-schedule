@@ -16,6 +16,7 @@ public class Generator {
 
     public static void addNews(Schema schema) {
         Entity news = schema.addEntity("NewsModel");
+        news.implementsInterface("S");
         news.addStringProperty("title");
         news.addStringProperty("link");
         news.addStringProperty("description");
