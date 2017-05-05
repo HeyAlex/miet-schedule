@@ -31,17 +31,17 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder> {
     private List<Integer> data;
 
     private int mCurrentPos = 0;
-    private OnItemClickedListener clickedListener;
+    private OnNavClickedListener clickedListener;
 
-    public NavAdapter(Context context, OnItemClickedListener clickedListener) {
+    public NavAdapter(Context context, OnNavClickedListener clickedListener) {
         this.context = context;
         this.data = Arrays.asList(iconId);
         this.clickedListener = clickedListener;
         notifyDataSetChanged();
     }
 
-    public interface OnItemClickedListener {
-        void onItemClicked(int position);
+    public interface OnNavClickedListener {
+        void onNavClicked(int position);
     }
 
     public void setCurrentPos(int currentPos) {
@@ -74,6 +74,10 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder> {
         return data.get(position);
     }
 
+    private static final int WHITE_COLOR = Color.parseColor("#f1f1f1");
+    private static final int GRAY_COLOR = Color.parseColor("#ffffff");
+    private static final int SELECTED_COLOR = Color.parseColor("#2196F3");
+    private static final int UNSELECTED_COLOR = Color.parseColor("#4b4b4b");
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -90,25 +94,26 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder> {
             ButterKnife.bind(this, itemView);
         }
 
+
         public void fillView(int position) {
             mItemImageView.setImageResource(getItem(position));
             mItemTextView.setText(NavigationUtil.drawerList[position]);
             if (position == mCurrentPos) {
                 mDrawerItem.setSelected(true);
-                mItemImageView.setColorFilter(context.getResources().getColor(R.color.colorPrimary));
-                mDrawerItem.setBackgroundColor(Color.parseColor("#f1f1f1"));
-                mItemTextView.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+                mItemImageView.setColorFilter(SELECTED_COLOR);
+                mDrawerItem.setBackgroundColor(WHITE_COLOR);
+                mItemTextView.setTextColor(SELECTED_COLOR);
             } else {
                 mDrawerItem.setSelected(false);
-                mItemImageView.setColorFilter(context.getResources().getColor(R.color.iron_darker));
-                mDrawerItem.setBackgroundColor(Color.parseColor("#ffffff"));
-                mItemTextView.setTextColor(context.getResources().getColor(R.color.iron_darker));
+                mItemImageView.setColorFilter(UNSELECTED_COLOR);
+                mDrawerItem.setBackgroundColor(GRAY_COLOR);
+                mItemTextView.setTextColor(UNSELECTED_COLOR);
             }
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     setCurrentPos(getAdapterPosition());
-                    clickedListener.onItemClicked(mCurrentPos);
+                    clickedListener.onNavClicked(mCurrentPos);
                     notifyDataSetChanged();
                 }
             });

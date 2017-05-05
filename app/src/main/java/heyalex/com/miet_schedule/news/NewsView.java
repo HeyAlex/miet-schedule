@@ -9,7 +9,6 @@ import heyalex.com.miet_schedule.NewsModel;
  */
 
 public interface NewsView {
-    void onClickDetailNews(NewsModel news);
     void showNews(List<NewsModel> news);
     void showErrorView();
     void setRefreshing(boolean refreshing);
