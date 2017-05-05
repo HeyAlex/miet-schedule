@@ -18,7 +18,7 @@ import heyalex.com.miet_schedule.util.NavigationUtil;
  */
 
 public class NavDrawerActivity extends BaseNavigationActivity implements NavDrawerView,
-        NavAdapter.OnItemClickedListener {
+        NavAdapter.OnNavClickedListener {
 
     private static final String FRAGMENT_TAG_GROUPS = "FRAGMENT_TAG_GROUPS";
     private static final String FRAGMENT_TAG_SETTINGS = "FRAGMENT_TAG_SETTINGS";
@@ -35,8 +35,6 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navdrawer_main);
         navDrawerPresenter.onViewAttached(this);
-        //navDrawerPresenter.showLastFrament();
-
     }
 
     @Override
@@ -53,7 +51,7 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
     }
 
     @Override
-    public void onItemClicked(int position) {
+    public void onNavClicked(int position) {
         navDrawerPresenter.onNavigationItemClicked(position);
         if (toolbar != null) {
             toolbar.setTitle(NavigationUtil.drawerList[position]);
