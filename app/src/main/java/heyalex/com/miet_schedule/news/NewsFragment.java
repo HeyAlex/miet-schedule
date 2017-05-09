@@ -81,7 +81,7 @@ public class NewsFragment extends Fragment implements NewsView, NewsAdapter.OnNe
         super.onViewCreated(view, savedInstanceState);
         if (presenter == null) {
             ScheduleApp.get(getContext())
-                    .getScheduleComponent()
+                    .getNewsComponent()
                     .inject(this);
             presenter.onRefreshRequest();
         }
