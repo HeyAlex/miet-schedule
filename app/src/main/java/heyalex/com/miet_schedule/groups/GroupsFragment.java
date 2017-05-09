@@ -1,5 +1,6 @@
 package heyalex.com.miet_schedule.groups;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,9 +17,11 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
 import heyalex.com.miet_schedule.ScheduleModel;
+import heyalex.com.miet_schedule.addnewgroup.AddNewGroupActivity;
 import heyalex.com.miet_schedule.util.MarginItemDecorator;
 
 /**
@@ -61,7 +64,6 @@ public class GroupsFragment extends Fragment implements GroupsView, GroupsAdapte
                     .inject(this);
         }
         presenter.onViewAttached(this);
-        presenter.showGroups();
     }
 
     @Override
@@ -78,6 +80,12 @@ public class GroupsFragment extends Fragment implements GroupsView, GroupsAdapte
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        presenter.showGroups();
+    }
+
+    @Override
     public void showGroups(List<ScheduleModel> groups) {
         groupsAdapter.setItems(groups);
     }
@@ -85,5 +93,11 @@ public class GroupsFragment extends Fragment implements GroupsView, GroupsAdapte
     @Override
     public void onGroupClickedListener(ScheduleModel newsModel) {
 
+    }
+
+    @OnClick(R.id.add_group)
+    public void AddNewGroup() {
+        Intent intent = new Intent(getActivity(), AddNewGroupActivity.class);
+        startActivity(intent);
     }
 }

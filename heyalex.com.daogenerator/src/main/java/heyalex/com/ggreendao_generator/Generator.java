@@ -11,7 +11,7 @@ public class Generator {
         Schema schema = new Schema(1, "heyalex.com.miet_schedule");
         addNews(schema);
         addSchedule(schema);
-        new DaoGenerator().generateAll(schema, "../MIET_schedule/app/src/main/java-gen");
+        new DaoGenerator().generateAll(schema, "../Schedule/app/src/main/java-gen");
     }
 
     public static void addNews(Schema schema) {
@@ -40,14 +40,14 @@ public class Generator {
         lesson.addStringProperty("teacherFull");
         lesson.addStringProperty("disciplineName");
         lesson.addStringProperty("disciplineType");
-        lesson.addStringProperty("code");
+        lesson.addStringProperty("code").primaryKey();
 
         Property lessonProperty = lesson.addStringProperty("groupName").notNull().getProperty();
         ToMany groupToLessons = schedule.addToMany(lesson, lessonProperty);
         groupToLessons.setName("lessons");
 
-        lesson.implementsSerializable();
-        schedule.implementsSerializable();
+        //lesson.implementsSerializable();
+        //schedule.implementsSerializable();
     }
 
 }

@@ -6,6 +6,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 import heyalex.com.miet_schedule.api.UniversityService;
 import heyalex.com.miet_schedule.data.DataModule;
+import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
 import heyalex.com.miet_schedule.data.news.NewsRepository;
 import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
 import heyalex.com.miet_schedule.navdrawer.NavDrawerModule;
@@ -24,5 +25,6 @@ public interface ApplicationComponent {
 
     NavDrawerPresenter getNavDrawerPresenter();
     NewsRepository newsRepository();
-    ScheduleRepository groupssRepository();
+    ScheduleRepository scheduleRepository();
+    LessonsRepository lessonsRepository();
 }
