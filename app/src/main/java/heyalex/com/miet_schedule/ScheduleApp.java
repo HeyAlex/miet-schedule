@@ -4,8 +4,11 @@ import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import heyalex.com.miet_schedule.api.UniversityApiModule;
+
 import heyalex.com.miet_schedule.data.DataModule;
+import heyalex.com.miet_schedule.groups.DaggerGroupsComponent;
+import heyalex.com.miet_schedule.groups.GroupsComponent;
+import heyalex.com.miet_schedule.groups.GroupsModule;
 import heyalex.com.miet_schedule.navdrawer.DaggerNavDrawerComponent;
 import heyalex.com.miet_schedule.navdrawer.NavDrawerComponent;
 import heyalex.com.miet_schedule.navdrawer.NavDrawerModule;
@@ -25,6 +28,7 @@ public class ScheduleApp extends Application {
 
     private NavDrawerComponent navDrawerComponent;
     private NewsComponent newsComponent;
+    private GroupsComponent groupsComponent;
 
     @Override
     public void onCreate() {
@@ -33,6 +37,7 @@ public class ScheduleApp extends Application {
         applicationComponent = prepareApplicationComponent().build();
         initDaggerComponents();
         initNewsComponent();
+        initGroupsComponent();
     }
 
     /**
@@ -52,8 +57,7 @@ public class ScheduleApp extends Application {
         return DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .navDrawerModule(new NavDrawerModule())
-                .dataModule(new DataModule(getApplicationContext()))
-                .universityApiModule(new UniversityApiModule());
+                .dataModule(new DataModule(getApplicationContext()));
     }
 
     @NonNull
@@ -64,7 +68,7 @@ public class ScheduleApp extends Application {
     private void initDaggerComponents() {
         this.navDrawerComponent = initNavDrawerComponent();
         this.newsComponent = initNewsComponent();
-
+        this.groupsComponent = initGroupsComponent();
     }
 
     private NavDrawerComponent initNavDrawerComponent() {
@@ -80,8 +84,18 @@ public class ScheduleApp extends Application {
                 .build();
     }
 
-    public NewsComponent getScheduleComponent() {
+    private GroupsComponent initGroupsComponent() {
+        return DaggerGroupsComponent.builder()
+                .applicationComponent(applicationComponent)
+                .groupsModule(new GroupsModule())
+                .build();
+    }
+
+    public NewsComponent getNewsComponent() {
         return newsComponent;
     }
 
+    public GroupsComponent getGroupsComponent() {
+        return groupsComponent;
+    }
 }

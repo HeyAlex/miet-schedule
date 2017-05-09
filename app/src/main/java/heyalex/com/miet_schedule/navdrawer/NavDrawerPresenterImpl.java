@@ -20,6 +20,7 @@ public class NavDrawerPresenterImpl implements NavDrawerPresenter {
     public void onViewAttached(NavDrawerView view) {
         this.view = view;
         view.showCurrentPosition(mCurrentPosition);
+        onNavigationItemClicked(mCurrentPosition);
     }
 
     @Override
@@ -42,10 +43,12 @@ public class NavDrawerPresenterImpl implements NavDrawerPresenter {
                 break;
             }
             case 2: {
+                mCurrentPosition = position;
                 view.navigateToNews();
                 break;
             }
             case 3: {
+                mCurrentPosition = position;
                 view.navigateToSettings();
                 break;
             }

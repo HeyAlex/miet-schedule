@@ -9,6 +9,7 @@ import javax.inject.Inject;
 
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
+import heyalex.com.miet_schedule.groups.GroupsFragment;
 import heyalex.com.miet_schedule.news.NewsFragment;
 import heyalex.com.miet_schedule.ui.BaseNavigationActivity;
 import heyalex.com.miet_schedule.util.NavigationUtil;
@@ -76,15 +77,15 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
 
     @Override
     public void navigateToScheduleGroups() {
-//        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_GROUPS);
-//        if (fragment == null) {
-//        //    fragment = new GroupFragment();
-//            fragment.setRetainInstance(true);
-//        }
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_GROUPS)
-//                .commitNow();
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_GROUPS);
+        if (fragment == null) {
+            fragment = new GroupsFragment();
+            fragment.setRetainInstance(true);
+        }
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_GROUPS)
+                .commitNow();
 
     }
 
