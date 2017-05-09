@@ -65,6 +65,7 @@ public class NewsPresenterImpl implements NewsPresenter {
     @Override
     public void onViewDetached() {
         this.view = null;
+        newsResponseSubscription.clear();
     }
 
     private class ResponseNewsSubscriber extends DisposableObserver<ArticleResponse> {

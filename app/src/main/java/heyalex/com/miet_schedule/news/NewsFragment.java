@@ -26,7 +26,8 @@ import heyalex.com.miet_schedule.util.MarginItemDecorator;
  * Created by mac on 28.04.17.
  */
 
-public class NewsFragment extends Fragment implements NewsView, NewsAdapter.OnNewsClickedListener {
+public class NewsFragment extends Fragment implements NewsView, NewsAdapter.OnNewsClickedListener,
+        SwipeRefreshLayout.OnRefreshListener{
 
     private NewsAdapter newsAdapter = new NewsAdapter(this);
 
@@ -51,6 +52,7 @@ public class NewsFragment extends Fragment implements NewsView, NewsAdapter.OnNe
         recyclerView.addItemDecoration(new MarginItemDecorator(margin, margin));
         recyclerView.setLayoutManager( new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(newsAdapter);
+        swipeRefreshLayout.setOnRefreshListener(this);
         //recyclerView.setItemAnimator(new OvershootInLeftAnimator());
     }
 
@@ -81,10 +83,9 @@ public class NewsFragment extends Fragment implements NewsView, NewsAdapter.OnNe
             ScheduleApp.get(getContext())
                     .getScheduleComponent()
                     .inject(this);
+            presenter.onRefreshRequest();
         }
         presenter.onViewAttached(this);
-
-        presenter.onRefreshRequest();
     }
 
     @Override
@@ -98,5 +99,10 @@ public class NewsFragment extends Fragment implements NewsView, NewsAdapter.OnNe
     @Override
     public void onNewsClicked(NewsModel newsModel) {
         //TODO: STARTACTIVITY
+    }
+
+    @Override
+    public void onRefresh() {
+        presenter.onRefreshRequest();
     }
 }
