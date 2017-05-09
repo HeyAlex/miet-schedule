@@ -9,11 +9,16 @@ import java.util.List;
 
 import heyalex.com.miet_schedule.LessonModel;
 import heyalex.com.miet_schedule.ScheduleModel;
+import heyalex.com.miet_schedule.api.UniversityApiFactory;
 import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
 import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
 import heyalex.com.miet_schedule.model.schedule.Data;
 import heyalex.com.miet_schedule.model.schedule.SemestrData;
+import heyalex.com.miet_schedule.news.NewsPresenterImpl;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by mac on 09.05.17.
@@ -24,6 +29,7 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
     private ScheduleRepository groupsRepository;
     private LessonsRepository lessonsRepository;
     private AddNewGroupView view;
+    private final CompositeDisposable scheduleResponseSubscription = new CompositeDisposable();
 
     public AddNewGroupPresenterImpl(ScheduleRepository groupsRepository,
                                     LessonsRepository lessonsRepository) {
@@ -44,6 +50,10 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
     @Override
     public void onViewAttached(AddNewGroupView view) {
         this.view = view;
+        scheduleResponseSubscription.add(UniversityApiFactory.getUniversityApi().getScheduleResponse("МП-41")
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new AddNewGroupPresenterImpl.ResponseScheduleSubscriber("МП-41")));
     }
 
     @Override
@@ -66,6 +76,9 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
                     transformToDaoLessonModel(semestrResponse, groupName));
             groupsRepository.replaceByGroupName(groupName,
                     transformToDaoScheduleModel(semestrResponse, groupName));
+
+            List<ScheduleModel> l = groupsRepository.getAll();
+            List<LessonModel> l1 = lessonsRepository.getAll();
         }
 
         @Override
@@ -102,11 +115,13 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
                 dataLesson.setDisciplineName(disciplineName);
                 dataLesson.setTeacherFull(model.getClassModel().getTeacherFull());
                 dataLesson.setTeacher(model.getClassModel().getTeacher());
+                dataLesson.setCode(model.getTime().getCode());
                 if (disciplineName.contains("[Лаб]")) dataLesson.setDisciplineType("Лабораторная работа");
                 else if (disciplineName.contains("[Лек]")) dataLesson.setDisciplineType("Лекция");
                 else if (disciplineName.contains("[Пр]")) dataLesson.setDisciplineType("Практика");
                 else if (disciplineName.contains("Физ")) dataLesson.setDisciplineType("Физ-ра");
                 else dataLesson.setDisciplineType("УВЦ");
+
                 lessons.add(dataLesson);
             }
             return lessons;

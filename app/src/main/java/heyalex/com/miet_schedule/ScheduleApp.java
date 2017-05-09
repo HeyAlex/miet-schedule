@@ -5,6 +5,9 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 
 
+import heyalex.com.miet_schedule.addnewgroup.AddNewGroupComponent;
+import heyalex.com.miet_schedule.addnewgroup.AddNewGroupModule;
+import heyalex.com.miet_schedule.addnewgroup.DaggerAddNewGroupComponent;
 import heyalex.com.miet_schedule.data.DataModule;
 import heyalex.com.miet_schedule.groups.DaggerGroupsComponent;
 import heyalex.com.miet_schedule.groups.GroupsComponent;
@@ -29,6 +32,7 @@ public class ScheduleApp extends Application {
     private NavDrawerComponent navDrawerComponent;
     private NewsComponent newsComponent;
     private GroupsComponent groupsComponent;
+    private AddNewGroupComponent addNewGroupComponent;
 
     @Override
     public void onCreate() {
@@ -38,7 +42,9 @@ public class ScheduleApp extends Application {
         initDaggerComponents();
         initNewsComponent();
         initGroupsComponent();
+        initAddnewGroupComponent();
     }
+
 
     /**
      * Static method returns {@link ScheduleApp} instance from context
@@ -91,11 +97,23 @@ public class ScheduleApp extends Application {
                 .build();
     }
 
+    private AddNewGroupComponent initAddnewGroupComponent() {
+        return DaggerAddNewGroupComponent.builder()
+                .applicationComponent(applicationComponent)
+                .addNewGroupModule(new AddNewGroupModule())
+                .build();
+    }
+
+
     public NewsComponent getNewsComponent() {
         return newsComponent;
     }
 
     public GroupsComponent getGroupsComponent() {
         return groupsComponent;
+    }
+
+    public AddNewGroupComponent getAddNewGroupComponent() {
+        return addNewGroupComponent;
     }
 }

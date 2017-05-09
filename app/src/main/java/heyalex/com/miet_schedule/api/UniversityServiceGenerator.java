@@ -15,6 +15,7 @@ public class UniversityServiceGenerator {
     private static Retrofit.Builder retrofitScheduleBuilder
             = new Retrofit.Builder()
             .baseUrl(SERVICE_MIET_ENDPOINT)
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create());
 
     private static Retrofit.Builder retrofitNewsBuilder

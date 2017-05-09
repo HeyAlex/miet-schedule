@@ -19,6 +19,8 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".addnewgroup.AddNewGroupActivity"/>
+
         <receiver android:name=".ui.widget.ScheduleAppWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />

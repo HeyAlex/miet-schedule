@@ -25,7 +25,7 @@ public class GroupsPresenterImpl implements GroupsPresenter{
     public void showGroups() {
         final List<ScheduleModel> groups = groupsRepository.getAll();
         if(!groups.isEmpty()){
-            view.showGroups(groupsRepository.getAll());
+            view.showGroups(groups);
         }else {
             view.showHint();
         }

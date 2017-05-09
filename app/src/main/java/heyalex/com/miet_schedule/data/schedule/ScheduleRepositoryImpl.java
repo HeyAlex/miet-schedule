@@ -62,13 +62,15 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
     @Override
     public void replaceByGroupName(String groupName, ScheduleModel model) {
         deleteByGroupName(groupName);
-        save(model);
+        dao.save(model);
     }
 
     @Override
     public void deleteByGroupName(String groupName) {
         ScheduleModel scheduleByGroup = dao.queryBuilder()
                 .where(ScheduleModelDao.Properties.Group.eq(groupName)).build().unique();
-        delete(scheduleByGroup);
+        if(scheduleByGroup != null){
+            delete(scheduleByGroup);
+        }
     }
 }
