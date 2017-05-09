@@ -52,4 +52,23 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
     public void deleteAll() {
         dao.deleteAll();
     }
+
+    @Override
+    public ScheduleModel getGroupByName(String groupName) {
+        return dao.queryBuilder().where(ScheduleModelDao.Properties.Group.eq(groupName)).build()
+                .unique();
+    }
+
+    @Override
+    public void replaceByGroupName(String groupName, ScheduleModel model) {
+        deleteByGroupName(groupName);
+        save(model);
+    }
+
+    @Override
+    public void deleteByGroupName(String groupName) {
+        ScheduleModel scheduleByGroup = dao.queryBuilder()
+                .where(ScheduleModelDao.Properties.Group.eq(groupName)).build().unique();
+        delete(scheduleByGroup);
+    }
 }

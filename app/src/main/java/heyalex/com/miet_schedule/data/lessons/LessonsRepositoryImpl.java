@@ -50,4 +50,30 @@ public class LessonsRepositoryImpl implements LessonsRepository {
     public void deleteAll() {
         dao.deleteAll();
     }
+
+    @Override
+    public void deleteAllByGroupName(String groupName) {
+        Iterable<LessonModel> lessonsByGroup = dao.queryBuilder()
+                .where(LessonModelDao.Properties.GroupName.eq(groupName)).build().list();
+        dao.deleteInTx(lessonsByGroup);
+    }
+
+    @Override
+    public void replaceAllByGroupName(String groupName, Iterable<LessonModel> lessons) {
+        deleteAllByGroupName(groupName);
+        saveAll(lessons);
+    }
+
+    @Override
+    public List<LessonModel> getLessonsByWeekAndDay(String groupName, int week, int day) {
+        return dao.queryBuilder().where(LessonModelDao.Properties.GroupName.eq(groupName),
+                                        LessonModelDao.Properties.Week.eq(week),
+                                        LessonModelDao.Properties.Day.eq(day)).build().list();
+    }
+
+    @Override
+    public List<LessonModel> getLessonsForWeek(String groupName, int week) {
+        return dao.queryBuilder().where(LessonModelDao.Properties.GroupName.eq(groupName),
+                LessonModelDao.Properties.Week.eq(week)).build().list();
+    }
 }
