@@ -36,6 +36,11 @@ public class Generator {
         lesson.addStringProperty("time");
         lesson.addStringProperty("timeFrom");
         lesson.addStringProperty("timeTo");
+        lesson.addStringProperty("teacher");
+        lesson.addStringProperty("teacherFull");
+        lesson.addStringProperty("disciplineName");
+        lesson.addStringProperty("disciplineType");
+        lesson.addStringProperty("code");
 
         Property lessonProperty = lesson.addStringProperty("groupName").notNull().getProperty();
         ToMany groupToLessons = schedule.addToMany(lesson, lessonProperty);
