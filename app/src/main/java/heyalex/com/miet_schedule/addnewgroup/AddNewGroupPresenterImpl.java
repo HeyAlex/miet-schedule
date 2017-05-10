@@ -19,6 +19,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 /**
  * Created by mac on 09.05.17.
@@ -44,16 +45,15 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
 
     @Override
     public void addNewGroup(String groupName) {
-
+        scheduleResponseSubscription.add(UniversityApiFactory.getUniversityApi().getScheduleResponse(groupName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new AddNewGroupPresenterImpl.ResponseScheduleSubscriber(groupName)));
     }
 
     @Override
     public void onViewAttached(AddNewGroupView view) {
         this.view = view;
-        scheduleResponseSubscription.add(UniversityApiFactory.getUniversityApi().getScheduleResponse("МП-41")
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new AddNewGroupPresenterImpl.ResponseScheduleSubscriber("МП-41")));
     }
 
     @Override
@@ -72,18 +72,16 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
 
         @Override
         public void onNext(SemestrData semestrResponse) {
+            Timber.i("Schedule for '%s' have successfully recived.", groupName);
             lessonsRepository.replaceAllByGroupName(groupName,
                     transformToDaoLessonModel(semestrResponse, groupName));
             groupsRepository.replaceByGroupName(groupName,
                     transformToDaoScheduleModel(semestrResponse, groupName));
-
-            List<ScheduleModel> l = groupsRepository.getAll();
-            List<LessonModel> l1 = lessonsRepository.getAll();
         }
 
         @Override
         public void onError(Throwable t) {
-
+            Timber.e(t, "An error occurred while trying to take shedule for group '%s,", groupName);
             if (view != null) {
                 view.showErrorView();
             }
