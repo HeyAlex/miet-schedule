@@ -1,4 +1,4 @@
-package heyalex.com.miet_schedule.schedule;
+package heyalex.com.miet_schedule.schedule_item;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,7 +20,7 @@ import heyalex.com.miet_schedule.ScheduleModel;
  * Created by mac on 10.05.17.
  */
 
-public class ScheduleFragment extends Fragment {
+public class ScheduleFragment extends Fragment implements ScheduleItemView{
 
     @BindView(R.id.schedule_list)
     RecyclerView mScheduleRecycleView;

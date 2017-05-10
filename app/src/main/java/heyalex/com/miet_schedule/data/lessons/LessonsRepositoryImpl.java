@@ -10,6 +10,7 @@ import heyalex.com.miet_schedule.LessonModelDao;
  */
 
 public class LessonsRepositoryImpl implements LessonsRepository {
+
     private final LessonModelDao dao;
 
     public LessonsRepositoryImpl(LessonModelDao dao) {

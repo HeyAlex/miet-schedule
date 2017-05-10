@@ -80,6 +80,7 @@ public class ScheduleApp extends Application {
         this.navDrawerComponent = initNavDrawerComponent();
         this.newsComponent = initNewsComponent();
         this.groupsComponent = initGroupsComponent();
+        this.addNewGroupComponent = initAddnewGroupComponent();
     }
 
     private NavDrawerComponent initNavDrawerComponent() {
