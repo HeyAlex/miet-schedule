@@ -2,8 +2,10 @@ package heyalex.com.miet_schedule.schedule;
 
 import javax.inject.Inject;
 
+import heyalex.com.miet_schedule.ScheduleModel;
 import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
 import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
+import heyalex.com.miet_schedule.model.schedule.CycleWeeksLessonModel;
 
 /**
  * Created by mac on 10.05.17.
@@ -34,6 +36,7 @@ public class SchedulePresenterImpl implements SchedulePresenter{
 
     @Override
     public void getCachedScheduleForGroup(String groupName) {
+        final ScheduleModel model = scheduleRepository.getGroupByName(groupName);
 
     }
 }

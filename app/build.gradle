@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'
-
 // dagger2
 apply plugin: 'com.neenbedankt.android-apt'
 
@@ -70,7 +69,7 @@ dependencies {
     compile 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
 
     // greenDao
-    compile 'org.greenrobot:greendao:3.2.0'
+    compile 'org.greenrobot:greendao:3.2.2'
 
     //A better SwipeRefresh layout with lots of workaround like:
     // https://code.google.com/p/android/issues/detail?id=78062

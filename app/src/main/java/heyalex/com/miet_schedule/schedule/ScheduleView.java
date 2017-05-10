@@ -6,5 +6,6 @@ import heyalex.com.miet_schedule.mvp.BaseView;
  * Created by mac on 10.05.17.
  */
 
-public interface ScheduleView extends BaseView<SchedulePresenter>{
+public interface ScheduleView{
+    void showSchedule();
 }
