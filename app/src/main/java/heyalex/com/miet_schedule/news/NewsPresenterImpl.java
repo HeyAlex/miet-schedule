@@ -81,7 +81,8 @@ public class NewsPresenterImpl implements NewsPresenter {
             newsRepository.deleteAll();
             List<NewsModel> newsModelList = transfromResponseToDaoModel(articleResponse);
             newsRepository.saveAll(newsModelList);
-
+            List<NewsModel> l1 = newsRepository.getAll();
+            l1.size();
             if(view != null){
                 view.setRefreshing(false);
                 view.showNews(newsModelList);

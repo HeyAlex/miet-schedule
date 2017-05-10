@@ -16,7 +16,6 @@ public class Generator {
 
     public static void addNews(Schema schema) {
         Entity news = schema.addEntity("NewsModel");
-        news.implementsInterface("S");
         news.addStringProperty("title");
         news.addStringProperty("link");
         news.addStringProperty("description");
@@ -30,6 +29,7 @@ public class Generator {
         schedule.addStringProperty("semestr");
 
         Entity lesson = schema.addEntity("LessonModel");
+        lesson.addIdProperty().autoincrement().primaryKey();
         lesson.addIntProperty("week");
         lesson.addIntProperty("day");
         lesson.addStringProperty("room");
@@ -40,7 +40,7 @@ public class Generator {
         lesson.addStringProperty("teacherFull");
         lesson.addStringProperty("disciplineName");
         lesson.addStringProperty("disciplineType");
-        lesson.addStringProperty("code").primaryKey();
+        lesson.addStringProperty("code");
 
         Property lessonProperty = lesson.addStringProperty("groupName").notNull().getProperty();
         ToMany groupToLessons = schedule.addToMany(lesson, lessonProperty);

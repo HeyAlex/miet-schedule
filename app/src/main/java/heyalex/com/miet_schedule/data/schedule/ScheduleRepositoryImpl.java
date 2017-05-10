@@ -62,7 +62,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
     @Override
     public void replaceByGroupName(String groupName, ScheduleModel model) {
         deleteByGroupName(groupName);
-        dao.save(model);
+        dao.insertOrReplace(model);
     }
 
     @Override

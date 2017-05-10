@@ -55,6 +55,7 @@ public class LessonsRepositoryImpl implements LessonsRepository {
     public void deleteAllByGroupName(String groupName) {
         Iterable<LessonModel> lessonsByGroup = dao.queryBuilder()
                 .where(LessonModelDao.Properties.GroupName.eq(groupName)).build().list();
+        List<LessonModel> allLesons = dao.loadAll();
         if(lessonsByGroup.iterator().hasNext()){
             dao.deleteInTx(lessonsByGroup);
         }
@@ -63,7 +64,7 @@ public class LessonsRepositoryImpl implements LessonsRepository {
     @Override
     public void replaceAllByGroupName(String groupName, Iterable<LessonModel> lessons) {
         deleteAllByGroupName(groupName);
-        saveAll(lessons);
+        dao.insertOrReplaceInTx(lessons);
     }
 
     @Override

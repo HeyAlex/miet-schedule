@@ -11,12 +11,14 @@ import javax.inject.Inject;
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
 import heyalex.com.miet_schedule.navdrawer.DaggerNavDrawerComponent;
+import heyalex.com.miet_schedule.navdrawer.NavDrawerPresenter;
 
 /**
  * Created by mac on 28.04.17.
  */
 
 public class AddNewGroupActivity extends AppCompatActivity implements AddNewGroupView{
+
     @Inject
     AddNewGroupPresenter presenter;
 
@@ -24,7 +26,6 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navdrawer_main);
-        // inject navigation presenter
         DaggerAddNewGroupComponent.builder()
                 .applicationComponent(ScheduleApp.get(this).getApplicationComponent())
                 .build()
@@ -41,7 +42,6 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
     @Override
     protected void onResume() {
         super.onResume();
-
     }
 
     @Override

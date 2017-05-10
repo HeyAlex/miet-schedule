@@ -18,6 +18,9 @@ import heyalex.com.miet_schedule.navdrawer.NavDrawerModule;
 import heyalex.com.miet_schedule.news.DaggerNewsComponent;
 import heyalex.com.miet_schedule.news.NewsComponent;
 import heyalex.com.miet_schedule.news.NewsModule;
+import heyalex.com.miet_schedule.schedule.DaggerScheduleComponent;
+import heyalex.com.miet_schedule.schedule.ScheduleComponent;
+import heyalex.com.miet_schedule.schedule.ScheduleModule;
 import timber.log.Timber;
 
 /**
@@ -33,6 +36,7 @@ public class ScheduleApp extends Application {
     private NewsComponent newsComponent;
     private GroupsComponent groupsComponent;
     private AddNewGroupComponent addNewGroupComponent;
+    private ScheduleComponent scheduleComponent;
 
     @Override
     public void onCreate() {
@@ -43,6 +47,7 @@ public class ScheduleApp extends Application {
         initNewsComponent();
         initGroupsComponent();
         initAddnewGroupComponent();
+        initScheduleComponent();
     }
 
 
@@ -104,6 +109,13 @@ public class ScheduleApp extends Application {
                 .build();
     }
 
+    private ScheduleComponent initScheduleComponent() {
+        return DaggerScheduleComponent.builder()
+                .applicationComponent(applicationComponent)
+                .scheduleModule(new ScheduleModule())
+                .build();
+    }
+
 
     public NewsComponent getNewsComponent() {
         return newsComponent;
@@ -115,5 +127,10 @@ public class ScheduleApp extends Application {
 
     public AddNewGroupComponent getAddNewGroupComponent() {
         return addNewGroupComponent;
+    }
+
+
+    public ScheduleComponent getScheduleComponent() {
+        return scheduleComponent;
     }
 }
