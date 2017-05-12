@@ -16,17 +16,12 @@ import heyalex.com.miet_schedule.R;
 public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder>  {
 
     public class ScheduleViewHolder extends RecyclerView.ViewHolder {
+
         @BindView(R.id.newsDate)
         TextView date;
 
         @BindView(R.id.newsDescription)
         TextView desciption;
-
-        @BindView(R.id.newsImage)
-        ImageView image;
-
-        @BindView(R.id.newsTitle)
-        TextView title;
 
         public ScheduleViewHolder(View itemView) {
             super(itemView);
