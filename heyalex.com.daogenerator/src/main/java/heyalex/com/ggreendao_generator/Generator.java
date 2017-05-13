@@ -33,7 +33,8 @@ public class Generator {
         lesson.addIntProperty("week");
         lesson.addIntProperty("day");
         lesson.addStringProperty("room");
-        lesson.addStringProperty("time");
+        lesson.addIntProperty("time");
+        lesson.addStringProperty("timeFull");
         lesson.addStringProperty("timeFrom");
         lesson.addStringProperty("timeTo");
         lesson.addStringProperty("teacher");
