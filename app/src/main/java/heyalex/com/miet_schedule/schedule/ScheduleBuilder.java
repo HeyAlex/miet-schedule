@@ -37,7 +37,8 @@ public class ScheduleBuilder {
         int weekTommorow = DateMietHelper.getWeekByDay(tommorowDate) % 4 - 1;
         int dayToday = DateMietHelper.getDayInWeek(todayDate);
         int dayTommorow = DateMietHelper.getDayInWeek(tommorowDate);
-        for (int i = 1; i < 8; i++) {
+
+        for (int i = 0; i < 7; i++) {
             DayLessonsModel item1 = new DayLessonsModel();
             DayLessonsModel item2 = new DayLessonsModel();
             DayLessonsModel item3 = new DayLessonsModel();
@@ -53,14 +54,15 @@ public class ScheduleBuilder {
             item2.setDayNumber(i);
             item3.setDayNumber(i);
             item4.setDayNumber(i);
+
             List<LessonModel> dataArray1 = new ArrayList<>();
             List<LessonModel> dataArray2 = new ArrayList<>();
             List<LessonModel> dataArray3 = new ArrayList<>();
             List<LessonModel> dataArray4 = new ArrayList<>();
 
             for (LessonModel data : lessons) {
-                if (data.getDay() == i) {
-                    switch (data.getWeek()) {
+                if (data.getWeek() == i + 1) {
+                    switch (data.getDay()) {
                         case 0: {
                             dataArray1.add(data);
                             break;
@@ -100,6 +102,7 @@ public class ScheduleBuilder {
                 item4.setLessons(dataArray4);
                 weekFourth.add(item4);
             }
+
             if(dayToday == i){
                 switch (weekToday) {
                     case 1: {
@@ -147,5 +150,14 @@ public class ScheduleBuilder {
         schedule.setFourthWeek(weekFourth);
 
         return schedule;
+    }
+
+    public static DayLessonsModel buildDailySchedule(List<LessonModel> dailyLessons, int day){
+        DayLessonsModel dailySchedule = new DayLessonsModel();
+        Collections.sort(dailyLessons, new ScheduleComparator());
+        dailySchedule.setLessons(dailyLessons);
+        dailySchedule.setDayNumber(day);
+        dailySchedule.setDay(NavigationUtil.weekDayList[day]);
+        return dailySchedule;
     }
 }

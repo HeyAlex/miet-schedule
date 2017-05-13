@@ -13,7 +13,7 @@ import heyalex.com.miet_schedule.R;
  * Created by mac on 10.05.17.
  */
 
-public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder>  {
+public class ScheduleAdapter {//extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder>  {
 
     public class ScheduleViewHolder extends RecyclerView.ViewHolder {
 

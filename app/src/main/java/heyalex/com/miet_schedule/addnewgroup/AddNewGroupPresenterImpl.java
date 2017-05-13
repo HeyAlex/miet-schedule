@@ -109,7 +109,7 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
                 dataLesson.setRoom(model.getRoom().getName());
                 dataLesson.setTimeFrom(fromDate);
                 dataLesson.setTimeTo(toDate);
-                dataLesson.setTime(Integer.valueOf(model.getTime().getTime()));
+                dataLesson.setTime(Integer.valueOf(model.getTime().getCode()));
                 dataLesson.setTimeFull(fromDate + " - " + toDate + " (" + model.getTime().getTime() + ")");
                 dataLesson.setDisciplineName(disciplineName);
                 dataLesson.setTeacherFull(model.getClassModel().getTeacherFull());

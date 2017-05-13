@@ -22,6 +22,7 @@ import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
 import heyalex.com.miet_schedule.ScheduleModel;
 import heyalex.com.miet_schedule.addnewgroup.AddNewGroupActivity;
+import heyalex.com.miet_schedule.schedule.ScheduleActivity;
 import heyalex.com.miet_schedule.util.MarginItemDecorator;
 
 /**
@@ -92,7 +93,9 @@ public class GroupsFragment extends Fragment implements GroupsView, GroupsAdapte
 
     @Override
     public void onGroupClickedListener(ScheduleModel newsModel) {
-
+        Intent intent = new Intent(getActivity(), ScheduleActivity.class);
+        intent.putExtra("group", newsModel.getGroup());
+        startActivity(intent);
     }
 
     @OnClick(R.id.add_group)
