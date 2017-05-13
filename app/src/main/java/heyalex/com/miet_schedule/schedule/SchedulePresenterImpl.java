@@ -13,6 +13,9 @@ import heyalex.com.miet_schedule.model.schedule.CycleWeeksLessonModel;
 import heyalex.com.miet_schedule.model.schedule.DayLessonsModel;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Function;
+import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -24,7 +27,7 @@ public class SchedulePresenterImpl implements SchedulePresenter{
     private ScheduleRepository scheduleRepository;
     private LessonsRepository lessonsRepository;
     private ScheduleView view;
-
+    private final CompositeDisposable scheduleCompositeDisposable = new CompositeDisposable();
     @Inject
     public SchedulePresenterImpl(ScheduleRepository scheduleRepository,
                                  LessonsRepository lessonsRepository) {
@@ -44,24 +47,45 @@ public class SchedulePresenterImpl implements SchedulePresenter{
 
     @Override
     public void getCachedScheduleForGroup(String groupName) {
-        final ScheduleModel model =
-
+        scheduleCompositeDisposable.add(retrieveSchedule(groupName)
+                .subscribeWith(new ResponseNewsSubscriber()));
     }
 
-    public static Observable<List<DayLessonsModel>> retrieveSchedule(final String group, final long from) {
-        return Observable.fromCallable(new Callable<List<LessonModel>>() {
-            @Override
-            public List<LessonModel> call() {
-                return scheduleRepository.getGroupByName(group);
-            }
+    public Observable<CycleWeeksLessonModel> retrieveSchedule(final String groupName) {
+        return Observable.fromCallable(new Callable<ScheduleModel>() {
+                @Override
+                public ScheduleModel call() throws Exception {
+                    return scheduleRepository.getGroupByName(groupName);
+                }
+            }).map(new Function<ScheduleModel, CycleWeeksLessonModel>() {
+                @Override
+                 public CycleWeeksLessonModel apply(ScheduleModel scheduleModel) throws Exception {
+                    return ScheduleBuilder.buildSchedule(scheduleModel.getLessons());
+                }
         })
-                .map(new Func1<List<Lesson>, List<DayLessonsModel>>() {
-                    @Override
-                    public List<DayLessonsModel> call(List<Lesson> lessons) {
-                        return ScheduleHelper.buildDailySchedule(lessons, SEPARATOR);
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io());
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io());
+    }
+
+    private class ResponseNewsSubscriber extends DisposableObserver<CycleWeeksLessonModel> {
+
+        public ResponseNewsSubscriber() {
+        }
+
+        @Override
+        public void onNext(CycleWeeksLessonModel articleResponse) {
+
+        }
+
+        @Override
+        public void onError(Throwable t) {
+
+        }
+
+        @Override
+        public void onComplete() {
+
+        }
     }
 }
+
