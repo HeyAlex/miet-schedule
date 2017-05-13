@@ -73,8 +73,9 @@ public class SchedulePresenterImpl implements SchedulePresenter{
         }
 
         @Override
-        public void onNext(CycleWeeksLessonModel articleResponse) {
-
+        public void onNext(CycleWeeksLessonModel schedule) {
+            //CycleWeeksLessonModel s = schedule;
+            view.showSchedule(schedule);
         }
 
         @Override

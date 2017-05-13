@@ -20,6 +20,7 @@
         </activity>
 
         <activity android:name=".addnewgroup.AddNewGroupActivity"/>
+        <activity android:name=".schedule.ScheduleActivity"/>
 
         <receiver android:name=".ui.widget.ScheduleAppWidget">
             <intent-filter>

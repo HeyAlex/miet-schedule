@@ -1,5 +1,6 @@
 package heyalex.com.miet_schedule.schedule;
 
+import heyalex.com.miet_schedule.model.schedule.CycleWeeksLessonModel;
 import heyalex.com.miet_schedule.mvp.BaseView;
 
 /**
@@ -7,5 +8,5 @@ import heyalex.com.miet_schedule.mvp.BaseView;
  */
 
 public interface ScheduleView{
-    void showSchedule();
+    void showSchedule(CycleWeeksLessonModel schedule);
 }

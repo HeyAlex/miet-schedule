@@ -130,7 +130,6 @@ public class ScheduleApp extends Application {
         return addNewGroupComponent;
     }
 
-
     public ScheduleComponent getScheduleComponent() {
         return scheduleComponent;
     }
