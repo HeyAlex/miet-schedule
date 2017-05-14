@@ -17,6 +17,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 /**
  * Created by mac on 10.05.17.
@@ -28,11 +29,13 @@ public class SchedulePresenterImpl implements SchedulePresenter{
     private LessonsRepository lessonsRepository;
     private ScheduleView view;
     private final CompositeDisposable scheduleCompositeDisposable = new CompositeDisposable();
+
     @Inject
     public SchedulePresenterImpl(ScheduleRepository scheduleRepository,
                                  LessonsRepository lessonsRepository) {
         this.scheduleRepository = scheduleRepository;
         this.lessonsRepository = lessonsRepository;
+        Timber.i("new object SchedulePresenterImpl");
     }
 
     @Override
@@ -50,6 +53,7 @@ public class SchedulePresenterImpl implements SchedulePresenter{
         scheduleCompositeDisposable.add(retrieveSchedule(groupName)
                 .subscribeWith(new ResponseNewsSubscriber()));
     }
+
 
     public Observable<CycleWeeksLessonModel> retrieveSchedule(final String groupName) {
         return Observable.fromCallable(new Callable<ScheduleModel>() {

@@ -2,6 +2,7 @@ package heyalex.com.miet_schedule.schedule;
 
 import java.util.List;
 
+import heyalex.com.miet_schedule.LessonModel;
 import heyalex.com.miet_schedule.mvp.BasePresenter;
 
 /**

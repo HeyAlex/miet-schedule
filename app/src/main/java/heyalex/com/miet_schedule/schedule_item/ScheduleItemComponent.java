@@ -9,5 +9,5 @@ import heyalex.com.miet_schedule.ApplicationComponent;
 @PerFragment
 @Component( modules = {ScheduleItemModule.class}, dependencies = {ApplicationComponent.class} )
 public interface ScheduleItemComponent {
-    void inject(ScheduleFragment fragment);
+   // void inject(ScheduleFragment fragment);
 }

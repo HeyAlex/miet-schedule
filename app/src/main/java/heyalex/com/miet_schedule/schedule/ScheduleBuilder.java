@@ -61,8 +61,8 @@ public class ScheduleBuilder {
             List<LessonModel> dataArray4 = new ArrayList<>();
 
             for (LessonModel data : lessons) {
-                if (data.getWeek() == i + 1) {
-                    switch (data.getDay()) {
+                if (data.getDay() == i + 1) {
+                    switch (data.getWeek()) {
                         case 0: {
                             dataArray1.add(data);
                             break;
@@ -103,7 +103,7 @@ public class ScheduleBuilder {
                 weekFourth.add(item4);
             }
 
-            if(dayToday == i){
+            if(dayToday - 1 == i){
                 switch (weekToday) {
                     case 1: {
                         schedule.setToday(item1);
@@ -123,7 +123,7 @@ public class ScheduleBuilder {
                     }
                 }
             }
-            if(dayTommorow == i){
+            if(dayTommorow - 1 == i){
                 switch (weekTommorow) {
                     case 1: {
                         schedule.setTommorow(item1);
@@ -144,6 +144,7 @@ public class ScheduleBuilder {
                 }
             }
         }
+
         schedule.setFirstWeek(weekOne);
         schedule.setSecondWeek(weekTwo);
         schedule.setThirdWeek(weekThird);

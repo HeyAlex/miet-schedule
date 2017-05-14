@@ -1,4 +1,4 @@
-package heyalex.com.miet_schedule.ui.widget;
+package heyalex.com.miet_schedule.schedule_widget;
 
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
