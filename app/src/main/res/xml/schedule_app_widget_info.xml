@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:configure="heyalex.com.miet_schedule.ui.widget.ScheduleAppWidgetConfigureActivity"
+    android:configure="heyalex.com.miet_schedule.schedule_widget.ScheduleAppWidgetConfigureActivity"
     android:initialKeyguardLayout="@layout/schedule_app_widget"
     android:initialLayout="@layout/schedule_app_widget"
     android:minHeight="180dp"

@@ -116,13 +116,13 @@
 
                 <TextView
                     android:id="@+id/timeTo_schedule"
-                    android:textSize="@dimen/timeSchedule"
-                    android:textStyle="bold"
-                    android:textColor="@color/scheduleTO"
-                    android:textAppearance="?attr/textAppearanceListItem"
-                    android:gravity="center_vertical|center_horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:textAppearance="?attr/textAppearanceListItem"
+                    android:textColor="@color/scheduleTO"
+                    android:textSize="@dimen/timeSchedule"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

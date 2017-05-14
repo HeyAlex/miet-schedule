@@ -1,4 +1,4 @@
-package heyalex.com.miet_schedule.ui.widget;
+package heyalex.com.miet_schedule.schedule_widget;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -16,7 +16,7 @@ import heyalex.com.miet_schedule.R;
  */
 public class ScheduleAppWidgetConfigureActivity extends Activity {
 
-    private static final String PREFS_NAME = "heyalex.com.miet_schedule.ui.widget.ScheduleAppWidget";
+    private static final String PREFS_NAME = "heyalex.com.miet_schedule.schedule_widget.ScheduleAppWidget";
     private static final String PREF_PREFIX_KEY = "appwidget_";
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
     EditText mAppWidgetText;

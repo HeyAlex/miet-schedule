@@ -7,6 +7,8 @@ import org.joda.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import heyalex.com.miet_schedule.LessonModel;
 import heyalex.com.miet_schedule.ScheduleModel;
 import heyalex.com.miet_schedule.api.UniversityApiFactory;
@@ -32,10 +34,12 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
     private AddNewGroupView view;
     private final CompositeDisposable scheduleResponseSubscription = new CompositeDisposable();
 
+    @Inject
     public AddNewGroupPresenterImpl(ScheduleRepository groupsRepository,
                                     LessonsRepository lessonsRepository) {
         this.groupsRepository = groupsRepository;
         this.lessonsRepository = lessonsRepository;
+        Timber.i("AddNewGroupPresenterImpl new object");
     }
 
     @Override
@@ -103,8 +107,8 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
                         .toString("HH:mm");
                 String disciplineName = model.getClassModel().getName();
                 LessonModel dataLesson = new LessonModel();
-                dataLesson.setWeek(Integer.valueOf(model.getDay()));
-                dataLesson.setDay(Integer.valueOf(model.getDayNumber()));
+                dataLesson.setWeek(Integer.valueOf(model.getDayNumber()));
+                dataLesson.setDay(Integer.valueOf(model.getDay()));
                 dataLesson.setGroupName(groupName);
                 dataLesson.setRoom(model.getRoom().getName());
                 dataLesson.setTimeFrom(fromDate);

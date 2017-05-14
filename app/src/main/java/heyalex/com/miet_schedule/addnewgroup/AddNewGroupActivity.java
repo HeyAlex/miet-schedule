@@ -26,10 +26,15 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navdrawer_main);
-        DaggerAddNewGroupComponent.builder()
-                .applicationComponent(ScheduleApp.get(this).getApplicationComponent())
-                .build()
-                .inject(this);
+        if(presenter == null){
+            ScheduleApp.get(this)
+                    .getAddNewGroupComponent()
+                    .inject(this);
+        }
+//        DaggerAddNewGroupComponent.builder()
+//                .applicationComponent(ScheduleApp.get(this).getApplicationComponent())
+//                .build()
+//                .inject(this);
         presenter.onViewAttached(this);
         presenter.addNewGroup("МП-41");
     }

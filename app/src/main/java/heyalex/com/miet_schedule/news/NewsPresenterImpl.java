@@ -21,6 +21,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 import io.reactivex.subscribers.DisposableSubscriber;
+import timber.log.Timber;
 
 /**
  * Created by mac on 02.05.17.
@@ -35,6 +36,7 @@ public class NewsPresenterImpl implements NewsPresenter {
     @Inject
     public NewsPresenterImpl(NewsRepository newsRepository) {
         this.newsRepository = newsRepository;
+        Timber.i("new object SchedulePresenterImpl, and CompositeDisposable size isL %s",newsResponseSubscription.size());
     }
 
     @Override
