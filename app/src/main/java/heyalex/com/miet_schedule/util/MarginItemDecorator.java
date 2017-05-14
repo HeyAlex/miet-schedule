@@ -40,7 +40,6 @@ public class MarginItemDecorator extends RecyclerView.ItemDecoration {
     } else if (layoutManager instanceof StaggeredGridLayoutManager) {
       return ((StaggeredGridLayoutManager)layoutManager).getSpanCount();
     } else {
-      // LinearLayoutManager
       return 1;
     }
   }

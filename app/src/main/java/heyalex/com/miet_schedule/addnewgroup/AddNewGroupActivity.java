@@ -31,12 +31,8 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
                     .getAddNewGroupComponent()
                     .inject(this);
         }
-//        DaggerAddNewGroupComponent.builder()
-//                .applicationComponent(ScheduleApp.get(this).getApplicationComponent())
-//                .build()
-//                .inject(this);
         presenter.onViewAttached(this);
-        presenter.addNewGroup("МП-41");
+        presenter.addNewGroup("МП-44");
     }
 
     @Override

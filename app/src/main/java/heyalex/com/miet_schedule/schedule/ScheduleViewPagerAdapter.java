@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.ViewGroup;
 
-import heyalex.com.miet_schedule.schedule_item.ScheduleFragment;
 
 /**
  * Created by mac on 10.05.17.

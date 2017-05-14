@@ -1,31 +1,21 @@
 package heyalex.com.miet_schedule.schedule;
 
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import heyalex.com.miet_schedule.LessonModel;
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
-import heyalex.com.miet_schedule.addnewgroup.DaggerAddNewGroupComponent;
 import heyalex.com.miet_schedule.model.schedule.CycleWeeksLessonModel;
-import heyalex.com.miet_schedule.model.schedule.DayLessonsModel;
-import heyalex.com.miet_schedule.navdrawer.DaggerNavDrawerComponent;
-import heyalex.com.miet_schedule.schedule_item.ScheduleFragment;
-import heyalex.com.miet_schedule.ui.BaseNavigationActivity;
-import timber.log.Timber;
+import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilderHelper;
 
 /**
  * Created by alexf on 07.04.2017.
