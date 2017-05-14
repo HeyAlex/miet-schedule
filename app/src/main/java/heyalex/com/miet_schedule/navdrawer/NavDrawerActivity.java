@@ -12,6 +12,7 @@ import heyalex.com.miet_schedule.ScheduleApp;
 import heyalex.com.miet_schedule.groups.GroupsFragment;
 import heyalex.com.miet_schedule.news.NewsFragment;
 import heyalex.com.miet_schedule.ui.BaseNavigationActivity;
+import heyalex.com.miet_schedule.ui.BaseWebFragement;
 import heyalex.com.miet_schedule.util.NavigationUtil;
 
 /**
@@ -92,15 +93,15 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
 
     @Override
     public void navigateToOrioks() {
-//        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_ORIOKS);
-//        if (fragment == null) {
-//        //    fragment = new OrioksFragment();
-//            fragment.setRetainInstance(true);
-//        }
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_ORIOKS)
-//                .commitNow();
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_ORIOKS);
+        if (fragment == null) {
+            fragment = BaseWebFragement.newInstance("https://orioks.miet.ru/student/student");
+            fragment.setRetainInstance(true);
+        }
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_ORIOKS)
+                .commitNow();
 
     }
 
