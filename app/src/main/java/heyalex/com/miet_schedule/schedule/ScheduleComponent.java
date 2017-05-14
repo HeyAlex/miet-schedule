@@ -2,8 +2,7 @@ package heyalex.com.miet_schedule.schedule;
 
 import dagger.Component;
 import heyalex.com.miet_schedule.ApplicationComponent;
-import heyalex.com.miet_schedule.ScheduleModel;
-import heyalex.com.miet_schedule.schedule_item.ScheduleFragment;
+import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilderModule;
 
 /**
  * Created by mac on 10.05.17.

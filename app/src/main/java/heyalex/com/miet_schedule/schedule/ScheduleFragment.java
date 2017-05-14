@@ -1,8 +1,10 @@
-package heyalex.com.miet_schedule.schedule_item;
+package heyalex.com.miet_schedule.schedule;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,21 +21,16 @@ import butterknife.ButterKnife;
 import heyalex.com.miet_schedule.LessonModel;
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
-import heyalex.com.miet_schedule.ScheduleModel;
-import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
 import heyalex.com.miet_schedule.model.schedule.DayLessonsModel;
-import heyalex.com.miet_schedule.schedule.DaggerScheduleComponent;
-import heyalex.com.miet_schedule.schedule.ScheduleActivity;
-import heyalex.com.miet_schedule.schedule.ScheduleAdapter;
-import heyalex.com.miet_schedule.schedule.ScheduleBuilder;
-import heyalex.com.miet_schedule.schedule.ScheduleBuilderHelper;
+import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilderHelper;
 import heyalex.com.miet_schedule.util.MarginItemDecorator;
+import heyalex.com.miet_schedule.util.NavigationUtil;
 
 /**
  * Created by mac on 10.05.17.
  */
 
-public class ScheduleFragment extends Fragment implements ScheduleItemView, ScheduleAdapter.OnLessonClicked{
+public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLessonClicked{
 
     private ScheduleAdapter scheduleAdapter = new ScheduleAdapter(this);
     private int position;
@@ -58,20 +55,18 @@ public class ScheduleFragment extends Fragment implements ScheduleItemView, Sche
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        position = getArguments() != null ? getArguments().getInt("position") : 1;
-
-
+        position = getArguments() != null ? getArguments().getInt("position") : 0;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.schedule_fragment, container, false);
         ButterKnife.bind(this, root);
         if(scheduleBuilder == null){
@@ -87,7 +82,19 @@ public class ScheduleFragment extends Fragment implements ScheduleItemView, Sche
 
         if(scheduleBuilder != null){
             if(scheduleBuilder.getLessonsForCurrentFragment(position) != null){
-                scheduleAdapter.setItems(scheduleBuilder.getLessonsForCurrentFragment(position));
+                final List<DayLessonsModel> lessons = scheduleBuilder
+                        .getLessonsForCurrentFragment(position);
+
+                if(!lessons.isEmpty()){
+                    no_schedule.setVisibility(View.INVISIBLE);
+                    scheduleRecycleView.setVisibility(View.VISIBLE);
+                    scheduleAdapter.setItems(scheduleBuilder.getLessonsForCurrentFragment(position));
+                }else {
+                    no_schedule.setVisibility(View.VISIBLE);
+                    scheduleRecycleView.setVisibility(View.INVISIBLE);
+                    no_schedule.setText(NavigationUtil.weekListLong[position]);
+                }
+
             }
         }
 
@@ -97,6 +104,24 @@ public class ScheduleFragment extends Fragment implements ScheduleItemView, Sche
 
     @Override
     public void onLessonClickedListener(LessonModel lesson) {
+        LayoutInflater inflater = (LayoutInflater) getContext()
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View customView = inflater.inflate(R.layout.dialog_lesson_item, null);
+        TextView name = (TextView) customView.findViewById(R.id.name);
+        TextView teacher = (TextView) customView.findViewById(R.id.tutor);
+        TextView room = (TextView) customView.findViewById(R.id.room);
+        TextView time = (TextView) customView.findViewById(R.id.time);
 
+        name.setText(lesson.getDisciplineName());
+        room.setText(lesson.getRoom());
+        time.setText(lesson.getTimeFull());
+        teacher.setText(lesson.getTeacherFull());
+
+        AlertDialog.Builder builder =
+                new AlertDialog.Builder(getContext());
+        builder.setView(customView);
+        builder.setTitle(lesson.getDisciplineType());
+        builder.setPositiveButton("OK", null);
+        builder.show();
     }
 }

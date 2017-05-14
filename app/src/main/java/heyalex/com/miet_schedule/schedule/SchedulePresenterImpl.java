@@ -1,16 +1,14 @@
 package heyalex.com.miet_schedule.schedule;
 
-import java.util.List;
 import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 
-import heyalex.com.miet_schedule.LessonModel;
 import heyalex.com.miet_schedule.ScheduleModel;
 import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
 import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
 import heyalex.com.miet_schedule.model.schedule.CycleWeeksLessonModel;
-import heyalex.com.miet_schedule.model.schedule.DayLessonsModel;
+import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilder;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;

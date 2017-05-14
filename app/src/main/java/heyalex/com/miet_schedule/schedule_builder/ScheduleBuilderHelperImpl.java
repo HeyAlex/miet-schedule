@@ -1,4 +1,4 @@
-package heyalex.com.miet_schedule.schedule;
+package heyalex.com.miet_schedule.schedule_builder;
 
 import java.util.ArrayList;
 import java.util.List;
