@@ -1,5 +1,6 @@
 package heyalex.com.miet_schedule.model.schedule;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import heyalex.com.miet_schedule.LessonModel;
@@ -11,7 +12,7 @@ import heyalex.com.miet_schedule.LessonModel;
 public class DayLessonsModel {
     private String Day;
     private int DayNumber;
-    private List<LessonModel> lessons;
+    private List<LessonModel> lessons = new ArrayList<>();
 
     public String getDay() {
         return Day;

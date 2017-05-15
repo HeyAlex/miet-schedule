@@ -144,12 +144,10 @@ public class ScheduleBuilder {
                 }
             }
         }
-
         schedule.setFirstWeek(weekOne);
         schedule.setSecondWeek(weekTwo);
         schedule.setThirdWeek(weekThird);
         schedule.setFourthWeek(weekFourth);
-
         return schedule;
     }
 

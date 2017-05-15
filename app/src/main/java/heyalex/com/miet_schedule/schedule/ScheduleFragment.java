@@ -30,7 +30,7 @@ import heyalex.com.miet_schedule.util.NavigationUtil;
  * Created by mac on 10.05.17.
  */
 
-public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLessonClicked{
+public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLessonClicked {
 
     private ScheduleAdapter scheduleAdapter = new ScheduleAdapter(this);
     private int position;
@@ -69,33 +69,34 @@ public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLess
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.schedule_fragment, container, false);
         ButterKnife.bind(this, root);
-        if(scheduleBuilder == null){
+        if (scheduleBuilder == null) {
             ScheduleApp.get(getContext())
                     .getScheduleComponent()
                     .inject(this);
         }
         scheduleRecycleView.setAdapter(scheduleAdapter);
-        int horizontal = (int)getResources().getDimension(R.dimen.activity_horizontal_margin);
-        int vertical = (int)getResources().getDimension(R.dimen.activity_vertical_margin);
+        int horizontal = (int) getResources().getDimension(R.dimen.activity_horizontal_margin);
+        int vertical = (int) getResources().getDimension(R.dimen.activity_vertical_margin);
         scheduleRecycleView.addItemDecoration(new MarginItemDecorator(horizontal, vertical));
         scheduleRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        if(scheduleBuilder != null){
-            if(scheduleBuilder.getLessonsForCurrentFragment(position) != null){
+        if (scheduleBuilder != null) {
+            if (scheduleBuilder.getLessonsForCurrentFragment(position) != null) {
                 final List<DayLessonsModel> dayLesson = scheduleBuilder
                         .getLessonsForCurrentFragment(position);
 
-                if(!dayLesson.isEmpty() && dayLesson.size() != 1){
+                if (dayLesson.get(0).getLessons().size() > 0) {
+                    scheduleAdapter.setItems(scheduleBuilder.getLessonsForCurrentFragment(position));
                     no_schedule.setVisibility(View.INVISIBLE);
                     scheduleRecycleView.setVisibility(View.VISIBLE);
-                    scheduleAdapter.setItems(scheduleBuilder.getLessonsForCurrentFragment(position));
-                }else if(dayLesson.get(0).getLessons() != null){
+                } else {
                     no_schedule.setVisibility(View.VISIBLE);
                     scheduleRecycleView.setVisibility(View.INVISIBLE);
-                    no_schedule.setText(NavigationUtil.weekListLong[position + 1]);
+                    no_schedule.setText(NavigationUtil.weekListLong[position] + "пар нет");
                 }
             }
         }
+
 
         return root;
     }

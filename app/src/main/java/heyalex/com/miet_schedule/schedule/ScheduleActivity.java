@@ -16,6 +16,7 @@ import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
 import heyalex.com.miet_schedule.model.schedule.CycleWeeksLessonModel;
 import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilderHelper;
+import heyalex.com.miet_schedule.util.NavigationUtil;
 
 /**
  * Created by alexf on 07.04.2017.
@@ -61,12 +62,9 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView{
         }
         presenter.onViewAttached(this);
         pagerAdapter = new ScheduleViewPagerAdapter(getSupportFragmentManager());
-        tabLayout.addTab(tabLayout.newTab().setText("Сегодня"));
-        tabLayout.addTab(tabLayout.newTab().setText("Завтра"));
-        tabLayout.addTab(tabLayout.newTab().setText("ЧИСЛ 1"));
-        tabLayout.addTab(tabLayout.newTab().setText("ЗНАМ 1"));
-        tabLayout.addTab(tabLayout.newTab().setText("ЧИСЛ 2"));
-        tabLayout.addTab(tabLayout.newTab().setText("ЗНАМ 2"));
+        for (String tabHeader : NavigationUtil.weekList) {
+            tabLayout.addTab(tabLayout.newTab().setText(tabHeader));
+        }
         allotEachTabWithEqualWidth();
     }
 

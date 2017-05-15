@@ -32,7 +32,7 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
                     .inject(this);
         }
         presenter.onViewAttached(this);
-        presenter.addNewGroup("МП-44");
+        presenter.addNewGroup("МП-41");
     }
 
     @Override
