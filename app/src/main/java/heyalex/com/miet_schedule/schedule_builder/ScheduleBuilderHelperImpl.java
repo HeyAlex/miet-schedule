@@ -22,7 +22,6 @@ public class ScheduleBuilderHelperImpl implements ScheduleBuilderHelper{
     @Inject
     public ScheduleBuilderHelperImpl(LessonsRepository lessonsRepository){
         this.lessonsRepository = lessonsRepository;
-        Timber.i("new object ScheduleBuilderHelperImpl");
     }
 
 
@@ -32,20 +31,12 @@ public class ScheduleBuilderHelperImpl implements ScheduleBuilderHelper{
             switch (position){
                 case 0:{
                     final List<DayLessonsModel> todayLessons = new ArrayList<>();
-                    if(schedule.getToday() != null){
-                        todayLessons.add(schedule.getToday());
-                    }else {
-                        return null;
-                    }
+                    todayLessons.add(schedule.getToday());
                     return todayLessons;
                 }
                 case 1:{
                     final List<DayLessonsModel> tommorowLessons = new ArrayList<>();
-                    if(schedule.getTommorow() != null){
-                        tommorowLessons.add(schedule.getTommorow());
-                    }else {
-                        return null;
-                    }
+                    tommorowLessons.add(schedule.getTommorow());
                     return tommorowLessons;
                 }
                 case 2:{
@@ -62,7 +53,7 @@ public class ScheduleBuilderHelperImpl implements ScheduleBuilderHelper{
                 }
             }
         }
-        Timber.i("ScheduleBuilderHelperImpl is null");
+        Timber.i("Schedule isn't built");
         return null;
     }
 
