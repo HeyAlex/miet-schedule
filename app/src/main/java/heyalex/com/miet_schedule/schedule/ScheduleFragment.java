@@ -82,19 +82,18 @@ public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLess
 
         if(scheduleBuilder != null){
             if(scheduleBuilder.getLessonsForCurrentFragment(position) != null){
-                final List<DayLessonsModel> lessons = scheduleBuilder
+                final List<DayLessonsModel> dayLesson = scheduleBuilder
                         .getLessonsForCurrentFragment(position);
 
-                if(!lessons.isEmpty()){
+                if(!dayLesson.isEmpty() && dayLesson.size() != 1){
                     no_schedule.setVisibility(View.INVISIBLE);
                     scheduleRecycleView.setVisibility(View.VISIBLE);
                     scheduleAdapter.setItems(scheduleBuilder.getLessonsForCurrentFragment(position));
-                }else {
+                }else if(dayLesson.get(0).getLessons() != null){
                     no_schedule.setVisibility(View.VISIBLE);
                     scheduleRecycleView.setVisibility(View.INVISIBLE);
-                    no_schedule.setText(NavigationUtil.weekListLong[position]);
+                    no_schedule.setText(NavigationUtil.weekListLong[position + 1]);
                 }
-
             }
         }
 
