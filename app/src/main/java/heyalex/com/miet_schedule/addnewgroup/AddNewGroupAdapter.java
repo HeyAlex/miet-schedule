@@ -66,7 +66,7 @@ public class AddNewGroupAdapter extends RecyclerView.Adapter<AddNewGroupAdapter.
         this.onGroupClickedListener = checkNotNull(onGroupClickedListener);
     }
 
-    public void setItems(Set<String> items) {
+    public void setItems(List<String> items) {
         this.items.clear();
         this.items.addAll(items);
         notifyDataSetChanged();

@@ -16,6 +16,7 @@ import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
 import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
 import heyalex.com.miet_schedule.model.schedule.Data;
 import heyalex.com.miet_schedule.model.schedule.SemestrData;
+import heyalex.com.miet_schedule.search.DataFilter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
@@ -31,6 +32,9 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
     private ScheduleRepository groupsRepository;
     private LessonsRepository lessonsRepository;
     private AddNewGroupView view;
+    private String searchQuery = "";
+    private List<String> cachedGroups;
+    private DataFilter<String> groupFilter = new GroupsFilter();
     private final CompositeDisposable scheduleResponseSubscription = new CompositeDisposable();
 
     @Inject
@@ -57,6 +61,33 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
                 .subscribeWith(new ResponseScheduleObserver(groupName)));
     }
 
+    @Override
+    public void onSearch(String searchQuery) {
+        this.searchQuery = searchQuery;
+        showGroups();
+    }
+
+    @Override
+    public void onSearchCanceled() {
+        searchQuery = "";
+        showGroups();
+    }
+
+    private boolean isSearching() {
+        return searchQuery != null && !searchQuery.isEmpty();
+    }
+
+    private void showGroups() {
+        if (cachedGroups != null) {
+            if (isSearching()) {
+                view.showAvailibleGroups(groupFilter.filter(cachedGroups, searchQuery));
+            } else {
+                view.showAvailibleGroups(cachedGroups);
+            }
+        } else {
+            getAvailableGroups();
+        }
+    }
     @Override
     public void onViewAttached(AddNewGroupView view) {
         this.view = view;
@@ -138,12 +169,13 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
         }
     }
 
-    private class ResponseAvailableGroups extends DisposableObserver<Set<String>>{
+    private class ResponseAvailableGroups extends DisposableObserver<List<String>>{
 
         @Override
-        public void onNext(Set<String> value) {
+        public void onNext(List<String> value) {
             Timber.i("Set of groups have successfully recived.");
             if (view != null) {
+                cachedGroups = value;
                 view.showAvailibleGroups(value);
             }
         }

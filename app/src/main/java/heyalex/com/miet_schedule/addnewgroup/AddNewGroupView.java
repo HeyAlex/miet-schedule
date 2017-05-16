@@ -1,5 +1,6 @@
 package heyalex.com.miet_schedule.addnewgroup;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -7,6 +8,6 @@ import java.util.Set;
  */
 
 public interface AddNewGroupView {
-    void showAvailibleGroups(Set<String> groups);
+    void showAvailibleGroups(List<String> groups);
     void showErrorView();
 }

@@ -18,5 +18,6 @@
     <string name="resources">Ресурсы</string>
     <string name="schedule">Расписание</string>
     <string name="news_detail">Просмотр новости</string>
+    <string name="action_search">Seach</string>
 
 </resources>

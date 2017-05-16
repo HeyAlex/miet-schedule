@@ -1,5 +1,6 @@
 package heyalex.com.miet_schedule.api;
 
+import java.util.List;
 import java.util.Set;
 
 import heyalex.com.miet_schedule.model.news.ArticleResponse;
@@ -22,7 +23,7 @@ public class UniversityApiFactory {
         }
 
         @Override
-        public Observable<Set<String>> getGroupNames() {
+        public Observable<List<String>> getGroupNames() {
             return scheduleService.getGroupNames();
         }
 
