@@ -9,4 +9,6 @@ import heyalex.com.miet_schedule.mvp.BasePresenter;
 public interface AddNewGroupPresenter extends BasePresenter<AddNewGroupView>{
     void getAvailableGroups();
     void addNewGroup(String groupName);
+    void onSearch(String searchQuery);
+    void onSearchCanceled();
 }

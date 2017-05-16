@@ -1,5 +1,6 @@
 package heyalex.com.miet_schedule.api;
 
+import java.util.List;
 import java.util.Set;
 
 import heyalex.com.miet_schedule.model.news.ArticleResponse;
@@ -23,7 +24,7 @@ public interface UniversityService {
      * @return list of strings
      */
     @GET("schedule/groups")
-    Observable<Set<String>> getGroupNames();
+    Observable<List<String>> getGroupNames();
 
     @GET("schedule/data")
     Observable<SemestrData> getScheduleResponse(@Query("group") String groupName);
