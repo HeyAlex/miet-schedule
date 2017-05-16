@@ -1,46 +1,43 @@
-package heyalex.com.miet_schedule.groups;
+package heyalex.com.miet_schedule.addnewgroup;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import heyalex.com.miet_schedule.NewsModel;
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleModel;
-import heyalex.com.miet_schedule.news.NewsAdapter;
+import heyalex.com.miet_schedule.groups.GroupsAdapter;
 
 import static heyalex.com.miet_schedule.util.Preconditions.checkNotNull;
 
 /**
- * Created by mac on 09.05.17.
+ * Created by alexf on 16.05.2017.
  */
 
-public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsViewHolder> {
+public class AddNewGroupAdapter extends RecyclerView.Adapter<AddNewGroupAdapter.GroupsViewHolder>{
 
     private Context context;
-    private GroupsAdapter.OnGroupClickedListener onGroupClickedListener;
-    private final List<ScheduleModel> items = new ArrayList<>();
+    private AddNewGroupAdapter.OnGroupClickedListener onGroupClickedListener;
+    private final List<String> items = new ArrayList<>();
 
     @Override
-    public GroupsAdapter.GroupsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AddNewGroupAdapter.GroupsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View root = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.groups_item, parent, false);
-        return new GroupsViewHolder(root);
+        return new AddNewGroupAdapter.GroupsViewHolder(root);
     }
 
     @Override
-    public void onBindViewHolder(GroupsViewHolder holder, int position) {
+    public void onBindViewHolder(AddNewGroupAdapter.GroupsViewHolder holder, int position) {
         holder.bind(items.get(position));
     }
 
@@ -50,8 +47,8 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
     }
 
 
-    /*package*/ interface OnGroupClickedListener {
-        void onGroupClickedListener(ScheduleModel newsModel);
+    public interface OnGroupClickedListener {
+        void onGroupClickedListener(String groupName);
     }
 
     @Override
@@ -65,11 +62,11 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
         super.onDetachedFromRecyclerView(recyclerView);
     }
 
-    public GroupsAdapter(OnGroupClickedListener onGroupClickedListener) {
+    public AddNewGroupAdapter(AddNewGroupAdapter.OnGroupClickedListener onGroupClickedListener) {
         this.onGroupClickedListener = checkNotNull(onGroupClickedListener);
     }
 
-    public void setItems(List<ScheduleModel> items) {
+    public void setItems(Set<String> items) {
         this.items.clear();
         this.items.addAll(items);
         notifyDataSetChanged();
@@ -85,12 +82,12 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final ScheduleModel groupModel){
-            group.setText(groupModel.getGroup());
+        public void bind(final String groupName){
+            group.setText(groupName);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    onGroupClickedListener.onGroupClickedListener(groupModel);
+                    onGroupClickedListener.onGroupClickedListener(groupName);
                 }
             });
         }

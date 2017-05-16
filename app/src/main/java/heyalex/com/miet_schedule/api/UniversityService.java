@@ -22,7 +22,7 @@ public interface UniversityService {
      *
      * @return list of strings
      */
-    @GET("schedule/data")
+    @GET("schedule/groups")
     Observable<Set<String>> getGroupNames();
 
     @GET("schedule/data")

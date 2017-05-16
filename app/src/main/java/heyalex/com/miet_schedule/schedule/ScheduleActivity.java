@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
 import heyalex.com.miet_schedule.model.schedule.CycleWeeksLessonModel;
@@ -26,9 +28,14 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView{
 
     private ScheduleViewPagerAdapter pagerAdapter;
 
-    private ViewPager pager;
-    private TabLayout tabLayout;
-    private Toolbar toolbar;
+    @BindView(R.id.schedule_viewpager)
+    ViewPager pager;
+
+    @BindView(R.id.tab_layout)
+    TabLayout tabLayout;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Inject
     SchedulePresenter presenter;
@@ -42,6 +49,7 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedule_activity);
+        ButterKnife.bind(this);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         pager = (ViewPager) findViewById(R.id.schedule_viewpager);

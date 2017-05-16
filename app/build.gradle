@@ -71,11 +71,8 @@ dependencies {
     // greenDao
     compile 'org.greenrobot:greendao:3.2.2'
 
-    //A better SwipeRefresh layout with lots of workaround like:
-    // https://code.google.com/p/android/issues/detail?id=78062
-    compile 'com.github.Aspsine:SwipeToLoadLayout:1.0.4'
-    compile 'com.lsjwzh:materialloadingprogressbar:0.5.8-RELEASE'
     compile 'uk.co.samuelwall:material-tap-target-prompt:1.4.3'
+
     compile('com.squareup.retrofit2:converter-simplexml:2.0.0-beta4') {
         exclude module: 'stax-api'
         exclude module: 'stax'

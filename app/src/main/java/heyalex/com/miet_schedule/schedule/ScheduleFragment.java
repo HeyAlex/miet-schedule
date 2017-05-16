@@ -82,10 +82,16 @@ public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLess
                 final List<DayLessonsModel> dayLesson = scheduleBuilder
                         .getLessonsForCurrentFragment(position);
 
-                if (dayLesson.get(0).getLessons().size() > 0) {
-                    scheduleAdapter.setItems(scheduleBuilder.getLessonsForCurrentFragment(position));
-                    no_schedule.setVisibility(View.INVISIBLE);
-                    scheduleRecycleView.setVisibility(View.VISIBLE);
+                if (dayLesson.size() != 0) {
+                    if(dayLesson.get(0).getLessons().size() > 0){
+                        scheduleAdapter.setItems(scheduleBuilder.getLessonsForCurrentFragment(position));
+                        no_schedule.setVisibility(View.INVISIBLE);
+                        scheduleRecycleView.setVisibility(View.VISIBLE);
+                    } else {
+                        no_schedule.setVisibility(View.VISIBLE);
+                        scheduleRecycleView.setVisibility(View.INVISIBLE);
+                        no_schedule.setText(NavigationUtil.weekListLong[position] + " пар нет");
+                    }
                 } else {
                     no_schedule.setVisibility(View.VISIBLE);
                     scheduleRecycleView.setVisibility(View.INVISIBLE);
