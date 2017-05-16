@@ -1,11 +1,11 @@
 package heyalex.com.miet_schedule.addnewgroup;
 
-import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -16,7 +16,6 @@ import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
 import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
 import heyalex.com.miet_schedule.model.schedule.Data;
 import heyalex.com.miet_schedule.model.schedule.SemestrData;
-import heyalex.com.miet_schedule.news.NewsPresenterImpl;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
@@ -44,7 +43,10 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
 
     @Override
     public void getAvailableGroups() {
-
+        scheduleResponseSubscription.add(UniversityApiFactory.getUniversityApi().getGroupNames()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new ResponseAvailableGroups()));
     }
 
     @Override
@@ -52,12 +54,13 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
         scheduleResponseSubscription.add(UniversityApiFactory.getUniversityApi().getScheduleResponse(groupName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new AddNewGroupPresenterImpl.ResponseScheduleSubscriber(groupName)));
+                .subscribeWith(new ResponseScheduleObserver(groupName)));
     }
 
     @Override
     public void onViewAttached(AddNewGroupView view) {
         this.view = view;
+        getAvailableGroups();
     }
 
     @Override
@@ -66,11 +69,11 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
     }
 
 
-    private class ResponseScheduleSubscriber extends DisposableObserver<SemestrData> {
+    private class ResponseScheduleObserver extends DisposableObserver<SemestrData> {
 
         private String groupName;
 
-        public ResponseScheduleSubscriber(String groupName) {
+        public ResponseScheduleObserver(String groupName) {
             this.groupName = groupName;
         }
 
@@ -132,6 +135,27 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
 
         private ScheduleModel transformToDaoScheduleModel(SemestrData data, String groupName) {
             return new ScheduleModel(groupName, data.getSemestr());
+        }
+    }
+
+    private class ResponseAvailableGroups extends DisposableObserver<Set<String>>{
+
+        @Override
+        public void onNext(Set<String> value) {
+            Timber.i("Set of groups have successfully recived.");
+            if (view != null) {
+                view.showAvailibleGroups(value);
+            }
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Timber.e(e, "An error occurred while trying to take groups");
+        }
+
+        @Override
+        public void onComplete() {
+
         }
     }
 }
