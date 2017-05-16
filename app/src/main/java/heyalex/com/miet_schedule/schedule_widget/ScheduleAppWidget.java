@@ -16,11 +16,9 @@ public class ScheduleAppWidget extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
 
-        CharSequence widgetText = ScheduleAppWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
+
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.schedule_app_widget);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
-
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
@@ -36,9 +34,6 @@ public class ScheduleAppWidget extends AppWidgetProvider {
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
         // When the user deletes the widget, delete the preference associated with it.
-        for (int appWidgetId : appWidgetIds) {
-            ScheduleAppWidgetConfigureActivity.deleteTitlePref(context, appWidgetId);
-        }
     }
 
     @Override
