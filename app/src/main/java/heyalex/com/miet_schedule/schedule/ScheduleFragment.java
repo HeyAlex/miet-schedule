@@ -11,11 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import java.util.List;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import heyalex.com.miet_schedule.LessonModel;
@@ -92,7 +89,7 @@ public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLess
                 } else {
                     no_schedule.setVisibility(View.VISIBLE);
                     scheduleRecycleView.setVisibility(View.INVISIBLE);
-                    no_schedule.setText(NavigationUtil.weekListLong[position] + "пар нет");
+                    no_schedule.setText(NavigationUtil.weekListLong[position] + " пар нет");
                 }
             }
         }
