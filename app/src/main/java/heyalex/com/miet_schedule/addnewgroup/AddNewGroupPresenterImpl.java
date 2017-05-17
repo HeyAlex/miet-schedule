@@ -42,7 +42,6 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
                                     LessonsRepository lessonsRepository) {
         this.groupsRepository = groupsRepository;
         this.lessonsRepository = lessonsRepository;
-        Timber.i("AddNewGroupPresenterImpl new object");
     }
 
     @Override
@@ -55,7 +54,8 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
 
     @Override
     public void addNewGroup(String groupName) {
-        scheduleResponseSubscription.add(UniversityApiFactory.getUniversityApi().getScheduleResponse(groupName)
+        scheduleResponseSubscription.add(UniversityApiFactory.getUniversityApi()
+                .getScheduleResponse(groupName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new ResponseScheduleObserver(groupName)));
@@ -129,44 +129,44 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
         public void onComplete() {
 
         }
+    }
 
-        private List<LessonModel> transformToDaoLessonModel(SemestrData data, String groupName) {
-            final DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss");
+    public static List<LessonModel> transformToDaoLessonModel(SemestrData data, String groupName) {
+        final DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss");
 
-            List<LessonModel> lessons = new ArrayList<>();
-            for (Data model : data.getData()) {
-                String toDate = formatter.parseDateTime(model.getTime().getTimeTo())
-                        .toString("HH:mm");
-                String fromDate = formatter.parseDateTime(model.getTime().getTimeFrom())
-                        .toString("HH:mm");
-                String disciplineName = model.getClassModel().getName();
-                LessonModel dataLesson = new LessonModel();
-                dataLesson.setWeek(Integer.valueOf(model.getDayNumber()));
-                dataLesson.setDay(Integer.valueOf(model.getDay()));
-                dataLesson.setGroupName(groupName);
-                dataLesson.setRoom(model.getRoom().getName());
-                dataLesson.setTimeFrom(fromDate);
-                dataLesson.setTimeTo(toDate);
-                dataLesson.setTime(Integer.valueOf(model.getTime().getCode()));
-                dataLesson.setTimeFull(fromDate + " - " + toDate + " (" + model.getTime().getTime() + ")");
-                dataLesson.setDisciplineName(disciplineName);
-                dataLesson.setTeacherFull(model.getClassModel().getTeacherFull());
-                dataLesson.setTeacher(model.getClassModel().getTeacher());
-                dataLesson.setCode(model.getTime().getCode());
-                if (disciplineName.contains("[Лаб]")) dataLesson.setDisciplineType("Лабораторная работа");
-                else if (disciplineName.contains("[Лек]")) dataLesson.setDisciplineType("Лекция");
-                else if (disciplineName.contains("[Пр]")) dataLesson.setDisciplineType("Практика");
-                else if (disciplineName.contains("Физ")) dataLesson.setDisciplineType("Физ-ра");
-                else dataLesson.setDisciplineType("УВЦ");
+        List<LessonModel> lessons = new ArrayList<>();
+        for (Data model : data.getData()) {
+            String toDate = formatter.parseDateTime(model.getTime().getTimeTo())
+                    .toString("HH:mm");
+            String fromDate = formatter.parseDateTime(model.getTime().getTimeFrom())
+                    .toString("HH:mm");
+            String disciplineName = model.getClassModel().getName();
+            LessonModel dataLesson = new LessonModel();
+            dataLesson.setWeek(Integer.valueOf(model.getDayNumber()));
+            dataLesson.setDay(Integer.valueOf(model.getDay()));
+            dataLesson.setGroupName(groupName);
+            dataLesson.setRoom(model.getRoom().getName());
+            dataLesson.setTimeFrom(fromDate);
+            dataLesson.setTimeTo(toDate);
+            dataLesson.setTime(Integer.valueOf(model.getTime().getCode()));
+            dataLesson.setTimeFull(fromDate + " - " + toDate + " (" + model.getTime().getTime() + ")");
+            dataLesson.setDisciplineName(disciplineName);
+            dataLesson.setTeacherFull(model.getClassModel().getTeacherFull());
+            dataLesson.setTeacher(model.getClassModel().getTeacher());
+            dataLesson.setCode(model.getTime().getCode());
+            if (disciplineName.contains("[Лаб]")) dataLesson.setDisciplineType("Лабораторная работа");
+            else if (disciplineName.contains("[Лек]")) dataLesson.setDisciplineType("Лекция");
+            else if (disciplineName.contains("[Пр]")) dataLesson.setDisciplineType("Практика");
+            else if (disciplineName.contains("Физ")) dataLesson.setDisciplineType("Физ-ра");
+            else dataLesson.setDisciplineType("УВЦ");
 
-                lessons.add(dataLesson);
-            }
-            return lessons;
+            lessons.add(dataLesson);
         }
+        return lessons;
+    }
 
-        private ScheduleModel transformToDaoScheduleModel(SemestrData data, String groupName) {
-            return new ScheduleModel(groupName, data.getSemestr());
-        }
+    public static ScheduleModel transformToDaoScheduleModel(SemestrData data, String groupName) {
+        return new ScheduleModel(groupName, data.getSemestr());
     }
 
     private class ResponseAvailableGroups extends DisposableObserver<List<String>>{

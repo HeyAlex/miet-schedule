@@ -11,4 +11,5 @@ import heyalex.com.miet_schedule.mvp.BasePresenter;
 
 public interface SchedulePresenter extends BasePresenter<ScheduleView>{
     void getCachedScheduleForGroup(String groupName);
+    void updateScheduleForGroup(String groupName);
 }
