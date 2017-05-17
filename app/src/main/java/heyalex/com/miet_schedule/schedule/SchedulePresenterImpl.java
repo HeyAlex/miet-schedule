@@ -1,13 +1,23 @@
 package heyalex.com.miet_schedule.schedule;
 
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 
+import heyalex.com.miet_schedule.LessonModel;
 import heyalex.com.miet_schedule.ScheduleModel;
+import heyalex.com.miet_schedule.addnewgroup.AddNewGroupPresenterImpl;
+import heyalex.com.miet_schedule.api.UniversityApiFactory;
 import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
 import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
 import heyalex.com.miet_schedule.model.schedule.CycleWeeksLessonModel;
+import heyalex.com.miet_schedule.model.schedule.Data;
+import heyalex.com.miet_schedule.model.schedule.SemestrData;
 import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilder;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -33,7 +43,6 @@ public class SchedulePresenterImpl implements SchedulePresenter{
                                  LessonsRepository lessonsRepository) {
         this.scheduleRepository = scheduleRepository;
         this.lessonsRepository = lessonsRepository;
-        Timber.i("new object SchedulePresenterImpl");
     }
 
     @Override
@@ -52,6 +61,47 @@ public class SchedulePresenterImpl implements SchedulePresenter{
                 .subscribeWith(new ResponseNewsSubscriber()));
     }
 
+    @Override
+    public void updateScheduleForGroup(String groupName) {
+        scheduleCompositeDisposable.add(UniversityApiFactory.getUniversityApi()
+                .getScheduleResponse(groupName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new ResponseScheduleObserver(groupName)));
+    }
+
+
+    private class ResponseScheduleObserver extends DisposableObserver<SemestrData> {
+
+        private String groupName;
+
+        public ResponseScheduleObserver(String groupName) {
+            this.groupName = groupName;
+        }
+
+        @Override
+        public void onNext(SemestrData semestrResponse) {
+            Timber.i("Schedule for '%s' have successfully recived.", groupName);
+            lessonsRepository.replaceAllByGroupName(groupName,
+                    AddNewGroupPresenterImpl.transformToDaoLessonModel(semestrResponse, groupName));
+            scheduleRepository.replaceByGroupName(groupName,
+                    AddNewGroupPresenterImpl.transformToDaoScheduleModel(semestrResponse, groupName));
+        }
+
+        @Override
+        public void onError(Throwable t) {
+            Timber.e(t, "An error occurred while trying to take shedule for group '%s,", groupName);
+            if (view != null) {
+                view.showErrorView();
+            }
+        }
+
+        @Override
+        public void onComplete() {
+
+        }
+
+    }
 
     public Observable<CycleWeeksLessonModel> retrieveSchedule(final String groupName) {
         return Observable.fromCallable(new Callable<ScheduleModel>() {
@@ -76,7 +126,6 @@ public class SchedulePresenterImpl implements SchedulePresenter{
 
         @Override
         public void onNext(CycleWeeksLessonModel schedule) {
-            //CycleWeeksLessonModel s = schedule;
             view.showSchedule(schedule);
         }
 
