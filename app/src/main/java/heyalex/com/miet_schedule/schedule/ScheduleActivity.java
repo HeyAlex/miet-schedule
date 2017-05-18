@@ -1,5 +1,7 @@
 package heyalex.com.miet_schedule.schedule;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -13,6 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+
+import org.joda.time.DateTime;
 
 import javax.inject.Inject;
 
@@ -22,6 +27,7 @@ import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
 import heyalex.com.miet_schedule.model.schedule.CycleWeeksLessonModel;
 import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilderHelper;
+import heyalex.com.miet_schedule.util.DateMietHelper;
 import heyalex.com.miet_schedule.util.NavigationUtil;
 
 /**
@@ -51,7 +57,7 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
     ScheduleBuilderHelper scheduleBuilder;
 
     private String groupName;
-    private Snackbar bar;
+    private Snackbar updatingSnacbar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,7 +73,7 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
                 finish();
             }
         });
-        bar = initSnackBar();
+        updatingSnacbar = initSnackBar();
         if (presenter == null) {
             ScheduleApp.get(this)
                     .getScheduleComponent()
@@ -80,49 +86,6 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
             tabLayout.addTab(tabLayout.newTab().setText(tabHeader));
         }
         allotEachTabWithEqualWidth();
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.schedule_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        int id = item.getItemId();
-        if (id == R.id.groups_action_search) {
-            presenter.updateScheduleForGroup(groupName);
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private Snackbar initSnackBar() {
-        Snackbar bar = Snackbar.make(schedule_root, "Обновляем " + groupName, Snackbar.LENGTH_INDEFINITE);
-        ViewGroup contentLay = (ViewGroup) bar.getView().findViewById(android.support.design.R.id.snackbar_text).getParent();
-        ProgressBar progressBar = new ProgressBar(getApplicationContext());
-        contentLay.addView(progressBar, 100, 100);
-        return bar;
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (pager != null) {
-            pager.clearOnPageChangeListeners();
-            tabLayout.clearOnTabSelectedListeners();
-        }
-        presenter.onViewDetached();
-    }
-
-    @Override
-    public void showSchedule(CycleWeeksLessonModel schedule) {
-        scheduleBuilder.setBuildedLessonSchedule(schedule);
-        pager.setAdapter(pagerAdapter);
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -142,12 +105,60 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
         });
     }
 
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.schedule_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.schedule_action_update) {
+            presenter.updateScheduleForGroup(groupName);
+            return true;
+        }
+        if (id == R.id.schedule_go_to_current_week) {
+            if(tabLayout.getSelectedTabPosition() != DateMietHelper.getWeekByDay(DateTime.now())% 4){
+                pager.setCurrentItem(DateMietHelper.getWeekByDay(DateTime.now())% 4);
+            }else {
+                Snackbar.make(schedule_root, "Вы уже на текущей неделе",
+                        Snackbar.LENGTH_SHORT).show();
+            }
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private Snackbar initSnackBar() {
+        return Snackbar.make(schedule_root, "Обновляем " + groupName + "...",
+                Snackbar.LENGTH_INDEFINITE);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (pager != null) {
+            pager.clearOnPageChangeListeners();
+            tabLayout.clearOnTabSelectedListeners();
+        }
+        presenter.onViewDetached();
+    }
+
+    @Override
+    public void showSchedule(CycleWeeksLessonModel schedule) {
+        scheduleBuilder.setBuildedLessonSchedule(schedule);
+        pager.setAdapter(pagerAdapter);
+    }
+
     @Override
     public void showStatus(boolean state) {
         if (state) {
-            bar.show();
+            updatingSnacbar.show();
         } else {
-            bar.dismiss();
+            updatingSnacbar.dismiss();
         }
     }
 
@@ -159,7 +170,8 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
 
     @Override
     public void showErrorView() {
-
+        Snackbar.make(schedule_root, "Ошибка при обновлении группы" + groupName + ".",
+                Snackbar.LENGTH_SHORT).show();
     }
 
     private void allotEachTabWithEqualWidth() {

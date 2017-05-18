@@ -123,10 +123,7 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
     }
 
     private Snackbar initSnackBar(String groupName) {
-        Snackbar bar = Snackbar.make(root, "Скачиваем " + groupName, Snackbar.LENGTH_INDEFINITE);
-        ViewGroup contentLay = (ViewGroup) bar.getView().findViewById(android.support.design.R.id.snackbar_text).getParent();
-        ProgressBar progressBar = new ProgressBar(getApplicationContext());
-        contentLay.addView(progressBar, 100, 100);
+        Snackbar bar = Snackbar.make(root, "Скачиваем " + groupName + "...", Snackbar.LENGTH_INDEFINITE);
         return bar;
     }
 
@@ -142,7 +139,7 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
 
     @Override
     public void showErrorView(String errorName) {
-        Snackbar.make(root, "Ошибка при скачивании " + errorName, Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(root, "Ошибка при скачивании " + errorName + ".", Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -162,8 +159,6 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
     }
 
     private void initViews() {
-        int margin = (int)getResources().getDimension(R.dimen.dimen_16dp) / 2;
-        recyclerView.addItemDecoration(new MarginItemDecorator(margin, margin));
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(groupsAdapter);
         //recyclerView.setItemAnimator(new OvershootInLeftAnimator());

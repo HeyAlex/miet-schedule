@@ -40,8 +40,6 @@ public class GroupsFragment extends Fragment implements GroupsView, GroupsAdapte
     GroupsPresenter presenter;
 
     private void initViews() {
-        int margin = (int)getResources().getDimension(R.dimen.dimen_16dp) / 2;
-        recyclerView.addItemDecoration(new MarginItemDecorator(margin, margin));
         recyclerView.setLayoutManager( new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(groupsAdapter);
         //recyclerView.setItemAnimator(new OvershootInLeftAnimator());
