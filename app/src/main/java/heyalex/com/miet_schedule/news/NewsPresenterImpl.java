@@ -67,8 +67,9 @@ public class NewsPresenterImpl implements NewsPresenter {
     @Override
     public void onViewDetached() {
         this.view = null;
-        newsResponseSubscription.clear();
+        newsResponseSubscription.dispose();
     }
+
 
     private class ResponseNewsSubscriber extends DisposableObserver<ArticleResponse> {
 
@@ -83,8 +84,7 @@ public class NewsPresenterImpl implements NewsPresenter {
             newsRepository.deleteAll();
             List<NewsModel> newsModelList = transfromResponseToDaoModel(articleResponse);
             newsRepository.saveAll(newsModelList);
-            List<NewsModel> l1 = newsRepository.getAll();
-            l1.size();
+            newsResponseSubscription.clear();
             if(view != null){
                 view.setRefreshing(false);
                 view.showNews(newsModelList);
@@ -93,7 +93,7 @@ public class NewsPresenterImpl implements NewsPresenter {
 
         @Override
         public void onError(Throwable t) {
-
+            newsResponseSubscription.clear();
             if (view != null) {
                 view.setRefreshing(false);
                 view.showErrorView();

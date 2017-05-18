@@ -2,6 +2,7 @@ package heyalex.com.miet_schedule.news;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -21,6 +22,7 @@ import heyalex.com.miet_schedule.NewsModel;
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
 import heyalex.com.miet_schedule.util.MarginItemDecorator;
+import timber.log.Timber;
 
 /**
  * Created by mac on 28.04.17.
@@ -34,12 +36,13 @@ public class NewsFragment extends Fragment implements NewsView, NewsAdapter.OnNe
     @Inject
     NewsPresenter presenter;
 
+    @BindView(R.id.news_root)
+    View root;
+
     @BindView(R.id.news_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.news_recycleview)
     RecyclerView recyclerView;
-    @BindView(R.id.news_progress_bar)
-    ProgressBar progressBar;
 
 
     @Override
@@ -58,12 +61,11 @@ public class NewsFragment extends Fragment implements NewsView, NewsAdapter.OnNe
 
     @Override
     public void showErrorView() {
-
+        Snackbar.make(root, "Ошибка при обновлении новостей.", Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
     public void setRefreshing(final boolean refreshing) {
-        progressBar.setVisibility(refreshing ? View.VISIBLE : View.INVISIBLE);
         swipeRefreshLayout.setRefreshing(refreshing);
     }
 
@@ -91,6 +93,14 @@ public class NewsFragment extends Fragment implements NewsView, NewsAdapter.OnNe
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        Timber.i("onDestroyView");
+
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Timber.i("onDestroy");
         if (presenter != null) {
             presenter.onViewDetached();
         }

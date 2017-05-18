@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/addnewgroup_root"
     android:background="@color/color_white">
 
     <android.support.v7.widget.Toolbar
@@ -19,12 +20,24 @@
         android:background="?attr/colorPrimary" />
 
 
-    <EditText
-        android:hint="Введите группу"
-        android:id="@+id/search_edittext"
+    <LinearLayout
+        android:background="@color/iron"
         android:layout_width="match_parent"
-        android:layout_height="40dp" />
-    <android.support.v7.widget.RecyclerView android:id="@+id/group_list"
+        android:layout_height="wrap_content">
+        <EditText
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:hint="Введите группу"
+            android:id="@+id/search_edittext"
+            android:layout_width="match_parent"
+            android:layout_height="50dp" />
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/group_list"
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

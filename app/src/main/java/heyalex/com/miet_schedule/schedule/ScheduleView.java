@@ -9,5 +9,7 @@ import heyalex.com.miet_schedule.mvp.BaseView;
 
 public interface ScheduleView{
     void showSchedule(CycleWeeksLessonModel schedule);
+    void showStatus(boolean state);
+    void showReloadedSchedule(CycleWeeksLessonModel schedule);
     void showErrorView();
 }
