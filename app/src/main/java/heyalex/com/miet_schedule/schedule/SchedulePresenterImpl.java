@@ -106,9 +106,7 @@ public class SchedulePresenterImpl implements SchedulePresenter{
 
         @Override
         public void onComplete() {
-
         }
-
     }
 
     public Observable<CycleWeeksLessonModel> retrieveSchedule(final String groupName) {
