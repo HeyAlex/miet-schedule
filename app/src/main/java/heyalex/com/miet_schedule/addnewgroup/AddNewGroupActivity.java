@@ -2,6 +2,7 @@ package heyalex.com.miet_schedule.addnewgroup;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +16,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import java.util.List;
 import java.util.Set;
@@ -40,6 +43,10 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
         AddNewGroupAdapter.OnGroupClickedListener {
 
     private AddNewGroupAdapter groupsAdapter = new AddNewGroupAdapter(this);
+    private Snackbar downloadingSnackbar;
+
+    @BindView(R.id.addnewgroup_root)
+    View root;
 
     @BindView(R.id.group_list)
     RecyclerView recyclerView;
@@ -59,7 +66,12 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
         setContentView(R.layout.activity_addnewgroup);
         ButterKnife.bind(this);
         setupToolbar();
-
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         initViews();
 
         if(presenter == null){
@@ -92,6 +104,7 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
         });
     }
 
+
     private void setupToolbar() {
         if (toolbar != null) {
             toolbar.setTitle("Добавить группу:");
@@ -109,6 +122,13 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
         presenter.onViewDetached();
     }
 
+    private Snackbar initSnackBar(String groupName) {
+        Snackbar bar = Snackbar.make(root, "Скачиваем " + groupName, Snackbar.LENGTH_INDEFINITE);
+        ViewGroup contentLay = (ViewGroup) bar.getView().findViewById(android.support.design.R.id.snackbar_text).getParent();
+        ProgressBar progressBar = new ProgressBar(getApplicationContext());
+        contentLay.addView(progressBar, 100, 100);
+        return bar;
+    }
 
     @Override
     protected void onResume() {
@@ -121,8 +141,19 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
     }
 
     @Override
-    public void showErrorView() {
+    public void showErrorView(String errorName) {
+        Snackbar.make(root, "Ошибка при скачивании " + errorName, Snackbar.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void showDownloading(String groups) {
+        downloadingSnackbar = initSnackBar(groups);
+        downloadingSnackbar.show();
+    }
+
+    @Override
+    public void hideDownloading() {
+        downloadingSnackbar.dismiss();
     }
 
     @Override

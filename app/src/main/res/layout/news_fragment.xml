@@ -2,6 +2,7 @@
 <RelativeLayout
     android:background="@color/color_white"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/news_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -20,13 +21,5 @@
 
 
     </android.support.v4.widget.SwipeRefreshLayout>
-
-    <!-- progress bar -->
-    <ProgressBar
-        android:visibility="gone"
-        android:id="@+id/news_progress_bar"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"/>
 
 </RelativeLayout>

@@ -46,6 +46,7 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
 
     @Override
     public void getAvailableGroups() {
+        view.showDownloading("доступные группы.");
         scheduleResponseSubscription.add(UniversityApiFactory.getUniversityApi().getGroupNames()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -54,6 +55,7 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
 
     @Override
     public void addNewGroup(String groupName) {
+        view.showDownloading(groupName);
         scheduleResponseSubscription.add(UniversityApiFactory.getUniversityApi()
                 .getScheduleResponse(groupName)
                 .subscribeOn(Schedulers.io())
@@ -115,13 +117,15 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
                     transformToDaoLessonModel(semestrResponse, groupName));
             groupsRepository.replaceByGroupName(groupName,
                     transformToDaoScheduleModel(semestrResponse, groupName));
+            view.hideDownloading();
         }
 
         @Override
         public void onError(Throwable t) {
             Timber.e(t, "An error occurred while trying to take shedule for group '%s,", groupName);
             if (view != null) {
-                view.showErrorView();
+                view.hideDownloading();
+                view.showErrorView(groupName);
             }
         }
 
@@ -177,12 +181,15 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
             if (view != null) {
                 cachedGroups = value;
                 view.showAvailibleGroups(value);
+                view.hideDownloading();
             }
         }
 
         @Override
         public void onError(Throwable e) {
             Timber.e(e, "An error occurred while trying to take groups");
+            view.hideDownloading();
+            view.showErrorView(" при скачивании доступных групп.");
         }
 
         @Override

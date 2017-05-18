@@ -48,6 +48,7 @@ public class SchedulePresenterImpl implements SchedulePresenter{
     @Override
     public void onViewAttached(ScheduleView view) {
         this.view = view;
+        view.showStatus(scheduleCompositeDisposable.size() == 0);
     }
 
     @Override
@@ -63,6 +64,7 @@ public class SchedulePresenterImpl implements SchedulePresenter{
 
     @Override
     public void updateScheduleForGroup(String groupName) {
+        view.showStatus(true);
         scheduleCompositeDisposable.add(UniversityApiFactory.getUniversityApi()
                 .getScheduleResponse(groupName)
                 .subscribeOn(Schedulers.io())
@@ -82,16 +84,22 @@ public class SchedulePresenterImpl implements SchedulePresenter{
         @Override
         public void onNext(SemestrData semestrResponse) {
             Timber.i("Schedule for '%s' have successfully recived.", groupName);
-            lessonsRepository.replaceAllByGroupName(groupName,
-                    AddNewGroupPresenterImpl.transformToDaoLessonModel(semestrResponse, groupName));
+            List<LessonModel> lessons = AddNewGroupPresenterImpl.
+                    transformToDaoLessonModel(semestrResponse, groupName);
+            lessonsRepository.replaceAllByGroupName(groupName, lessons);
             scheduleRepository.replaceByGroupName(groupName,
                     AddNewGroupPresenterImpl.transformToDaoScheduleModel(semestrResponse, groupName));
+            view.showReloadedSchedule(ScheduleBuilder.buildSchedule(lessons));
+            scheduleCompositeDisposable.clear();
+            view.showStatus(false);
         }
 
         @Override
         public void onError(Throwable t) {
             Timber.e(t, "An error occurred while trying to take shedule for group '%s,", groupName);
+            scheduleCompositeDisposable.clear();
             if (view != null) {
+                view.showStatus(false);
                 view.showErrorView();
             }
         }
@@ -127,11 +135,12 @@ public class SchedulePresenterImpl implements SchedulePresenter{
         @Override
         public void onNext(CycleWeeksLessonModel schedule) {
             view.showSchedule(schedule);
+            scheduleCompositeDisposable.clear();
         }
 
         @Override
         public void onError(Throwable t) {
-
+            scheduleCompositeDisposable.clear();
         }
 
         @Override

@@ -9,5 +9,7 @@ import java.util.Set;
 
 public interface AddNewGroupView {
     void showAvailibleGroups(List<String> groups);
-    void showErrorView();
+    void showErrorView(String errorName);
+    void showDownloading(String groups);
+    void hideDownloading();
 }

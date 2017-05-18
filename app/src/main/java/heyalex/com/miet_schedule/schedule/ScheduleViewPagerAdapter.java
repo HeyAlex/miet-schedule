@@ -29,4 +29,8 @@ public class ScheduleViewPagerAdapter extends FragmentPagerAdapter {
         return NUM_ITEMS;
     }
 
+    @Override
+    public int getItemPosition(Object object) {
+        return POSITION_NONE;
+    }
 }
