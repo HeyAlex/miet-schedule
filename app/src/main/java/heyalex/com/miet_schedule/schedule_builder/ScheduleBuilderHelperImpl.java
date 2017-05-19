@@ -1,13 +1,18 @@
 package heyalex.com.miet_schedule.schedule_builder;
 
+import org.joda.time.DateTime;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.inject.Inject;
 
 import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
 import heyalex.com.miet_schedule.model.schedule.CycleWeeksLessonModel;
 import heyalex.com.miet_schedule.model.schedule.DayLessonsModel;
+import heyalex.com.miet_schedule.util.DateMietHelper;
+import heyalex.com.miet_schedule.util.NavigationUtil;
 import timber.log.Timber;
 
 /**
@@ -18,6 +23,7 @@ public class ScheduleBuilderHelperImpl implements ScheduleBuilderHelper{
 
     private CycleWeeksLessonModel schedule = null;
     private LessonsRepository lessonsRepository;
+    private DateTime today;
 
     @Inject
     public ScheduleBuilderHelperImpl(LessonsRepository lessonsRepository){
@@ -31,11 +37,15 @@ public class ScheduleBuilderHelperImpl implements ScheduleBuilderHelper{
             switch (position){
                 case 0:{
                     final List<DayLessonsModel> todayLessons = new ArrayList<>();
+                    schedule.getToday().setDay(toStringScheduleDay(today,
+                            DateMietHelper.getWeekByDay(today)%4));
                     todayLessons.add(schedule.getToday());
                     return todayLessons;
                 }
                 case 1:{
                     final List<DayLessonsModel> tommorowLessons = new ArrayList<>();
+                    schedule.getTommorow().setDay(toStringScheduleDay(today.plusDays(1),
+                            DateMietHelper.getWeekByDay(today.plusDays(1))%4));
                     tommorowLessons.add(schedule.getTommorow());
                     return tommorowLessons;
                 }
@@ -57,9 +67,13 @@ public class ScheduleBuilderHelperImpl implements ScheduleBuilderHelper{
         return null;
     }
 
+    private String toStringScheduleDay(DateTime date, int week) {
+        return date.toString("dd MMMM yyyy", new Locale("ru")) + "г. (" + NavigationUtil.weekListLong[week] + ")";
+    }
     @Override
     public void setBuildedLessonSchedule(CycleWeeksLessonModel schedule) {
         Timber.i("ScheduleBuilderHelperImpl set a builded schedule");
+        this.today = DateTime.now();
         this.schedule = schedule;
     }
 
