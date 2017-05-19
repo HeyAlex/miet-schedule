@@ -13,7 +13,7 @@ public class GroupsModule{
 
     @Provides
     @GroupsScope
-    public GroupsPresenter provideGroupsPresenter(ScheduleRepository groupsRepository) {
+    /*package*/ GroupsPresenter provideGroupsPresenter(ScheduleRepository groupsRepository) {
         return new GroupsPresenterImpl(groupsRepository);
     }
 }

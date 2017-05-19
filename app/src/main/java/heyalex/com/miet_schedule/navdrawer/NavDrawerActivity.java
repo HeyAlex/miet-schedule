@@ -26,6 +26,7 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
     private static final String FRAGMENT_TAG_SETTINGS = "FRAGMENT_TAG_SETTINGS";
     private static final String FRAGMENT_TAG_ORIOKS = "FRAGMENT_TAG_ORIOKS";
     private static final String FRAGMENT_TAG_NEWS = "FRAGMENT_TAG_NEWS";
+    private static final String ORIOKS_URL = "https://orioks.miet.ru/student/student";
 
     private NavAdapter navAdapter;
 
@@ -45,7 +46,6 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(navAdapter);
 
-        // inject navigation presenter
         DaggerNavDrawerComponent.builder()
                 .applicationComponent(ScheduleApp.get(this).getApplicationComponent())
                 .build()
@@ -94,7 +94,7 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
     public void navigateToOrioks() {
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_ORIOKS);
         if (fragment == null) {
-            fragment = BaseWebFragement.newInstance("https://orioks.miet.ru/student/student");
+            fragment = BaseWebFragement.newInstance(ORIOKS_URL);
             fragment.setRetainInstance(true);
         }
         getSupportFragmentManager()
@@ -121,7 +121,7 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
     @Override
     public void showCurrentPosition(int postion) {
         navAdapter.setCurrentPos(postion);
-        if (toolbar != null) {
+        if(getSupportActionBar() != null){
             getSupportActionBar().setTitle(NavigationUtil.drawerList[postion]);
         }
     }

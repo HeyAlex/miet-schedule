@@ -30,6 +30,7 @@ import heyalex.com.miet_schedule.util.NavigationUtil;
 public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLessonClicked {
 
     private ScheduleAdapter scheduleAdapter = new ScheduleAdapter(this);
+    private static final String POSITION = "position";
     private int position;
 
     @BindView(R.id.schedule_list_here)
@@ -44,7 +45,7 @@ public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLess
     public static Fragment newInstance(int position) {
         ScheduleFragment f = new ScheduleFragment();
         Bundle args = new Bundle();
-        args.putInt("position", position);
+        args.putInt(POSITION, position);
         f.setArguments(args);
         return f;
     }
@@ -52,7 +53,7 @@ public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLess
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        position = getArguments() != null ? getArguments().getInt("position") : 0;
+        position = getArguments() != null ? getArguments().getInt(POSITION) : 0;
     }
 
     @Override
@@ -84,23 +85,24 @@ public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLess
 
                 if (dayLesson.size() != 0) {
                     if(dayLesson.get(0).getLessons().size() > 0){
-                        scheduleAdapter.setItems(scheduleBuilder.getLessonsForCurrentFragment(position));
+                        scheduleAdapter.setItems(scheduleBuilder
+                                .getLessonsForCurrentFragment(position));
                         no_schedule.setVisibility(View.INVISIBLE);
                         scheduleRecycleView.setVisibility(View.VISIBLE);
                     } else {
                         no_schedule.setVisibility(View.VISIBLE);
                         scheduleRecycleView.setVisibility(View.INVISIBLE);
-                        no_schedule.setText(NavigationUtil.weekListLong[position] + " пар нет");
+                        no_schedule.setText(getString(R.string.no_schedule_for_current_day,
+                                NavigationUtil.weekListLong[position]));
                     }
                 } else {
                     no_schedule.setVisibility(View.VISIBLE);
                     scheduleRecycleView.setVisibility(View.INVISIBLE);
-                    no_schedule.setText(NavigationUtil.weekListLong[position] + " пар нет");
+                    no_schedule.setText(getString(R.string.no_schedule_for_current_day,
+                            NavigationUtil.weekListLong[position]));
                 }
             }
         }
-
-
         return root;
     }
 

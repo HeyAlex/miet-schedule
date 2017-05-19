@@ -48,7 +48,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         return items.size();
     }
 
-    public interface OnNewsClickedListener {
+    /*package*/ interface OnNewsClickedListener {
         void onNewsClicked(NewsModel newsModel);
     }
 
@@ -64,17 +64,17 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         context = null;
     }
 
-    public NewsAdapter(OnNewsClickedListener onNewsClickedListener) {
+    /*package*/ NewsAdapter(OnNewsClickedListener onNewsClickedListener) {
         this.onNewsClickedListener = checkNotNull(onNewsClickedListener);
     }
 
-    public void setItems(List<NewsModel> items) {
+    /*package*/ void setItems(List<NewsModel> items) {
         this.items.clear();
         this.items.addAll(items);
         notifyDataSetChanged();
     }
 
-    public class NewsViewHolder extends RecyclerView.ViewHolder {
+    /*package*/ class NewsViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.newsDate)
         TextView date;
 
@@ -87,7 +87,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
         @BindView(R.id.newsTitle)
         TextView title;
 
-        public NewsViewHolder(View itemView) {
+        /*package*/ NewsViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

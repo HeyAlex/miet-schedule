@@ -37,6 +37,7 @@ import heyalex.com.miet_schedule.util.NavigationUtil;
 public class ScheduleActivity extends AppCompatActivity implements ScheduleView {
 
     private ScheduleViewPagerAdapter pagerAdapter;
+    private static final String GROUP = "group";
 
     @BindView(R.id.schedule_activity_root)
     View schedule_root;
@@ -64,7 +65,7 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.schedule_activity);
         ButterKnife.bind(this);
-        groupName = getIntent().getStringExtra("group");
+        groupName = getIntent().getStringExtra(GROUP);
         toolbar.setTitle(groupName);
         this.setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -123,7 +124,7 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
             if(tabLayout.getSelectedTabPosition() != DateMietHelper.getWeekByDay(DateTime.now())% 4){
                 pager.setCurrentItem(DateMietHelper.getWeekByDay(DateTime.now())% 4);
             }else {
-                Snackbar.make(schedule_root, "Вы уже на текущей неделе",
+                Snackbar.make(schedule_root, R.string.schedule_error_this_week,
                         Snackbar.LENGTH_SHORT).show();
             }
             return true;
@@ -133,7 +134,7 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
     }
 
     private Snackbar initSnackBar() {
-        return Snackbar.make(schedule_root, "Обновляем " + groupName + "...",
+        return Snackbar.make(schedule_root, getString(R.string.schedule_updating_group, groupName),
                 Snackbar.LENGTH_INDEFINITE);
     }
 
@@ -170,7 +171,7 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
 
     @Override
     public void showErrorView() {
-        Snackbar.make(schedule_root, "Ошибка при обновлении группы" + groupName + ".",
+        Snackbar.make(schedule_root, getString(R.string.schedule_error_while_updating, groupName),
                 Snackbar.LENGTH_SHORT).show();
     }
 

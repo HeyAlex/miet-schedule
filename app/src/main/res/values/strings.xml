@@ -18,6 +18,13 @@
     <string name="resources">Ресурсы</string>
     <string name="schedule">Расписание</string>
     <string name="news_detail">Просмотр новости</string>
-    <string name="action_search">Seach</string>
+    <string name="action_search">Поиск</string>
+    <string name="Downloading_add_new_group">Скачиваем %s…</string>
+    <string name="error_add_new_group">Ошибка при скачивании %s.</string>
+    <string name="error_news_downloading">Ошибка при обновлении новостей.</string>
+    <string name="schedule_error_this_week">Вы уже на текущей неделе.</string>
+    <string name="schedule_updating_group">Обновляем %s…</string>
+    <string name="schedule_error_while_updating">Ошибка при обновлении группы %s</string>
+    <string name="no_schedule_for_current_day">%s пар нет</string>
 
 </resources>

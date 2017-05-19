@@ -11,13 +11,13 @@ import heyalex.com.miet_schedule.news.NewsView;
  * Created by mac on 09.05.17.
  */
 
-public class GroupsPresenterImpl implements GroupsPresenter{
+/*package*/ class GroupsPresenterImpl implements GroupsPresenter{
 
     private GroupsView view;
     private ScheduleRepository groupsRepository;
 
 
-    public GroupsPresenterImpl(ScheduleRepository groupsRepository) {
+    /*package*/ GroupsPresenterImpl(ScheduleRepository groupsRepository) {
         this.groupsRepository = groupsRepository;
     }
 

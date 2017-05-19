@@ -46,7 +46,7 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
 
     @Override
     public void getAvailableGroups() {
-        view.showDownloading("доступные группы.");
+        view.showDownloading("доступные группы");
         scheduleResponseSubscription.add(UniversityApiFactory.getUniversityApi().getGroupNames()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -189,7 +189,7 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
         public void onError(Throwable e) {
             Timber.e(e, "An error occurred while trying to take groups");
             view.hideDownloading();
-            view.showErrorView(" при скачивании доступных групп.");
+            view.showErrorView("при скачивании доступных групп.");
         }
 
         @Override

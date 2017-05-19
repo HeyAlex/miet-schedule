@@ -12,7 +12,7 @@ public class NavDrawerPresenterImpl implements NavDrawerPresenter {
     private NavDrawerView view;
 
     @Inject
-    public NavDrawerPresenterImpl() {
+    /*package*/ NavDrawerPresenterImpl() {
 
     }
 

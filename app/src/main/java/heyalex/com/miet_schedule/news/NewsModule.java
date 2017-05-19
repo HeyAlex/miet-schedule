@@ -18,7 +18,7 @@ public class NewsModule{
 
         @Provides
         @NewsScope
-        public NewsPresenter provideNewsPresenter(NewsRepository newsRepository) {
+        /*package*/ NewsPresenter provideNewsPresenter(NewsRepository newsRepository) {
             return new NewsPresenterImpl(newsRepository);
         }
 }

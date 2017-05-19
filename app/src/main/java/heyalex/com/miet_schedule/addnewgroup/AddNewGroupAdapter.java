@@ -23,7 +23,7 @@ import static heyalex.com.miet_schedule.util.Preconditions.checkNotNull;
  * Created by alexf on 16.05.2017.
  */
 
-public class AddNewGroupAdapter extends RecyclerView.Adapter<AddNewGroupAdapter.GroupsViewHolder>{
+/*package*/ class AddNewGroupAdapter extends RecyclerView.Adapter<AddNewGroupAdapter.GroupsViewHolder>{
 
     private Context context;
     private AddNewGroupAdapter.OnGroupClickedListener onGroupClickedListener;
@@ -46,8 +46,7 @@ public class AddNewGroupAdapter extends RecyclerView.Adapter<AddNewGroupAdapter.
         return items.size();
     }
 
-
-    public interface OnGroupClickedListener {
+    /*package*/ interface OnGroupClickedListener {
         void onGroupClickedListener(String groupName);
     }
 
@@ -62,11 +61,11 @@ public class AddNewGroupAdapter extends RecyclerView.Adapter<AddNewGroupAdapter.
         super.onDetachedFromRecyclerView(recyclerView);
     }
 
-    public AddNewGroupAdapter(AddNewGroupAdapter.OnGroupClickedListener onGroupClickedListener) {
+    AddNewGroupAdapter(AddNewGroupAdapter.OnGroupClickedListener onGroupClickedListener) {
         this.onGroupClickedListener = checkNotNull(onGroupClickedListener);
     }
 
-    public void setItems(List<String> items) {
+    /*package*/ void setItems(List<String> items) {
         this.items.clear();
         this.items.addAll(items);
         notifyDataSetChanged();
@@ -77,7 +76,7 @@ public class AddNewGroupAdapter extends RecyclerView.Adapter<AddNewGroupAdapter.
         @BindView(R.id.group)
         TextView group;
 
-        public GroupsViewHolder(View itemView) {
+        /*package*/ GroupsViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }

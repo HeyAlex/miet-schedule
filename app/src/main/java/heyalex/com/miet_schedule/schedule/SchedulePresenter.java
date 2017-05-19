@@ -9,7 +9,7 @@ import heyalex.com.miet_schedule.mvp.BasePresenter;
  * Created by alexf on 07.04.2017.
  */
 
-public interface SchedulePresenter extends BasePresenter<ScheduleView>{
+/*package*/ interface SchedulePresenter extends BasePresenter<ScheduleView>{
 
     void getCachedScheduleForGroup(String groupName);
 

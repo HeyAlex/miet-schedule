@@ -24,17 +24,17 @@ import heyalex.com.miet_schedule.model.schedule.DayLessonsModel;
  * Created by mac on 10.05.17.
  */
 
-public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder>  {
+/*package*/ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder>  {
 
     private final List<DayLessonsModel> items = new ArrayList<DayLessonsModel>();
     private Context context;
     private OnLessonClicked onLessonClickedListener;
 
-    public ScheduleAdapter(OnLessonClicked listener){
+    /*package*/ ScheduleAdapter(OnLessonClicked listener){
         this.onLessonClickedListener = listener;
     }
 
-    public interface OnLessonClicked {
+    /*package*/ interface OnLessonClicked {
         void onLessonClickedListener(LessonModel lesson);
     }
 
@@ -54,7 +54,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         return items.size();
     }
 
-    public void setItems(List<DayLessonsModel> items) {
+    /*package*/ void setItems(List<DayLessonsModel> items) {
         this.items.clear();
         this.items.addAll(items);
         notifyDataSetChanged();
@@ -66,7 +66,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         notifyDataSetChanged();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    /*package*/ class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.header)
         TextView dateTextView;
@@ -74,7 +74,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         @BindView(R.id.lessons_root)
         LinearLayout lessonsRoot;
 
-        public ViewHolder(View itemView) {
+        /*package*/ ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
@@ -91,7 +91,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
             }
         }
 
-        public class LessonViewHolder {
+        /*package*/ class LessonViewHolder {
             @BindView(R.id.timeFrom_schedule)
             TextView timeFrom;
 

@@ -7,9 +7,13 @@ import java.util.Set;
  * Created by mac on 09.05.17.
  */
 
-public interface AddNewGroupView {
+/*package*/ interface AddNewGroupView {
+
     void showAvailibleGroups(List<String> groups);
+
     void showErrorView(String errorName);
+
     void showDownloading(String groups);
+
     void hideDownloading();
 }

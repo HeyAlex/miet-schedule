@@ -8,7 +8,10 @@ import heyalex.com.miet_schedule.mvp.BasePresenter;
  */
 
 public interface NewsPresenter extends BasePresenter<NewsView>{
+
     void onNewsClicked(NewsModel newModel);
+
     void onRefreshRequest();
+
     void showNews();
 }

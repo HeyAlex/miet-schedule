@@ -10,8 +10,12 @@ import heyalex.com.miet_schedule.data.BaseRepository;
  */
 
 public interface LessonsRepository extends BaseRepository<LessonModel> {
+
     void deleteAllByGroupName(String groupName);
+
     void replaceAllByGroupName(String groupName, Iterable<LessonModel> lessons);
+
     List<LessonModel> getLessonsByWeekAndDay(String groupName, int week, int day);
+
     List<LessonModel> getLessonsForWeek(String groupName, int week);
 }

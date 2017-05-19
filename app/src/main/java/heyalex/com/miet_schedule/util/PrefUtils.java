@@ -19,7 +19,7 @@ public class PrefUtils {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         final SharedPreferences.Editor editor = prefs.edit();
         editor.putString(key, value);
-        editor.commit();
+        editor.apply();
     }
 
     /**
@@ -50,6 +50,6 @@ public class PrefUtils {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         final SharedPreferences.Editor editor = prefs.edit();
         editor.remove(key);
-        editor.commit();
+        editor.apply();
     }
 }
