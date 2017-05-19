@@ -2,7 +2,6 @@ package heyalex.com.miet_schedule.data.schedule;
 
 import java.util.List;
 
-import heyalex.com.miet_schedule.LessonModel;
 import heyalex.com.miet_schedule.ScheduleModel;
 import heyalex.com.miet_schedule.ScheduleModelDao;
 
@@ -10,7 +9,7 @@ import heyalex.com.miet_schedule.ScheduleModelDao;
  * Created by mac on 13.04.17.
  */
 
-public class ScheduleRepositoryImpl implements ScheduleRepository{
+public class ScheduleRepositoryImpl implements ScheduleRepository {
 
     private final ScheduleModelDao dao;
 
@@ -69,7 +68,7 @@ public class ScheduleRepositoryImpl implements ScheduleRepository{
     public void deleteByGroupName(String groupName) {
         ScheduleModel scheduleByGroup = dao.queryBuilder()
                 .where(ScheduleModelDao.Properties.Group.eq(groupName)).build().unique();
-        if(scheduleByGroup != null){
+        if (scheduleByGroup != null) {
             delete(scheduleByGroup);
         }
     }

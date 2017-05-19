@@ -9,11 +9,11 @@ import heyalex.com.miet_schedule.NewsModelDao;
  * Created by mac on 13.04.17.
  */
 
-public class NewsRepositoryImpl implements NewsRepository{
+public class NewsRepositoryImpl implements NewsRepository {
 
     private final NewsModelDao dao;
 
-    public NewsRepositoryImpl(NewsModelDao dao){
+    public NewsRepositoryImpl(NewsModelDao dao) {
         this.dao = dao;
     }
 

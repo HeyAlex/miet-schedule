@@ -11,8 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import java.util.List;
+
 import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import heyalex.com.miet_schedule.LessonModel;
@@ -84,7 +87,7 @@ public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLess
                         .getLessonsForCurrentFragment(position);
 
                 if (dayLesson.size() != 0) {
-                    if(dayLesson.get(0).getLessons().size() > 0){
+                    if (dayLesson.get(0).getLessons().size() > 0) {
                         scheduleAdapter.setItems(scheduleBuilder
                                 .getLessonsForCurrentFragment(position));
                         no_schedule.setVisibility(View.INVISIBLE);

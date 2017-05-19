@@ -10,7 +10,7 @@ import heyalex.com.miet_schedule.schedule.ScheduleScope;
  */
 
 @Module
-public class ScheduleBuilderModule{
+public class ScheduleBuilderModule {
 
     @Provides
     @ScheduleScope

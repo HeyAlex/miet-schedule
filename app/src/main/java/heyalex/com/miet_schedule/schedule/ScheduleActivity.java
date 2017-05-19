@@ -1,7 +1,5 @@
 package heyalex.com.miet_schedule.schedule;
 
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -14,8 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 
 import org.joda.time.DateTime;
 
@@ -121,9 +117,9 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
             return true;
         }
         if (id == R.id.schedule_go_to_current_week) {
-            if(tabLayout.getSelectedTabPosition() != DateMietHelper.getWeekByDay(DateTime.now())% 4){
-                pager.setCurrentItem(DateMietHelper.getWeekByDay(DateTime.now())% 4);
-            }else {
+            if (tabLayout.getSelectedTabPosition() != DateMietHelper.getWeekByDay(DateTime.now()) % 4) {
+                pager.setCurrentItem(DateMietHelper.getWeekByDay(DateTime.now()) % 4);
+            } else {
                 Snackbar.make(schedule_root, R.string.schedule_error_this_week,
                         Snackbar.LENGTH_SHORT).show();
             }

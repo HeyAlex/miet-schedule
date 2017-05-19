@@ -3,25 +3,17 @@ package heyalex.com.miet_schedule.addnewgroup;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -29,11 +21,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
-import heyalex.com.miet_schedule.ScheduleModel;
-import heyalex.com.miet_schedule.groups.GroupsAdapter;
-import heyalex.com.miet_schedule.navdrawer.DaggerNavDrawerComponent;
-import heyalex.com.miet_schedule.navdrawer.NavDrawerPresenter;
-import heyalex.com.miet_schedule.util.MarginItemDecorator;
 
 /**
  * Created by mac on 28.04.17.
@@ -74,7 +61,7 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
         });
         initViews();
 
-        if(presenter == null){
+        if (presenter == null) {
             ScheduleApp.get(this)
                     .getAddNewGroupComponent()
                     .inject(this);
@@ -115,6 +102,7 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
             }
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

@@ -26,7 +26,7 @@ public class DateMietHelper {
         else return 1;
     }
 
-    public static int getDayInWeek(DateTime dateTime){
+    public static int getDayInWeek(DateTime dateTime) {
         return dateTime.getDayOfWeek();
     }
 }

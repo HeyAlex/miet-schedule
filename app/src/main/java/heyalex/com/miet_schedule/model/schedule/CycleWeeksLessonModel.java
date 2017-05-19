@@ -45,6 +45,7 @@ public class CycleWeeksLessonModel {
     public void setFourthWeek(List<DayLessonsModel> fourthWeek) {
         this.fourthWeek = fourthWeek;
     }
+
     public DayLessonsModel getToday() {
         return today;
     }

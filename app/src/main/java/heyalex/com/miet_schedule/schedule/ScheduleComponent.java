@@ -9,9 +9,10 @@ import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilderModule;
  */
 
 @ScheduleScope
-@Component(modules = {ScheduleModule.class, ScheduleBuilderModule.class} , dependencies = ApplicationComponent.class)
+@Component(modules = {ScheduleModule.class, ScheduleBuilderModule.class}, dependencies = ApplicationComponent.class)
 public interface ScheduleComponent {
     void inject(ScheduleActivity activity);
+
     void inject(ScheduleFragment fragment);
 }
 

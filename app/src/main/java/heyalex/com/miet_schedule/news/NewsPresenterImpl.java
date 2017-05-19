@@ -2,8 +2,6 @@ package heyalex.com.miet_schedule.news;
 
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.reactivestreams.Subscriber;
-import org.reactivestreams.Subscription;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +18,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subscribers.DisposableSubscriber;
 import timber.log.Timber;
 
 /**
@@ -36,7 +33,7 @@ import timber.log.Timber;
     @Inject
     /*package*/ NewsPresenterImpl(NewsRepository newsRepository) {
         this.newsRepository = newsRepository;
-        Timber.i("new object SchedulePresenterImpl, and CompositeDisposable size isL %s",newsResponseSubscription.size());
+        Timber.i("new object SchedulePresenterImpl, and CompositeDisposable size isL %s", newsResponseSubscription.size());
     }
 
     @Override
@@ -73,7 +70,7 @@ import timber.log.Timber;
 
     private class ResponseNewsSubscriber extends DisposableObserver<ArticleResponse> {
 
-        /*package*/ ResponseNewsSubscriber(){
+        /*package*/ ResponseNewsSubscriber() {
         }
 
         final DateTimeFormatter dtf = DateTimeFormat.forPattern("EEE, d MMM yyyy HH:mm:ss Z")
@@ -85,7 +82,7 @@ import timber.log.Timber;
             List<NewsModel> newsModelList = transfromResponseToDaoModel(articleResponse);
             newsRepository.saveAll(newsModelList);
             newsResponseSubscription.clear();
-            if(view != null){
+            if (view != null) {
                 view.setRefreshing(false);
                 view.showNews(newsModelList);
             }

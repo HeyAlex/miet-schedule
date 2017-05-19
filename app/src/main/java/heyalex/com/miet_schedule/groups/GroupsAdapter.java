@@ -5,20 +5,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import heyalex.com.miet_schedule.NewsModel;
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleModel;
-import heyalex.com.miet_schedule.news.NewsAdapter;
 
 import static heyalex.com.miet_schedule.util.Preconditions.checkNotNull;
 
@@ -85,7 +80,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final ScheduleModel groupModel){
+        public void bind(final ScheduleModel groupModel) {
             group.setText(groupModel.getGroup());
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

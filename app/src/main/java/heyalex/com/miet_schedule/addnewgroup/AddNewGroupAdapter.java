@@ -9,13 +9,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import heyalex.com.miet_schedule.R;
-import heyalex.com.miet_schedule.ScheduleModel;
-import heyalex.com.miet_schedule.groups.GroupsAdapter;
 
 import static heyalex.com.miet_schedule.util.Preconditions.checkNotNull;
 
@@ -23,7 +20,7 @@ import static heyalex.com.miet_schedule.util.Preconditions.checkNotNull;
  * Created by alexf on 16.05.2017.
  */
 
-/*package*/ class AddNewGroupAdapter extends RecyclerView.Adapter<AddNewGroupAdapter.GroupsViewHolder>{
+/*package*/ class AddNewGroupAdapter extends RecyclerView.Adapter<AddNewGroupAdapter.GroupsViewHolder> {
 
     private Context context;
     private AddNewGroupAdapter.OnGroupClickedListener onGroupClickedListener;
@@ -81,7 +78,7 @@ import static heyalex.com.miet_schedule.util.Preconditions.checkNotNull;
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final String groupName){
+        public void bind(final String groupName) {
             group.setText(groupName);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

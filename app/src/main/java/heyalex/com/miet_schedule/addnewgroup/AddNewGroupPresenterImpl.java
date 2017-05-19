@@ -5,7 +5,6 @@ import org.joda.time.format.DateTimeFormatter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.inject.Inject;
 
@@ -90,6 +89,7 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
             getAvailableGroups();
         }
     }
+
     @Override
     public void onViewAttached(AddNewGroupView view) {
         this.view = view;
@@ -158,7 +158,8 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
             dataLesson.setTeacherFull(model.getClassModel().getTeacherFull());
             dataLesson.setTeacher(model.getClassModel().getTeacher());
             dataLesson.setCode(model.getTime().getCode());
-            if (disciplineName.contains("[Лаб]")) dataLesson.setDisciplineType("Лабораторная работа");
+            if (disciplineName.contains("[Лаб]"))
+                dataLesson.setDisciplineType("Лабораторная работа");
             else if (disciplineName.contains("[Лек]")) dataLesson.setDisciplineType("Лекция");
             else if (disciplineName.contains("[Пр]")) dataLesson.setDisciplineType("Практика");
             else if (disciplineName.contains("Физ")) dataLesson.setDisciplineType("Физ-ра");
@@ -173,7 +174,7 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
         return new ScheduleModel(groupName, data.getSemestr());
     }
 
-    private class ResponseAvailableGroups extends DisposableObserver<List<String>>{
+    private class ResponseAvailableGroups extends DisposableObserver<List<String>> {
 
         @Override
         public void onNext(List<String> value) {

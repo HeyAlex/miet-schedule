@@ -34,12 +34,14 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(SimpleXmlConverterFactory.create());
 
-    /*package*/ static <S> S createScheduleService(Class<S> serviceClass) {
+    /*package*/
+    static <S> S createScheduleService(Class<S> serviceClass) {
         Retrofit retrofit = retrofitScheduleBuilder.client(httpClient.build()).build();
         return retrofit.create(serviceClass);
     }
 
-    /*package*/ static <S> S createNewsService(Class<S> serviceClass) {
+    /*package*/
+    static <S> S createNewsService(Class<S> serviceClass) {
         Retrofit retrofit = retrofitNewsBuilder.client(httpClient.build()).build();
         return retrofit.create(serviceClass);
     }

@@ -12,5 +12,6 @@ import heyalex.com.miet_schedule.schedule_widget.ScheduleAppWidgetConfigureActiv
 @Component(modules = GroupsModule.class, dependencies = ApplicationComponent.class)
 public interface GroupsComponent {
     void inject(GroupsFragment fragment);
+
     void inject(ScheduleAppWidgetConfigureActivity activity);
 }

@@ -10,7 +10,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,7 +91,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final NewsModel newsModel){
+        public void bind(final NewsModel newsModel) {
             Glide.with(context).load(newsModel.getImageUrl()).centerCrop().into(image);
             title.setText(newsModel.getTitle());
             desciption.setText(newsModel.getDescription());
