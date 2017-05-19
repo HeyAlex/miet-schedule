@@ -4,10 +4,7 @@ import org.joda.time.DateTime;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import heyalex.com.miet_schedule.LessonModel;
 import heyalex.com.miet_schedule.model.schedule.CycleWeeksLessonModel;
@@ -15,9 +12,6 @@ import heyalex.com.miet_schedule.model.schedule.DayLessonsModel;
 import heyalex.com.miet_schedule.model.schedule.ScheduleComparator;
 import heyalex.com.miet_schedule.util.DateMietHelper;
 import heyalex.com.miet_schedule.util.NavigationUtil;
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by mac on 12.05.17.
@@ -25,7 +19,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ScheduleBuilder {
 
-    public static CycleWeeksLessonModel buildSchedule(List<LessonModel> lessons){
+    public static CycleWeeksLessonModel buildSchedule(List<LessonModel> lessons) {
         CycleWeeksLessonModel schedule = new CycleWeeksLessonModel();
         List<DayLessonsModel> weekOne = new ArrayList<>();
         List<DayLessonsModel> weekTwo = new ArrayList<>();
@@ -103,7 +97,7 @@ public class ScheduleBuilder {
                 weekFourth.add(item4);
             }
 
-            if(dayToday - 1 == i){
+            if (dayToday - 1 == i) {
                 switch (weekToday) {
                     case 1: {
                         schedule.setToday(item1);
@@ -123,7 +117,7 @@ public class ScheduleBuilder {
                     }
                 }
             }
-            if(dayTommorow - 1 == i){
+            if (dayTommorow - 1 == i) {
                 switch (weekTommorow) {
                     case 1: {
                         schedule.setTommorow(item1);
@@ -151,7 +145,7 @@ public class ScheduleBuilder {
         return schedule;
     }
 
-    public static DayLessonsModel buildDailySchedule(List<LessonModel> dailyLessons, int day){
+    public static DayLessonsModel buildDailySchedule(List<LessonModel> dailyLessons, int day) {
         DayLessonsModel dailySchedule = new DayLessonsModel();
         Collections.sort(dailyLessons, new ScheduleComparator());
         dailySchedule.setLessons(dailyLessons);

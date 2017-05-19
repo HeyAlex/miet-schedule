@@ -23,7 +23,7 @@ public class Generator {
         news.addStringProperty("date");
     }
 
-    public static void addSchedule(Schema schema){
+    public static void addSchedule(Schema schema) {
         Entity schedule = schema.addEntity("ScheduleModel");
         schedule.addStringProperty("group").primaryKey();
         schedule.addStringProperty("semestr");

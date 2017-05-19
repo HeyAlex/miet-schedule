@@ -1,9 +1,5 @@
 package heyalex.com.miet_schedule.schedule;
 
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -16,7 +12,6 @@ import heyalex.com.miet_schedule.api.UniversityApiFactory;
 import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
 import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
 import heyalex.com.miet_schedule.model.schedule.CycleWeeksLessonModel;
-import heyalex.com.miet_schedule.model.schedule.Data;
 import heyalex.com.miet_schedule.model.schedule.SemestrData;
 import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilder;
 import io.reactivex.Observable;
@@ -31,7 +26,7 @@ import timber.log.Timber;
  * Created by mac on 10.05.17.
  */
 
-/*package*/ class SchedulePresenterImpl implements SchedulePresenter{
+/*package*/ class SchedulePresenterImpl implements SchedulePresenter {
 
     private ScheduleRepository scheduleRepository;
     private LessonsRepository lessonsRepository;
@@ -40,7 +35,7 @@ import timber.log.Timber;
 
     @Inject
     /*package*/ SchedulePresenterImpl(ScheduleRepository scheduleRepository,
-                                 LessonsRepository lessonsRepository) {
+                                      LessonsRepository lessonsRepository) {
         this.scheduleRepository = scheduleRepository;
         this.lessonsRepository = lessonsRepository;
     }
@@ -89,7 +84,7 @@ import timber.log.Timber;
             lessonsRepository.replaceAllByGroupName(groupName, lessons);
             scheduleRepository.replaceByGroupName(groupName,
                     AddNewGroupPresenterImpl.transformToDaoScheduleModel(semestrResponse, groupName));
-            if(view != null){
+            if (view != null) {
                 view.showReloadedSchedule(ScheduleBuilder.buildSchedule(lessons));
                 view.showStatus(false);
             }
@@ -114,18 +109,18 @@ import timber.log.Timber;
 
     private Observable<CycleWeeksLessonModel> retrieveSchedule(final String groupName) {
         return Observable.fromCallable(new Callable<ScheduleModel>() {
-                @Override
-                public ScheduleModel call() throws Exception {
-                    return scheduleRepository.getGroupByName(groupName);
-                }
-            }).map(new Function<ScheduleModel, CycleWeeksLessonModel>() {
-                @Override
-                 public CycleWeeksLessonModel apply(ScheduleModel scheduleModel) throws Exception {
-                    return ScheduleBuilder.buildSchedule(scheduleModel.getLessons());
-                }
+            @Override
+            public ScheduleModel call() throws Exception {
+                return scheduleRepository.getGroupByName(groupName);
+            }
+        }).map(new Function<ScheduleModel, CycleWeeksLessonModel>() {
+            @Override
+            public CycleWeeksLessonModel apply(ScheduleModel scheduleModel) throws Exception {
+                return ScheduleBuilder.buildSchedule(scheduleModel.getLessons());
+            }
         })
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribeOn(Schedulers.io());
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io());
     }
 
     private class ResponseNewsSubscriber extends DisposableObserver<CycleWeeksLessonModel> {
@@ -135,7 +130,7 @@ import timber.log.Timber;
 
         @Override
         public void onNext(CycleWeeksLessonModel schedule) {
-            if(view != null){
+            if (view != null) {
                 view.showSchedule(schedule);
             }
             scheduleCompositeDisposable.clear();

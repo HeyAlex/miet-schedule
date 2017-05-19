@@ -1,7 +1,6 @@
 package heyalex.com.miet_schedule.api;
 
 import java.util.List;
-import java.util.Set;
 
 import heyalex.com.miet_schedule.model.news.ArticleResponse;
 import heyalex.com.miet_schedule.model.schedule.SemestrData;

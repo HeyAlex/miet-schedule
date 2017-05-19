@@ -10,12 +10,12 @@ import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
  */
 
 @Module
-public class AddNewGroupModule{
+public class AddNewGroupModule {
 
     @Provides
     @AddNewGroupScope
     /*package*/ AddNewGroupPresenter provideAddNewGroupPresenter(ScheduleRepository groupsRepository,
-                                                            LessonsRepository lessonsRepository) {
+                                                                 LessonsRepository lessonsRepository) {
         return new AddNewGroupPresenterImpl(groupsRepository, lessonsRepository);
     }
 }

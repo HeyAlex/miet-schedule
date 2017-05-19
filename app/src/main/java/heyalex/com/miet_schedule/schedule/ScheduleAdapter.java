@@ -5,10 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,20 +15,19 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import heyalex.com.miet_schedule.LessonModel;
 import heyalex.com.miet_schedule.R;
-import heyalex.com.miet_schedule.ScheduleModel;
 import heyalex.com.miet_schedule.model.schedule.DayLessonsModel;
 
 /**
  * Created by mac on 10.05.17.
  */
 
-/*package*/ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder>  {
+/*package*/ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
 
     private final List<DayLessonsModel> items = new ArrayList<DayLessonsModel>();
     private Context context;
     private OnLessonClicked onLessonClickedListener;
 
-    /*package*/ ScheduleAdapter(OnLessonClicked listener){
+    /*package*/ ScheduleAdapter(OnLessonClicked listener) {
         this.onLessonClickedListener = listener;
     }
 
@@ -79,12 +76,12 @@ import heyalex.com.miet_schedule.model.schedule.DayLessonsModel;
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(DayLessonsModel item){
+        public void bind(DayLessonsModel item) {
             dateTextView.setText(item.getDay());
             int i = 0;
             lessonsRoot.removeAllViews();
             if (item.getLessons() != null) {
-                for (LessonModel lesson:item.getLessons()) {
+                for (LessonModel lesson : item.getLessons()) {
                     lessonsRoot.addView(new LessonViewHolder().bind(i, lesson));
                     i++;
                 }
@@ -107,9 +104,9 @@ import heyalex.com.miet_schedule.model.schedule.DayLessonsModel;
             @BindView(R.id.prep_schedule)
             TextView teacher;
 
-            private View bind(int i, final LessonModel lesson){
+            private View bind(int i, final LessonModel lesson) {
                 LayoutInflater inflater = LayoutInflater.from(context);
-                View view = inflater.inflate(R.layout.lesson_item, (ViewGroup)itemView, false);
+                View view = inflater.inflate(R.layout.lesson_item, (ViewGroup) itemView, false);
                 ButterKnife.bind(this, view);
                 view.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -42,7 +42,7 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
 
     @Override
     protected void setupNavListView() {
-        navAdapter = new NavAdapter(this,this);
+        navAdapter = new NavAdapter(this, this);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setAdapter(navAdapter);
 
@@ -121,7 +121,7 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
     @Override
     public void showCurrentPosition(int postion) {
         navAdapter.setCurrentPos(postion);
-        if(getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(NavigationUtil.drawerList[postion]);
         }
     }

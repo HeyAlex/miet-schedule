@@ -57,7 +57,7 @@ public class LessonsRepositoryImpl implements LessonsRepository {
         Iterable<LessonModel> lessonsByGroup = dao.queryBuilder()
                 .where(LessonModelDao.Properties.GroupName.eq(groupName)).build().list();
         List<LessonModel> allLesons = dao.loadAll();
-        if(lessonsByGroup.iterator().hasNext()){
+        if (lessonsByGroup.iterator().hasNext()) {
             dao.deleteInTx(lessonsByGroup);
         }
     }
@@ -71,8 +71,8 @@ public class LessonsRepositoryImpl implements LessonsRepository {
     @Override
     public List<LessonModel> getLessonsByWeekAndDay(String groupName, int week, int day) {
         return dao.queryBuilder().where(LessonModelDao.Properties.GroupName.eq(groupName),
-                                        LessonModelDao.Properties.Week.eq(week),
-                                        LessonModelDao.Properties.Day.eq(day)).build().list();
+                LessonModelDao.Properties.Week.eq(week),
+                LessonModelDao.Properties.Day.eq(day)).build().list();
     }
 
     @Override

@@ -3,8 +3,6 @@ package heyalex.com.miet_schedule.schedule;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.FragmentStatePagerAdapter;
-import android.view.ViewGroup;
 
 
 /**
@@ -16,7 +14,7 @@ import android.view.ViewGroup;
     private static final int NUM_ITEMS = 6;
 
     /*package*/ ScheduleViewPagerAdapter(FragmentManager fm) {
-        super(fm) ;
+        super(fm);
     }
 
     @Override

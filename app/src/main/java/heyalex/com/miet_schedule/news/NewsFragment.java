@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import java.util.List;
 
@@ -21,7 +20,6 @@ import butterknife.ButterKnife;
 import heyalex.com.miet_schedule.NewsModel;
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
-import heyalex.com.miet_schedule.util.MarginItemDecorator;
 import timber.log.Timber;
 
 /**
@@ -29,7 +27,7 @@ import timber.log.Timber;
  */
 
 public class NewsFragment extends Fragment implements NewsView, NewsAdapter.OnNewsClickedListener,
-        SwipeRefreshLayout.OnRefreshListener{
+        SwipeRefreshLayout.OnRefreshListener {
 
     private NewsAdapter newsAdapter = new NewsAdapter(this);
 
@@ -51,7 +49,7 @@ public class NewsFragment extends Fragment implements NewsView, NewsAdapter.OnNe
     }
 
     private void initViews() {
-        recyclerView.setLayoutManager( new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(newsAdapter);
         swipeRefreshLayout.setOnRefreshListener(this);
     }

@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -23,13 +22,12 @@ import heyalex.com.miet_schedule.ScheduleApp;
 import heyalex.com.miet_schedule.ScheduleModel;
 import heyalex.com.miet_schedule.addnewgroup.AddNewGroupActivity;
 import heyalex.com.miet_schedule.schedule.ScheduleActivity;
-import heyalex.com.miet_schedule.util.MarginItemDecorator;
 
 /**
  * Created by mac on 28.04.17.
  */
 
-public class GroupsFragment extends Fragment implements GroupsView, GroupsAdapter.OnGroupClickedListener{
+public class GroupsFragment extends Fragment implements GroupsView, GroupsAdapter.OnGroupClickedListener {
 
     private GroupsAdapter groupsAdapter = new GroupsAdapter(this);
 
@@ -40,7 +38,7 @@ public class GroupsFragment extends Fragment implements GroupsView, GroupsAdapte
     GroupsPresenter presenter;
 
     private void initViews() {
-        recyclerView.setLayoutManager( new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(groupsAdapter);
     }
 

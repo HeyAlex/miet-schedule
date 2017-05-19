@@ -1,7 +1,6 @@
 package heyalex.com.miet_schedule.addnewgroup;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by mac on 09.05.17.

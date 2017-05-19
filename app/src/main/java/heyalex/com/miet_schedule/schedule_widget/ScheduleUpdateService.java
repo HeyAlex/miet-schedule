@@ -13,7 +13,7 @@ import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
  * Created by alexf on 13.04.2017.
  */
 
-public class ScheduleUpdateService extends IntentService{
+public class ScheduleUpdateService extends IntentService {
 
     @Inject
     LessonsRepository lessonsRepository;

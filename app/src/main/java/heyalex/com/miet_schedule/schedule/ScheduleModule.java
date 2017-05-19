@@ -10,12 +10,12 @@ import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
  */
 
 @Module
-public class ScheduleModule{
+public class ScheduleModule {
 
     @Provides
     @ScheduleScope
     /*package*/ SchedulePresenter provideSchedulePresenter(ScheduleRepository scheduleRepository,
-                                                          LessonsRepository lessonsRepository) {
+                                                           LessonsRepository lessonsRepository) {
         return new SchedulePresenterImpl(scheduleRepository, lessonsRepository);
     }
 }

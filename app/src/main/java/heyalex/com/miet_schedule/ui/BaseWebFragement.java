@@ -19,7 +19,7 @@ import heyalex.com.miet_schedule.R;
  * Created by alexf on 06.04.2017.
  */
 
-public class BaseWebFragement extends Fragment{
+public class BaseWebFragement extends Fragment {
 
     private WebView webView;
 
@@ -79,6 +79,7 @@ public class BaseWebFragement extends Fragment{
             }
         });
     }
+
     @Override
     public void onDestroy() {
         webView.destroy();

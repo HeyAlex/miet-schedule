@@ -4,7 +4,6 @@ import android.app.Application;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-
 import heyalex.com.miet_schedule.addnewgroup.AddNewGroupComponent;
 import heyalex.com.miet_schedule.addnewgroup.AddNewGroupModule;
 import heyalex.com.miet_schedule.addnewgroup.DaggerAddNewGroupComponent;
@@ -19,9 +18,9 @@ import heyalex.com.miet_schedule.news.DaggerNewsComponent;
 import heyalex.com.miet_schedule.news.NewsComponent;
 import heyalex.com.miet_schedule.news.NewsModule;
 import heyalex.com.miet_schedule.schedule.DaggerScheduleComponent;
-import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilderModule;
 import heyalex.com.miet_schedule.schedule.ScheduleComponent;
 import heyalex.com.miet_schedule.schedule.ScheduleModule;
+import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilderModule;
 import timber.log.Timber;
 
 /**

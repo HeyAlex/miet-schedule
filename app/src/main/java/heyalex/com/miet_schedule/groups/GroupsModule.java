@@ -9,7 +9,7 @@ import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
  */
 
 @Module
-public class GroupsModule{
+public class GroupsModule {
 
     @Provides
     @GroupsScope
