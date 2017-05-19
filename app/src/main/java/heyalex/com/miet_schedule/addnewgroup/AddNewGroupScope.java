@@ -7,5 +7,5 @@ import javax.inject.Scope;
  */
 
 @Scope
-public @interface AddNewGroupScope {
+/*package*/ @interface AddNewGroupScope {
 }

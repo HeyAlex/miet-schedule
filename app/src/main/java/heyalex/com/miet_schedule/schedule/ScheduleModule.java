@@ -14,7 +14,7 @@ public class ScheduleModule{
 
     @Provides
     @ScheduleScope
-    public SchedulePresenter provideSchedulePresenter(ScheduleRepository scheduleRepository,
+    /*package*/ SchedulePresenter provideSchedulePresenter(ScheduleRepository scheduleRepository,
                                                           LessonsRepository lessonsRepository) {
         return new SchedulePresenterImpl(scheduleRepository, lessonsRepository);
     }

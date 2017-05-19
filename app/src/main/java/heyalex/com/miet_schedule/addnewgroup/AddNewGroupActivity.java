@@ -107,7 +107,6 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
 
     private void setupToolbar() {
         if (toolbar != null) {
-            toolbar.setTitle("Добавить группу:");
             setSupportActionBar(toolbar);
             ActionBar actionBar = getSupportActionBar();
 
@@ -123,8 +122,8 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
     }
 
     private Snackbar initSnackBar(String groupName) {
-        Snackbar bar = Snackbar.make(root, "Скачиваем " + groupName + "...", Snackbar.LENGTH_INDEFINITE);
-        return bar;
+        return Snackbar.make(root, getString(R.string.Downloading_add_new_group, groupName)
+                , Snackbar.LENGTH_INDEFINITE);
     }
 
     @Override
@@ -139,7 +138,8 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
 
     @Override
     public void showErrorView(String errorName) {
-        Snackbar.make(root, "Ошибка при скачивании " + errorName + ".", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(root, getString(R.string.error_add_new_group, errorName)
+                , Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -161,7 +161,5 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
     private void initViews() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(groupsAdapter);
-        //recyclerView.setItemAnimator(new OvershootInLeftAnimator());
     }
-
 }

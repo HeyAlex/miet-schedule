@@ -22,7 +22,7 @@ import heyalex.com.miet_schedule.util.NavigationUtil;
  * Created by alexf on 14.04.2017.
  */
 
-public class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder> {
+/*package*/ class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder> {
 
     private Context context;
     private final Integer[] iconId = new Integer[]{R.drawable.calendar,
@@ -33,18 +33,18 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder> {
     private int mCurrentPos = 0;
     private OnNavClickedListener clickedListener;
 
-    public NavAdapter(Context context, OnNavClickedListener clickedListener) {
+    /*package*/ NavAdapter(Context context, OnNavClickedListener clickedListener) {
         this.context = context;
         this.data = Arrays.asList(iconId);
         this.clickedListener = clickedListener;
         notifyDataSetChanged();
     }
 
-    public interface OnNavClickedListener {
+    /*package*/ interface OnNavClickedListener {
         void onNavClicked(int position);
     }
 
-    public void setCurrentPos(int currentPos) {
+    /*package*/ void setCurrentPos(int currentPos) {
         mCurrentPos = currentPos;
     }
 
@@ -70,7 +70,7 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder> {
         return data.size();
     }
 
-    public int getItem(int position) {
+    /*package*/ int getItem(int position) {
         return data.get(position);
     }
 
@@ -79,7 +79,7 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder> {
     private static final int SELECTED_COLOR = Color.parseColor("#2196F3");
     private static final int UNSELECTED_COLOR = Color.parseColor("#4b4b4b");
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    /*package*/ class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.drawer_item)
         LinearLayout mDrawerItem;
@@ -89,13 +89,13 @@ public class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder> {
         TextView mItemTextView;
 
 
-        public ViewHolder(View itemView) {
+        /*package*/ ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
 
 
-        public void fillView(int position) {
+        /*package*/ void fillView(int position) {
             mItemImageView.setImageResource(getItem(position));
             mItemTextView.setText(NavigationUtil.drawerList[position]);
             if (position == mCurrentPos) {

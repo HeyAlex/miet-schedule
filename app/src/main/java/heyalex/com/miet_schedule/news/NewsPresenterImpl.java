@@ -27,14 +27,14 @@ import timber.log.Timber;
  * Created by mac on 02.05.17.
  */
 
-public class NewsPresenterImpl implements NewsPresenter {
+/*package*/ class NewsPresenterImpl implements NewsPresenter {
 
     private NewsView view;
     private NewsRepository newsRepository;
     private final CompositeDisposable newsResponseSubscription = new CompositeDisposable();
 
     @Inject
-    public NewsPresenterImpl(NewsRepository newsRepository) {
+    /*package*/ NewsPresenterImpl(NewsRepository newsRepository) {
         this.newsRepository = newsRepository;
         Timber.i("new object SchedulePresenterImpl, and CompositeDisposable size isL %s",newsResponseSubscription.size());
     }
@@ -73,7 +73,7 @@ public class NewsPresenterImpl implements NewsPresenter {
 
     private class ResponseNewsSubscriber extends DisposableObserver<ArticleResponse> {
 
-        public ResponseNewsSubscriber(){
+        /*package*/ ResponseNewsSubscriber(){
         }
 
         final DateTimeFormatter dtf = DateTimeFormat.forPattern("EEE, d MMM yyyy HH:mm:ss Z")

@@ -12,16 +12,16 @@ import dagger.Provides;
  * Provides {@link Context}
  */
 @Module
-public final class ApplicationModule {
+/*package*/ final class ApplicationModule {
     private final Context context;
 
-    public ApplicationModule(Context context) {
+    /*package*/ ApplicationModule(Context context) {
         this.context = context;
     }
 
     @Provides
     @Singleton
-    public Context provideContext() {
+    /*package*/ Context provideContext() {
         return context;
     }
 }

@@ -14,7 +14,7 @@ public class AddNewGroupModule{
 
     @Provides
     @AddNewGroupScope
-    public AddNewGroupPresenter provideAddNewGroupPresenter(ScheduleRepository groupsRepository,
+    /*package*/ AddNewGroupPresenter provideAddNewGroupPresenter(ScheduleRepository groupsRepository,
                                                             LessonsRepository lessonsRepository) {
         return new AddNewGroupPresenterImpl(groupsRepository, lessonsRepository);
     }

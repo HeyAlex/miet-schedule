@@ -42,7 +42,6 @@ public class GroupsFragment extends Fragment implements GroupsView, GroupsAdapte
     private void initViews() {
         recyclerView.setLayoutManager( new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(groupsAdapter);
-        //recyclerView.setItemAnimator(new OvershootInLeftAnimator());
     }
 
     @Nullable

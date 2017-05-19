@@ -31,7 +31,7 @@ import timber.log.Timber;
  * Created by mac on 10.05.17.
  */
 
-public class SchedulePresenterImpl implements SchedulePresenter{
+/*package*/ class SchedulePresenterImpl implements SchedulePresenter{
 
     private ScheduleRepository scheduleRepository;
     private LessonsRepository lessonsRepository;
@@ -39,7 +39,7 @@ public class SchedulePresenterImpl implements SchedulePresenter{
     private final CompositeDisposable scheduleCompositeDisposable = new CompositeDisposable();
 
     @Inject
-    public SchedulePresenterImpl(ScheduleRepository scheduleRepository,
+    /*package*/ SchedulePresenterImpl(ScheduleRepository scheduleRepository,
                                  LessonsRepository lessonsRepository) {
         this.scheduleRepository = scheduleRepository;
         this.lessonsRepository = lessonsRepository;
@@ -77,7 +77,7 @@ public class SchedulePresenterImpl implements SchedulePresenter{
 
         private String groupName;
 
-        public ResponseScheduleObserver(String groupName) {
+        /*package*/ ResponseScheduleObserver(String groupName) {
             this.groupName = groupName;
         }
 
@@ -89,9 +89,12 @@ public class SchedulePresenterImpl implements SchedulePresenter{
             lessonsRepository.replaceAllByGroupName(groupName, lessons);
             scheduleRepository.replaceByGroupName(groupName,
                     AddNewGroupPresenterImpl.transformToDaoScheduleModel(semestrResponse, groupName));
-            view.showReloadedSchedule(ScheduleBuilder.buildSchedule(lessons));
+            if(view != null){
+                view.showReloadedSchedule(ScheduleBuilder.buildSchedule(lessons));
+                view.showStatus(false);
+            }
             scheduleCompositeDisposable.clear();
-            view.showStatus(false);
+
         }
 
         @Override
@@ -109,7 +112,7 @@ public class SchedulePresenterImpl implements SchedulePresenter{
         }
     }
 
-    public Observable<CycleWeeksLessonModel> retrieveSchedule(final String groupName) {
+    private Observable<CycleWeeksLessonModel> retrieveSchedule(final String groupName) {
         return Observable.fromCallable(new Callable<ScheduleModel>() {
                 @Override
                 public ScheduleModel call() throws Exception {
@@ -127,12 +130,14 @@ public class SchedulePresenterImpl implements SchedulePresenter{
 
     private class ResponseNewsSubscriber extends DisposableObserver<CycleWeeksLessonModel> {
 
-        public ResponseNewsSubscriber() {
+        /*package*/ ResponseNewsSubscriber() {
         }
 
         @Override
         public void onNext(CycleWeeksLessonModel schedule) {
-            view.showSchedule(schedule);
+            if(view != null){
+                view.showSchedule(schedule);
+            }
             scheduleCompositeDisposable.clear();
         }
 

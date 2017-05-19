@@ -42,19 +42,19 @@ public class DataModule {
 
     @Provides
     @Singleton
-    public NewsRepository provideNewsRepository() {
+    /*package*/ NewsRepository provideNewsRepository() {
         return newsRepository;
     }
 
     @Provides
     @Singleton
-    public ScheduleRepository provideScheduleRepository() {
+    /*package*/ ScheduleRepository provideScheduleRepository() {
         return scheduleRepository;
     }
 
     @Provides
     @Singleton
-    public LessonsRepository provideLessonssRepository() {
+    /*package*/ LessonsRepository provideLessonssRepository() {
         return lessonsRepository;
     }
 

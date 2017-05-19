@@ -68,11 +68,12 @@ public class ScheduleBuilderHelperImpl implements ScheduleBuilderHelper{
     }
 
     private String toStringScheduleDay(DateTime date, int week) {
-        return date.toString("dd MMMM yyyy", new Locale("ru")) + "г. (" + NavigationUtil.weekListLong[week] + ")";
+        return date.toString("dd MMMM yyyy", new Locale("ru")) + "г. ("
+                + NavigationUtil.weekListLong[week] + ")";
     }
     @Override
     public void setBuildedLessonSchedule(CycleWeeksLessonModel schedule) {
-        Timber.i("ScheduleBuilderHelperImpl set a builded schedule");
+        Timber.i("ScheduleBuilderHelperImpl set a built schedule");
         this.today = DateTime.now();
         this.schedule = schedule;
     }

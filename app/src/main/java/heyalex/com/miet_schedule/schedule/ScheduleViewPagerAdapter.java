@@ -11,11 +11,11 @@ import android.view.ViewGroup;
  * Created by mac on 10.05.17.
  */
 
-public class ScheduleViewPagerAdapter extends FragmentPagerAdapter {
+/*package*/ class ScheduleViewPagerAdapter extends FragmentPagerAdapter {
 
-    static final int NUM_ITEMS = 6;
+    private static final int NUM_ITEMS = 6;
 
-    public ScheduleViewPagerAdapter(FragmentManager fm) {
+    /*package*/ ScheduleViewPagerAdapter(FragmentManager fm) {
         super(fm) ;
     }
 

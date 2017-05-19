@@ -9,7 +9,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
-public class UniversityServiceGenerator {
+/*package*/ class UniversityServiceGenerator {
 
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
 
@@ -34,12 +34,12 @@ public class UniversityServiceGenerator {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(SimpleXmlConverterFactory.create());
 
-    public static <S> S createScheduleService(Class<S> serviceClass) {
+    /*package*/ static <S> S createScheduleService(Class<S> serviceClass) {
         Retrofit retrofit = retrofitScheduleBuilder.client(httpClient.build()).build();
         return retrofit.create(serviceClass);
     }
 
-    public static <S> S createNewsService(Class<S> serviceClass) {
+    /*package*/ static <S> S createNewsService(Class<S> serviceClass) {
         Retrofit retrofit = retrofitNewsBuilder.client(httpClient.build()).build();
         return retrofit.create(serviceClass);
     }

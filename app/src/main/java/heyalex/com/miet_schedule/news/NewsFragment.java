@@ -54,12 +54,11 @@ public class NewsFragment extends Fragment implements NewsView, NewsAdapter.OnNe
         recyclerView.setLayoutManager( new LinearLayoutManager(getActivity()));
         recyclerView.setAdapter(newsAdapter);
         swipeRefreshLayout.setOnRefreshListener(this);
-        //recyclerView.setItemAnimator(new OvershootInLeftAnimator());
     }
 
     @Override
     public void showErrorView() {
-        Snackbar.make(root, "Ошибка при обновлении новостей.", Snackbar.LENGTH_SHORT).show();
+        Snackbar.make(root, R.string.error_news_downloading, Snackbar.LENGTH_SHORT).show();
     }
 
     @Override
@@ -86,13 +85,6 @@ public class NewsFragment extends Fragment implements NewsView, NewsAdapter.OnNe
             presenter.onRefreshRequest();
         }
         presenter.onViewAttached(this);
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        Timber.i("onDestroyView");
-
     }
 
     @Override

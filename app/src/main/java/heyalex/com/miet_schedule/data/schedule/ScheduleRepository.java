@@ -9,7 +9,10 @@ import heyalex.com.miet_schedule.data.BaseRepository;
  */
 
 public interface ScheduleRepository extends BaseRepository<ScheduleModel> {
+
     ScheduleModel getGroupByName(String groupName);
+
     void replaceByGroupName(String groupName, ScheduleModel model);
+
     void deleteByGroupName(String groupName);
 }
