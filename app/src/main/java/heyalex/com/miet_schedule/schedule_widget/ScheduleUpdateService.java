@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.Nullable;
+import android.support.transition.Visibility;
+import android.view.View;
 import android.widget.RemoteViews;
 
 import org.joda.time.DateTime;
@@ -28,7 +30,11 @@ import heyalex.com.miet_schedule.util.DateMietHelper;
 
 public class ScheduleUpdateService extends IntentService {
 
-    private static final String tommorow = "TOMMOROW";
+    public static final String tommorow = "TOMMOROW";
+    public static final String today = "TODAY";
+
+    @Inject
+    LessonsRepository lessonsRepository;
 
 
     public ScheduleUpdateService() {
@@ -51,36 +57,62 @@ public class ScheduleUpdateService extends IntentService {
             String group = intent.getStringExtra("group");
 
             if (intent.getAction() != null){
-                if(intent.getAction().equals(tommorow)){
+                if(intent.getAction().startsWith(tommorow)){
                     RemoteViews remoteViews = new RemoteViews(this.getPackageName(), R.layout.schedule_app_widget);
-                    remoteViews.setTextViewText(R.id.header,group + "(завтра)");
-                    Intent adapter = new Intent(this, LessonRemoteService.class);
-                    adapter.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
-                    adapter.putExtra("group", group);
-                    adapter.putExtra("day", DateMietHelper.getDayInWeek(DateTime.now().plusDays(4)));
-                    Uri data = Uri.parse(adapter.toUri(Intent.URI_INTENT_SCHEME));
-                    adapter.setData(data);
-                    remoteViews.setRemoteAdapter(R.id.lessons, adapter);
-                    appWidgetManager.updateAppWidget(widgetId, remoteViews);
-                    appWidgetManager.notifyAppWidgetViewDataChanged(widgetId,
-                            R.id.lessons);
+                    remoteViews.setInt(R.id.widget_control, "setBackgroundResource", R.drawable.chevron_left);
+                    remoteViews.setTextViewText(R.id.header,group);
+                    remoteViews.setOnClickPendingIntent(R.id.widget_control, getPingPendingIntent(this, today + String.valueOf(widgetId),widgetId,group));
+                    remoteViews.setTextViewText(R.id.day,"ЗАВТРА");
+
+                    if(lessonsRepository.getLessonsByWeekAndDay( group, 2, DateMietHelper.getDayInWeek(DateTime.now().plusDays(3))).isEmpty()){
+                        remoteViews.setViewVisibility(R.id.no_schedule_view, View.VISIBLE);
+                        remoteViews.setViewVisibility(R.id.lessons, View.INVISIBLE);
+                        appWidgetManager.updateAppWidget(widgetId, remoteViews);
+                        appWidgetManager.notifyAppWidgetViewDataChanged(widgetId,
+                                R.id.lessons);
+                    }else {
+                        remoteViews.setViewVisibility(R.id.no_schedule_view, View.INVISIBLE);
+                        remoteViews.setViewVisibility(R.id.lessons, View.VISIBLE);
+                        Intent adapter = new Intent(this, LessonRemoteService.class);
+                        adapter.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+                        adapter.putExtra("group", group);
+                        adapter.putExtra("day", DateMietHelper.getDayInWeek(DateTime.now().plusDays(3)));
+                        Uri data = Uri.parse(adapter.toUri(Intent.URI_INTENT_SCHEME));
+                        adapter.setData(data);
+                        remoteViews.setRemoteAdapter(R.id.lessons, adapter);
+                        appWidgetManager.updateAppWidget(widgetId, remoteViews);
+                        appWidgetManager.notifyAppWidgetViewDataChanged(widgetId,
+                                R.id.lessons);
+                    }
+
+                } else if(intent.getAction().startsWith(today)){
+                    RemoteViews remoteViews = new RemoteViews(this.getPackageName(), R.layout.schedule_app_widget);
+                    remoteViews.setTextViewText(R.id.day,"СЕГОДНЯ");
+                    remoteViews.setInt(R.id.widget_control, "setBackgroundResource", R.drawable.chevron_right);
+                    remoteViews.setTextViewText(R.id.header,group);
+                    remoteViews.setOnClickPendingIntent(R.id.widget_control, getPingPendingIntent(this, tommorow+ String.valueOf(widgetId),widgetId,group));
+
+                    if(lessonsRepository.getLessonsByWeekAndDay( group, 2, DateMietHelper.getDayInWeek(DateTime.now().plusDays(2))).isEmpty()){
+                        remoteViews.setViewVisibility(R.id.no_schedule_view, View.VISIBLE);
+                        remoteViews.setViewVisibility(R.id.lessons, View.INVISIBLE);
+                        appWidgetManager.updateAppWidget(widgetId, remoteViews);
+                        appWidgetManager.notifyAppWidgetViewDataChanged(widgetId,
+                                R.id.lessons);
+                    }else {
+                        remoteViews.setViewVisibility(R.id.no_schedule_view, View.INVISIBLE);
+                        remoteViews.setViewVisibility(R.id.lessons, View.VISIBLE);
+                        Intent adapter = new Intent(this, LessonRemoteService.class);
+                        adapter.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+                        adapter.putExtra("group", group);
+                        adapter.putExtra("day", DateMietHelper.getDayInWeek(DateTime.now().plusDays(2)));
+                        Uri data = Uri.parse(adapter.toUri(Intent.URI_INTENT_SCHEME));
+                        adapter.setData(data);
+                        remoteViews.setRemoteAdapter(R.id.lessons, adapter);
+                        appWidgetManager.updateAppWidget(widgetId, remoteViews);
+                        appWidgetManager.notifyAppWidgetViewDataChanged(widgetId,
+                                R.id.lessons);
+                    }
                 }
-
-
-            }else {
-                RemoteViews remoteViews = new RemoteViews(this.getPackageName(), R.layout.schedule_app_widget);
-                remoteViews.setTextViewText(R.id.header,group+ "(сегодня)");
-                remoteViews.setOnClickPendingIntent(R.id.header, getPingPendingIntent(this, tommorow,widgetId,group));
-                Intent adapter = new Intent(this, LessonRemoteService.class);
-                adapter.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
-                adapter.putExtra("group", group);
-                adapter.putExtra("day", DateMietHelper.getDayInWeek(DateTime.now().plusDays(3)));
-                Uri data = Uri.parse(adapter.toUri(Intent.URI_INTENT_SCHEME));
-                adapter.setData(data);
-                remoteViews.setRemoteAdapter(R.id.lessons, adapter);
-                appWidgetManager.updateAppWidget(widgetId, remoteViews);
-                appWidgetManager.notifyAppWidgetViewDataChanged(widgetId,
-                        R.id.lessons);
             }
         }
     }

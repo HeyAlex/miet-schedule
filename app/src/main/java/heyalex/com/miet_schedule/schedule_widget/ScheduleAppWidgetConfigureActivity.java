@@ -98,6 +98,7 @@ public class ScheduleAppWidgetConfigureActivity extends AppCompatActivity implem
     public void onGroupClickedListener(ScheduleModel newsModel) {
         Intent resultValue = new Intent(this, ScheduleUpdateService.class);
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
+        resultValue.setAction(ScheduleUpdateService.today+String.valueOf(mAppWidgetId));
         resultValue.putExtra("group", newsModel.getGroup());
         this.startService(resultValue);
         setResult(RESULT_OK);
