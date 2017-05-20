@@ -36,6 +36,12 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
+
+        <service android:name=".schedule_widget.ScheduleUpdateService"/>
+        <service
+            android:name=".schedule_widget.LessonRemoteService"
+            android:permission="android.permission.BIND_REMOTEVIEWS">
+        </service>
     </application>
 
 </manifest>

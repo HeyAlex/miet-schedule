@@ -45,7 +45,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
     }
 
 
-    /*package*/ interface OnGroupClickedListener {
+    public interface OnGroupClickedListener {
         void onGroupClickedListener(ScheduleModel newsModel);
     }
 
