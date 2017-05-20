@@ -22,10 +22,17 @@ import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
     @Override
     public void showGroups() {
         final List<ScheduleModel> groups = groupsRepository.getAll();
-        if (!groups.isEmpty()) {
-            view.showGroups(groups);
-        } else {
-            view.showHint();
+
+        if(view != null){
+            if(groups != null){
+                if (!groups.isEmpty()) {
+                    view.showGroups(groups);
+                } else {
+                    view.showHint();
+                }
+            } else {
+                view.showHint();
+            }
         }
     }
 

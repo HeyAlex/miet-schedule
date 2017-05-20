@@ -10,6 +10,7 @@ import heyalex.com.miet_schedule.data.news.NewsRepository;
 import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
 import heyalex.com.miet_schedule.navdrawer.NavDrawerModule;
 import heyalex.com.miet_schedule.navdrawer.NavDrawerPresenter;
+import heyalex.com.miet_schedule.schedule_widget.LessonsViewsFactory;
 import heyalex.com.miet_schedule.schedule_widget.ScheduleUpdateService;
 
 @Singleton
@@ -29,4 +30,5 @@ public interface ApplicationComponent {
     LessonsRepository lessonsRepository();
 
     void inject(ScheduleUpdateService service);
+    void inject(LessonsViewsFactory service);
 }

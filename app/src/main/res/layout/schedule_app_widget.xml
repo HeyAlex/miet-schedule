@@ -1,21 +1,29 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#09C"
-    android:padding="@dimen/widget_margin">
 
-    <TextView
-        android:id="@+id/appwidget_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="8dp"
-        android:background="#09C"
-        android:contentDescription="@string/appwidget_text"
-        android:text="@string/appwidget_text"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" />
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:padding="@dimen/widget_margin"
+        android:background="?android:attr/selectableItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/schedule_root"
+        android:orientation="vertical">
 
-</RelativeLayout>
+        <TextView
+            android:padding="8dp"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/content_text_size_big"
+            android:textStyle="bold"
+            android:id="@+id/header"
+            android:textColor="@color/scheduleFROM"
+            android:layout_height="wrap_content" />
+
+        <!--<LinearLayout-->
+            <!--android:id="@+id/lessons_root"-->
+            <!--android:orientation="vertical"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content" />-->
+        <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/lessons"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
