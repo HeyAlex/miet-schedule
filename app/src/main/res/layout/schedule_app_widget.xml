@@ -8,22 +8,61 @@
         android:id="@+id/schedule_root"
         android:orientation="vertical">
 
-        <TextView
-            android:padding="8dp"
-            android:layout_width="match_parent"
-            android:textSize="@dimen/content_text_size_big"
-            android:textStyle="bold"
-            android:id="@+id/header"
-            android:textColor="@color/scheduleFROM"
-            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:orientation="horizontal">
 
-        <!--<LinearLayout-->
-            <!--android:id="@+id/lessons_root"-->
-            <!--android:orientation="vertical"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content" />-->
-        <ListView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/lessons"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/content_text_size_big"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/day"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:textColor="@color/color_white"
+                    android:textSize="@dimen/content_text_size_big" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/widget_control"
+                android:layout_width="40dp"
+                android:layout_height="40dp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:background="@color/color_white"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:padding="4dp"
+                android:text="ПАР НЕТ"
+                android:layout_width="match_parent"
+                android:textSize="@dimen/content_text_size_big"
+                android:textStyle="bold"
+                android:id="@+id/no_schedule_view"
+                android:textColor="@color/color_black"
+                android:layout_height="wrap_content" />
+            <ListView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/lessons"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+
     </LinearLayout>

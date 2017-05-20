@@ -3,6 +3,7 @@ package heyalex.com.miet_schedule.schedule_widget;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 import android.widget.RemoteViews;
 
 import heyalex.com.miet_schedule.R;
@@ -18,17 +19,17 @@ public class ScheduleAppWidget extends AppWidgetProvider {
 
 
         // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.schedule_app_widget);
+       // RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.schedule_app_widget);
         // Instruct the widget manager to update the widget
-        appWidgetManager.updateAppWidget(appWidgetId, views);
+       // appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
-        for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
-        }
+//        for (int appWidgetId : appWidgetIds) {
+//            updateAppWidget(context, appWidgetManager, appWidgetId);
+//        }
     }
 
     @Override
@@ -44,6 +45,17 @@ public class ScheduleAppWidget extends AppWidgetProvider {
     @Override
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        if(intent != null){
+            if(intent.getAction() != null){
+                if(intent.getAction().equals(ScheduleUpdateService.tommorow)){
+
+                }
+            }
+        }
     }
 }
 
