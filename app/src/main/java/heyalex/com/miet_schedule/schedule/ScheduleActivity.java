@@ -117,8 +117,8 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
             return true;
         }
         if (id == R.id.schedule_go_to_current_week) {
-            if (tabLayout.getSelectedTabPosition() != DateMietHelper.getWeekByDay(DateTime.now()) % 4) {
-                pager.setCurrentItem(DateMietHelper.getWeekByDay(DateTime.now()) % 4);
+            if (tabLayout.getSelectedTabPosition() != DateMietHelper.getWeek(DateTime.now()) + 2) {
+                pager.setCurrentItem(DateMietHelper.getWeek(DateTime.now()) + 2);
             } else {
                 Snackbar.make(schedule_root, R.string.schedule_error_this_week,
                         Snackbar.LENGTH_SHORT).show();

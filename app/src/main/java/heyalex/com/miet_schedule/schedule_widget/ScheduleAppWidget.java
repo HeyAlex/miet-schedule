@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 import heyalex.com.miet_schedule.R;
+import heyalex.com.miet_schedule.util.PrefUtils;
 
 /**
  * Implementation of App Widget functionality.
@@ -34,6 +35,10 @@ public class ScheduleAppWidget extends AppWidgetProvider {
 
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
+        for (int widgetId :appWidgetIds) {
+            PrefUtils.removeFromPrefs(context,String.valueOf(widgetId));
+        }
+
         // When the user deletes the widget, delete the preference associated with it.
     }
 

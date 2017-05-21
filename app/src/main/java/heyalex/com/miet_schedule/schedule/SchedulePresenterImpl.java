@@ -85,7 +85,11 @@ import timber.log.Timber;
             scheduleRepository.replaceByGroupName(groupName,
                     AddNewGroupPresenterImpl.transformToDaoScheduleModel(semestrResponse, groupName));
             if (view != null) {
-                view.showReloadedSchedule(ScheduleBuilder.buildSchedule(lessons));
+                try {
+                    view.showReloadedSchedule(ScheduleBuilder.buildSchedule(lessons));
+                } catch (CloneNotSupportedException e) {
+                    //never happens
+                }
                 view.showStatus(false);
             }
             scheduleCompositeDisposable.clear();
