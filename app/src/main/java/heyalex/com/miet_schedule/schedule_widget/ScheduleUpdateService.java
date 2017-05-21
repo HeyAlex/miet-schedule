@@ -19,6 +19,8 @@ import javax.inject.Inject;
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
 import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
+import heyalex.com.miet_schedule.model.schedule.Time;
+import heyalex.com.miet_schedule.schedule.ScheduleActivity;
 import heyalex.com.miet_schedule.util.DateMietHelper;
 import heyalex.com.miet_schedule.util.NavigationUtil;
 import timber.log.Timber;
@@ -60,6 +62,7 @@ public class ScheduleUpdateService extends IntentService {
                     RemoteViews remoteViews = new RemoteViews(this.getPackageName(), R.layout.schedule_app_widget);
                     remoteViews.setInt(R.id.widget_control, "setBackgroundResource", R.drawable.chevron_left);
                     remoteViews.setTextViewText(R.id.header,group);
+                    remoteViews.setOnClickPendingIntent(R.id.header,getSchedulePendingIntent(this, group));
                     remoteViews.setOnClickPendingIntent(R.id.widget_control, getPingPendingIntent(this, TODAY_ACTION + String.valueOf(widgetId),widgetId,group));
                     remoteViews.setTextViewText(R.id.day,"ЗАВТРА" + " " +
                             NavigationUtil.weekListLong[DateMietHelper.getWeek(DateTime.now().plusDays(1)) + 2]);
@@ -94,7 +97,8 @@ public class ScheduleUpdateService extends IntentService {
                     remoteViews.setTextViewText(R.id.day,"СЕГОДНЯ" + " " +
                             NavigationUtil.weekListLong[DateMietHelper.getWeek(DateTime.now()) + 2]);
                     remoteViews.setInt(R.id.widget_control, "setBackgroundResource", R.drawable.chevron_right);
-                    remoteViews.setTextViewText(R.id.header,group);
+                    remoteViews.setTextViewText(R.id.header, group);
+                    remoteViews.setOnClickPendingIntent(R.id.header,getSchedulePendingIntent(this, group));
                     remoteViews.setOnClickPendingIntent(R.id.widget_control, getPingPendingIntent(this, TOMORROW_ACTION + String.valueOf(widgetId),widgetId,group));
 
                     if(lessonsRepository.getLessonsByWeekAndDay( group,
@@ -132,6 +136,12 @@ public class ScheduleUpdateService extends IntentService {
         return PendingIntent.getService(context, 0, resultValue, 0);
     }
 
+    public static PendingIntent getSchedulePendingIntent(Context context, String group) {
+        Intent resultValue = new Intent(context, ScheduleActivity.class);
+        resultValue.putExtra("group", group);
+        return PendingIntent.getActivity(context, 0, resultValue, 0);
+    }
+
     public static Intent getScheduleIntent(Context context, String action, int widgetId, String group) {
         Intent resultValue = new Intent(context, ScheduleUpdateService.class);
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
@@ -145,6 +155,7 @@ public class ScheduleUpdateService extends IntentService {
         PendingIntent pendingIntent = getPingPendingIntent(context, TODAY_ACTION + String.valueOf(widgetId),widgetId,group);
         alarmManager.cancel(pendingIntent);
 
+        Timber.i("Time for a next trigger of schedule widget update is %s", DateTime.now().withTimeAtStartOfDay().toString());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, DateTime.now().withTimeAtStartOfDay().getMillis(), pendingIntent);
         } else
