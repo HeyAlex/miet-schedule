@@ -56,7 +56,6 @@ public class LessonsRepositoryImpl implements LessonsRepository {
     public void deleteAllByGroupName(String groupName) {
         Iterable<LessonModel> lessonsByGroup = dao.queryBuilder()
                 .where(LessonModelDao.Properties.GroupName.eq(groupName)).build().list();
-        List<LessonModel> allLesons = dao.loadAll();
         if (lessonsByGroup.iterator().hasNext()) {
             dao.deleteInTx(lessonsByGroup);
         }

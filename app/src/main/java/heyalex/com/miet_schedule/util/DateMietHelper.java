@@ -20,10 +20,14 @@ public class DateMietHelper {
         if (currentYearWeek >= semestr2_1 && currentYearWeek <= fullWeeks)
             return currentYearWeek + 1 - semestr2_1;
         else if (currentYearWeek >= semestr1_1 && currentYearWeek <= semestr1_2)
-            return 21 + currentYearWeek - semestr1_2;
+            return 21 + currentYearWeek - semestr1_2 - 1;
         else if (currentYearWeek > 0 && currentYearWeek <= semestr2_2)
             return 20 + currentYearWeek - 2;
         else return 1;
+    }
+
+    public static int getWeek(DateTime dateTime){
+        return (getWeekByDay(dateTime)%4) - 1;
     }
 
     public static int getDayInWeek(DateTime dateTime) {

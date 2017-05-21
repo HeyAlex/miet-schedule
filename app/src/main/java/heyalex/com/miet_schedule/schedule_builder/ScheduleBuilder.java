@@ -19,7 +19,8 @@ import heyalex.com.miet_schedule.util.NavigationUtil;
 
 public class ScheduleBuilder {
 
-    public static CycleWeeksLessonModel buildSchedule(List<LessonModel> lessons) {
+    public static CycleWeeksLessonModel buildSchedule(List<LessonModel> lessons)
+            throws CloneNotSupportedException {
         CycleWeeksLessonModel schedule = new CycleWeeksLessonModel();
         List<DayLessonsModel> weekOne = new ArrayList<>();
         List<DayLessonsModel> weekTwo = new ArrayList<>();
@@ -27,8 +28,8 @@ public class ScheduleBuilder {
         List<DayLessonsModel> weekFourth = new ArrayList<>();
         DateTime todayDate = new DateTime().now();
         DateTime tommorowDate = todayDate.plusDays(1);
-        int weekToday = DateMietHelper.getWeekByDay(todayDate) % 4 - 1;
-        int weekTommorow = DateMietHelper.getWeekByDay(tommorowDate) % 4 - 1;
+        int weekToday = DateMietHelper.getWeek(todayDate);
+        int weekTommorow = DateMietHelper.getWeek(tommorowDate);
         int dayToday = DateMietHelper.getDayInWeek(todayDate);
         int dayTommorow = DateMietHelper.getDayInWeek(tommorowDate);
 
@@ -99,40 +100,40 @@ public class ScheduleBuilder {
 
             if (dayToday - 1 == i) {
                 switch (weekToday) {
+                    case 0: {
+                        schedule.setToday(item1.clone());
+                        break;
+                    }
                     case 1: {
-                        schedule.setToday(item1);
+                        schedule.setToday(item2.clone());
                         break;
                     }
                     case 2: {
-                        schedule.setToday(item2);
+                        schedule.setToday(item3.clone());
                         break;
                     }
                     case 3: {
-                        schedule.setToday(item3);
-                        break;
-                    }
-                    case 4: {
-                        schedule.setToday(item4);
+                        schedule.setToday(item4.clone());
                         break;
                     }
                 }
             }
             if (dayTommorow - 1 == i) {
                 switch (weekTommorow) {
+                    case 0: {
+                        schedule.setTommorow(item1.clone());
+                        break;
+                    }
                     case 1: {
-                        schedule.setTommorow(item1);
+                        schedule.setTommorow(item2.clone());
                         break;
                     }
                     case 2: {
-                        schedule.setTommorow(item2);
+                        schedule.setTommorow(item3.clone());
                         break;
                     }
                     case 3: {
-                        schedule.setTommorow(item3);
-                        break;
-                    }
-                    case 4: {
-                        schedule.setTommorow(item4);
+                        schedule.setTommorow(item4.clone());
                         break;
                     }
                 }

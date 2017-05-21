@@ -37,15 +37,25 @@ public class ScheduleBuilderHelperImpl implements ScheduleBuilderHelper {
             switch (position) {
                 case 0: {
                     final List<DayLessonsModel> todayLessons = new ArrayList<>();
-                    schedule.getToday().setDay(toStringScheduleDay(today,
-                            DateMietHelper.getWeekByDay(today) % 4));
+                    if(schedule.getToday() != null){
+                        schedule.getToday().setDay(toStringScheduleDay(today,
+                                DateMietHelper.getWeek(today)));
+                    }else {
+                        schedule.setToday(new DayLessonsModel());
+                    }
+
                     todayLessons.add(schedule.getToday());
                     return todayLessons;
                 }
                 case 1: {
                     final List<DayLessonsModel> tommorowLessons = new ArrayList<>();
-                    schedule.getTommorow().setDay(toStringScheduleDay(today.plusDays(1),
-                            DateMietHelper.getWeekByDay(today.plusDays(1)) % 4));
+                    if(schedule.getTommorow() != null){
+                        schedule.getTommorow().setDay(toStringScheduleDay(today.plusDays(1),
+                                DateMietHelper.getWeek(today.plusDays(1))));
+                    }else {
+                        schedule.setTommorow(new DayLessonsModel());
+                    }
+
                     tommorowLessons.add(schedule.getTommorow());
                     return tommorowLessons;
                 }
@@ -69,7 +79,7 @@ public class ScheduleBuilderHelperImpl implements ScheduleBuilderHelper {
 
     private String toStringScheduleDay(DateTime date, int week) {
         return date.toString("dd MMMM yyyy", new Locale("ru")) + "г. ("
-                + NavigationUtil.weekListLong[week] + ")";
+                + NavigationUtil.weekListLong[week + 1] + ")";
     }
 
     @Override

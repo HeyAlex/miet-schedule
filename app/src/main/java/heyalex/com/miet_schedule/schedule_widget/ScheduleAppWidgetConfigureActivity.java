@@ -29,6 +29,8 @@ import heyalex.com.miet_schedule.groups.GroupsAdapter;
 import heyalex.com.miet_schedule.groups.GroupsPresenter;
 import heyalex.com.miet_schedule.groups.GroupsView;
 import heyalex.com.miet_schedule.schedule.ScheduleActivity;
+import heyalex.com.miet_schedule.util.PrefUtils;
+import timber.log.Timber;
 
 /**
  * The configuration screen for the {@link ScheduleAppWidget ScheduleAppWidget} AppWidget.
@@ -101,6 +103,9 @@ public class ScheduleAppWidgetConfigureActivity extends AppCompatActivity implem
         resultValue.setAction(ScheduleUpdateService.today+String.valueOf(mAppWidgetId));
         resultValue.putExtra("group", newsModel.getGroup());
         this.startService(resultValue);
+        Timber.i(String.valueOf(mAppWidgetId));
+        PrefUtils.saveToPrefs(this, String.valueOf(mAppWidgetId),newsModel.getGroup());
+        ScheduleUpdateService.setupAlarm(this, mAppWidgetId, newsModel.getGroup());
         setResult(RESULT_OK);
         finish();
     }
@@ -124,26 +129,5 @@ public class ScheduleAppWidgetConfigureActivity extends AppCompatActivity implem
         Intent intent = new Intent(this, AddNewGroupActivity.class);
         startActivity(intent);
     }
-//
-//    public static void setupAlarm(Context context) {
-//        final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-//        PendingIntent pendingIntent = getPendingIntent(context);
-//        alarmManager.cancel(pendingIntent);
-//
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-//            alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, DateTime.now().withTimeAtStartOfDay(), pendingIntent);
-//        }
-//        else alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis(), 60 * 1000, pendingIntent);
-//    }
-//
-//    public static void stopAlarm(Context context) {
-//        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-//        alarmManager.cancel(getPendingIntent(context));
-//    }
-//
-//    public static PendingIntent getPendingIntent(Context context) {
-//        Intent intent = new Intent(context, AlarmReceiver.class);
-//        return PendingIntent.getBroadcast(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//    }
 }
 

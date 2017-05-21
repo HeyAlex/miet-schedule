@@ -26,6 +26,7 @@ public class LessonsViewsFactory implements RemoteViewsService.RemoteViewsFactor
     private Context context;
     private String group;
     private int widgetId;
+    private int week;
     private int day;
     @Inject
     LessonsRepository lessonsRepository;
@@ -33,6 +34,7 @@ public class LessonsViewsFactory implements RemoteViewsService.RemoteViewsFactor
     public LessonsViewsFactory(Context context, Intent adapter) {
         this.group = adapter.getStringExtra("group");
         this.day = adapter.getIntExtra("day",0);
+        this.week = adapter.getIntExtra("week",0);
         this.widgetId = adapter.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
                 AppWidgetManager.INVALID_APPWIDGET_ID);
         this.context = context;
@@ -46,7 +48,7 @@ public class LessonsViewsFactory implements RemoteViewsService.RemoteViewsFactor
                 .inject(this);
 
         this.lessons =lessonsRepository.getLessonsByWeekAndDay( group,
-                2,
+                week,
                 day);
     }
 
