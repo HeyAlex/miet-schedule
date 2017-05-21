@@ -25,7 +25,7 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
             for (int widget_id:widgets_IDs) {
                 Timber.i("Update widget with id %s", String.valueOf(widget_id));
                 context.startService(ScheduleUpdateService.getScheduleIntent(context,
-                        ScheduleUpdateService.today+ String.valueOf(widget_id), widget_id,
+                        ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
                         PrefUtils.getFromPrefs(context,String.valueOf(widget_id),"")));
             }
         }

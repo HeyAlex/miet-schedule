@@ -47,9 +47,7 @@ public class LessonsViewsFactory implements RemoteViewsService.RemoteViewsFactor
                 .getApplicationComponent()
                 .inject(this);
 
-        this.lessons =lessonsRepository.getLessonsByWeekAndDay( group,
-                week,
-                day);
+        this.lessons = lessonsRepository.getLessonsByWeekAndDay(group, week, day);
     }
 
     @Override
@@ -69,7 +67,7 @@ public class LessonsViewsFactory implements RemoteViewsService.RemoteViewsFactor
     @Override
     public RemoteViews getViewAt(int position) {
         final LessonModel lesson = lessons.get(position);
-        RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.lesson_item);
+        RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.widget_lesson_item);
         remoteView.setTextViewText(R.id.itogname_schedule, lesson.getDisciplineName());
         remoteView.setTextViewText(R.id.room_schedule, lesson.getRoom());
         remoteView.setTextViewText(R.id.prep_schedule, lesson.getTeacher());

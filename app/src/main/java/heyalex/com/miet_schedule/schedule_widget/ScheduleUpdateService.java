@@ -4,28 +4,23 @@ import android.app.AlarmManager;
 import android.app.IntentService;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.Nullable;
-import android.support.transition.Visibility;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
 import org.joda.time.DateTime;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
-import heyalex.com.miet_schedule.LessonModel;
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
 import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
 import heyalex.com.miet_schedule.util.DateMietHelper;
+import heyalex.com.miet_schedule.util.NavigationUtil;
 import timber.log.Timber;
 
 /**
@@ -34,8 +29,8 @@ import timber.log.Timber;
 
 public class ScheduleUpdateService extends IntentService {
 
-    public static final String tommorow = "TOMMOROW";
-    public static final String today = "TODAY";
+    public static final String TOMORROW_ACTION = "TOMORROW_ACTION";
+    public static final String TODAY_ACTION = "TODAY_ACTION";
 
     @Inject
     LessonsRepository lessonsRepository;
@@ -61,12 +56,13 @@ public class ScheduleUpdateService extends IntentService {
             String group = intent.getStringExtra("group");
             Timber.i("ScheduleUpdateService onHandleIntent");
             if (intent.getAction() != null){
-                if(intent.getAction().startsWith(tommorow)){
+                if(intent.getAction().startsWith(TOMORROW_ACTION)){
                     RemoteViews remoteViews = new RemoteViews(this.getPackageName(), R.layout.schedule_app_widget);
                     remoteViews.setInt(R.id.widget_control, "setBackgroundResource", R.drawable.chevron_left);
                     remoteViews.setTextViewText(R.id.header,group);
-                    remoteViews.setOnClickPendingIntent(R.id.widget_control, getPingPendingIntent(this, today + String.valueOf(widgetId),widgetId,group));
-                    remoteViews.setTextViewText(R.id.day,"ЗАВТРА");
+                    remoteViews.setOnClickPendingIntent(R.id.widget_control, getPingPendingIntent(this, TODAY_ACTION + String.valueOf(widgetId),widgetId,group));
+                    remoteViews.setTextViewText(R.id.day,"ЗАВТРА" + " " +
+                            NavigationUtil.weekListLong[DateMietHelper.getWeek(DateTime.now().plusDays(1)) + 2]);
 
                     if(lessonsRepository.getLessonsByWeekAndDay( group,
                             DateMietHelper.getWeek(DateTime.now().plusDays(1)),
@@ -92,13 +88,14 @@ public class ScheduleUpdateService extends IntentService {
                                 R.id.lessons);
                     }
 
-                } else if(intent.getAction().startsWith(today)){
-                    Timber.i("ScheduleUpdateService today");
+                } else if(intent.getAction().startsWith(TODAY_ACTION)){
+                    Timber.i("ScheduleUpdateService TODAY_ACTION");
                     RemoteViews remoteViews = new RemoteViews(this.getPackageName(), R.layout.schedule_app_widget);
-                    remoteViews.setTextViewText(R.id.day,"СЕГОДНЯ");
+                    remoteViews.setTextViewText(R.id.day,"СЕГОДНЯ" + " " +
+                            NavigationUtil.weekListLong[DateMietHelper.getWeek(DateTime.now()) + 2]);
                     remoteViews.setInt(R.id.widget_control, "setBackgroundResource", R.drawable.chevron_right);
                     remoteViews.setTextViewText(R.id.header,group);
-                    remoteViews.setOnClickPendingIntent(R.id.widget_control, getPingPendingIntent(this, tommorow+ String.valueOf(widgetId),widgetId,group));
+                    remoteViews.setOnClickPendingIntent(R.id.widget_control, getPingPendingIntent(this, TOMORROW_ACTION + String.valueOf(widgetId),widgetId,group));
 
                     if(lessonsRepository.getLessonsByWeekAndDay( group,
                             DateMietHelper.getWeek(DateTime.now()),
@@ -145,7 +142,7 @@ public class ScheduleUpdateService extends IntentService {
 
     public static void setupAlarm(Context context,int widgetId, String group) {
         final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent = getPingPendingIntent(context, today+ String.valueOf(widgetId),widgetId,group);
+        PendingIntent pendingIntent = getPingPendingIntent(context, TODAY_ACTION + String.valueOf(widgetId),widgetId,group);
         alarmManager.cancel(pendingIntent);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -156,6 +153,6 @@ public class ScheduleUpdateService extends IntentService {
 
     public static void stopAlarm(Context context,int widgetId, String group) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.cancel(getPingPendingIntent(context, today+ String.valueOf(widgetId),widgetId,group));
+        alarmManager.cancel(getPingPendingIntent(context, TODAY_ACTION + String.valueOf(widgetId),widgetId,group));
     }
 }

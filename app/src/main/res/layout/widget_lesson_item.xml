@@ -6,14 +6,13 @@
     android:orientation="horizontal">
 
     <LinearLayout
-        android:background="?android:attr/selectableItemBackground"
+        android:background="@color/color_white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="70dp"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:background="@color/color_white"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_margin="8dp"

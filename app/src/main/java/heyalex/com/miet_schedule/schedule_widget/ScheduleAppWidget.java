@@ -4,9 +4,7 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.RemoteViews;
 
-import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.util.PrefUtils;
 
 /**
@@ -56,7 +54,7 @@ public class ScheduleAppWidget extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         if(intent != null){
             if(intent.getAction() != null){
-                if(intent.getAction().equals(ScheduleUpdateService.tommorow)){
+                if(intent.getAction().equals(ScheduleUpdateService.TOMORROW_ACTION)){
 
                 }
             }
