@@ -87,9 +87,9 @@ public class GroupsFragment extends Fragment implements GroupsView, GroupsAdapte
     }
 
     @Override
-    public void onGroupClickedListener(ScheduleModel newsModel) {
+    public void onGroupClickedListener(ScheduleModel scheduleModel) {
         Intent intent = new Intent(getActivity(), ScheduleActivity.class);
-        intent.putExtra("group", newsModel.getGroup());
+        intent.putExtra("group", scheduleModel.getGroup());
         startActivity(intent);
     }
 

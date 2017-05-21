@@ -15,7 +15,7 @@ public class DateMietHelper {
     private final static int fullWeeks = 52;
 
 
-    public static int getWeekByDay(DateTime dateTime) {
+    private static int getWeekByDay(DateTime dateTime) {
         int currentYearWeek = dateTime.getWeekOfWeekyear();
         if (currentYearWeek >= semestr2_1 && currentYearWeek <= fullWeeks)
             return currentYearWeek + 1 - semestr2_1;
