@@ -1,18 +1,11 @@
 package heyalex.com.miet_schedule.schedule_widget;
 
-import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-
-import org.joda.time.DateTime;
 
 import java.util.List;
 
@@ -28,7 +21,6 @@ import heyalex.com.miet_schedule.addnewgroup.AddNewGroupActivity;
 import heyalex.com.miet_schedule.groups.GroupsAdapter;
 import heyalex.com.miet_schedule.groups.GroupsPresenter;
 import heyalex.com.miet_schedule.groups.GroupsView;
-import heyalex.com.miet_schedule.schedule.ScheduleActivity;
 import heyalex.com.miet_schedule.util.PrefUtils;
 import timber.log.Timber;
 
@@ -100,7 +92,7 @@ public class ScheduleAppWidgetConfigureActivity extends AppCompatActivity implem
     public void onGroupClickedListener(ScheduleModel newsModel) {
         Intent resultValue = new Intent(this, ScheduleUpdateService.class);
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
-        resultValue.setAction(ScheduleUpdateService.today+String.valueOf(mAppWidgetId));
+        resultValue.setAction(ScheduleUpdateService.TODAY_ACTION +String.valueOf(mAppWidgetId));
         resultValue.putExtra("group", newsModel.getGroup());
         this.startService(resultValue);
         Timber.i(String.valueOf(mAppWidgetId));

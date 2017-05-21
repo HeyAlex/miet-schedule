@@ -14,7 +14,7 @@ public class ScheduleBuilderModule {
 
     @Provides
     @ScheduleScope
-    public ScheduleBuilderHelper provideScheduleBuilder(LessonsRepository lessonsRepository) {
-        return new ScheduleBuilderHelperImpl(lessonsRepository);
+    /*package*/ ScheduleBuilderHelper provideScheduleBuilder() {
+        return new ScheduleBuilderHelperImpl();
     }
 }

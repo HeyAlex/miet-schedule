@@ -19,15 +19,13 @@ import timber.log.Timber;
  * Created by alexf on 14.05.2017.
  */
 
-public class ScheduleBuilderHelperImpl implements ScheduleBuilderHelper {
+/*package*/ class ScheduleBuilderHelperImpl implements ScheduleBuilderHelper {
 
     private CycleWeeksLessonModel schedule = null;
-    private LessonsRepository lessonsRepository;
     private DateTime today;
 
     @Inject
-    public ScheduleBuilderHelperImpl(LessonsRepository lessonsRepository) {
-        this.lessonsRepository = lessonsRepository;
+    /*package*/ ScheduleBuilderHelperImpl() {
     }
 
 
@@ -79,7 +77,7 @@ public class ScheduleBuilderHelperImpl implements ScheduleBuilderHelper {
 
     private String toStringScheduleDay(DateTime date, int week) {
         return date.toString("dd MMMM yyyy", new Locale("ru")) + "г. ("
-                + NavigationUtil.weekListLong[week + 1] + ")";
+                + NavigationUtil.weekListLong[week + 2] + ")";
     }
 
     @Override

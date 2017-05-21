@@ -10,6 +10,7 @@ import heyalex.com.miet_schedule.model.schedule.DayLessonsModel;
  */
 
 public interface ScheduleBuilderHelper {
+
     List<DayLessonsModel> getLessonsForCurrentFragment(int position);
 
     void setBuildedLessonSchedule(CycleWeeksLessonModel schedule);
