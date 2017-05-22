@@ -37,7 +37,8 @@ import heyalex.com.miet_schedule.model.schedule.DayLessonsModel;
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.schedule_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.schedule_item,
+                parent, false);
         return new ViewHolder(view);
     }
 

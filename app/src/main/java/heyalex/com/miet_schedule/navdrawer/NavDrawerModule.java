@@ -14,7 +14,7 @@ public class NavDrawerModule {
 
     @Singleton
     @Provides
-    public NavDrawerPresenter provideNavDrawerPresenter() {
+    /*package*/ NavDrawerPresenter provideNavDrawerPresenter() {
         return new NavDrawerPresenterImpl();
     }
 }

@@ -64,7 +64,7 @@ public class ScheduleUpdateService extends IntentService {
                     remoteViews.setInt(R.id.widget_control, "setBackgroundResource", R.drawable.chevron_left);
                     remoteViews.setTextViewText(R.id.header, group);
                     remoteViews.setOnClickPendingIntent(R.id.header, getSchedulePendingIntent(this, group));
-                    remoteViews.setOnClickPendingIntent(R.id.widget_control, getPingPendingIntent(this, TODAY_ACTION + String.valueOf(widgetId), widgetId, group));
+                    remoteViews.setOnClickPendingIntent(R.id.widget_control, getScheduleUpdateServicePendingIntent(this, TODAY_ACTION + String.valueOf(widgetId), widgetId, group));
                     remoteViews.setTextViewText(R.id.day, "ЗАВТРА" + " " +
                             NavigationUtil.weekListLong[DateMietHelper.getWeek(DateTime.now().plusDays(1)) + 2]);
 
@@ -101,7 +101,7 @@ public class ScheduleUpdateService extends IntentService {
                     remoteViews.setInt(R.id.widget_control, "setBackgroundResource", R.drawable.chevron_right);
                     remoteViews.setTextViewText(R.id.header, group);
                     remoteViews.setOnClickPendingIntent(R.id.header, getSchedulePendingIntent(this, group));
-                    remoteViews.setOnClickPendingIntent(R.id.widget_control, getPingPendingIntent(this, TOMORROW_ACTION + String.valueOf(widgetId), widgetId, group));
+                    remoteViews.setOnClickPendingIntent(R.id.widget_control, getScheduleUpdateServicePendingIntent(this, TOMORROW_ACTION + String.valueOf(widgetId), widgetId, group));
 
                     if (lessonsRepository.getLessonsByWeekAndDay(group,
                             DateMietHelper.getWeek(DateTime.now()),
@@ -131,7 +131,8 @@ public class ScheduleUpdateService extends IntentService {
         }
     }
 
-    public static PendingIntent getPingPendingIntent(Context context, String action, int widgetId, String group) {
+    public static PendingIntent getScheduleUpdateServicePendingIntent(Context context, String action,
+                                                                      int widgetId, String group) {
         Intent resultValue = new Intent(context, ScheduleUpdateService.class);
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
         resultValue.putExtra("group", group);
@@ -139,7 +140,8 @@ public class ScheduleUpdateService extends IntentService {
         return PendingIntent.getService(context, 0, resultValue, 0);
     }
 
-    public static PendingIntent getAlarmIntent(Context context, String action, int widgetId, String group) {
+    public static PendingIntent getAlarmIntent(Context context, String action, int widgetId,
+                                               String group) {
         Intent resultValue = new Intent(context, ScheduleAlarmReceiver.class);
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
         resultValue.putExtra("group", group);
@@ -157,7 +159,8 @@ public class ScheduleUpdateService extends IntentService {
         return PendingIntent.getActivity(context, 0, resultValue, 0);
     }
 
-    public static Intent getScheduleIntent(Context context, String action, int widgetId, String group) {
+    public static Intent getScheduleIntent(Context context, String action, int widgetId,
+                                           String group) {
         Intent resultValue = new Intent(context, ScheduleUpdateService.class);
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
         resultValue.putExtra("group", group);
@@ -166,19 +169,22 @@ public class ScheduleUpdateService extends IntentService {
     }
 
     public static void setupAlarm(Context context, int widgetId, String group) {
-        final AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent = getAlarmIntent(context,
-                ScheduleUpdateService.TODAY_ACTION + String.valueOf(widgetId), widgetId, group);
+        final AlarmManager alarmManager = (AlarmManager) context
+                .getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = getAlarmIntent(context, ScheduleUpdateService.TODAY_ACTION
+                + String.valueOf(widgetId), widgetId, group);
         alarmManager.cancel(pendingIntent);
         DateTime todayStart = new DateTime();
         DateTime tomorrowStart = todayStart.plusDays(1).withTimeAtStartOfDay();
         long ml = new Duration(todayStart, tomorrowStart).getMillis();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Timber.i("Time for a next trigger of schedule widget update is %s", String.valueOf(ml));
-            alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, tomorrowStart.getMillis(), pendingIntent);
+            alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, tomorrowStart.getMillis(),
+                    pendingIntent);
         } else {
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                alarmManager.setExact(AlarmManager.RTC_WAKEUP, tomorrowStart.getMillis(), pendingIntent);
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, tomorrowStart.getMillis(),
+                        pendingIntent);
             }else {
                 alarmManager.set(AlarmManager.RTC_WAKEUP, tomorrowStart.getMillis(), pendingIntent);
             }
@@ -188,6 +194,7 @@ public class ScheduleUpdateService extends IntentService {
 
     public static void stopAlarm(Context context, int widgetId, String group) {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        alarmManager.cancel(getPingPendingIntent(context, TODAY_ACTION + String.valueOf(widgetId), widgetId, group));
+        alarmManager.cancel(getScheduleUpdateServicePendingIntent(context, TODAY_ACTION
+                + String.valueOf(widgetId), widgetId, group));
     }
 }

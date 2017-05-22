@@ -66,7 +66,8 @@ public class NewsFragment extends Fragment implements NewsView, NewsAdapter.OnNe
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.news_fragment, container, false);
         ButterKnife.bind(this, root);
         initViews();
