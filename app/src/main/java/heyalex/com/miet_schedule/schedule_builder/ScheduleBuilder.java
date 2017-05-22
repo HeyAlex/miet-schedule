@@ -26,7 +26,7 @@ public class ScheduleBuilder {
         List<DayLessonsModel> weekTwo = new ArrayList<>();
         List<DayLessonsModel> weekThird = new ArrayList<>();
         List<DayLessonsModel> weekFourth = new ArrayList<>();
-        DateTime todayDate = new DateTime().now();
+        DateTime todayDate = new DateTime();
         DateTime tommorowDate = todayDate.plusDays(1);
         int weekToday = DateMietHelper.getWeek(todayDate);
         int weekTommorow = DateMietHelper.getWeek(tommorowDate);

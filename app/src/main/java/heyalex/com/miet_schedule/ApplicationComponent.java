@@ -30,5 +30,6 @@ public interface ApplicationComponent {
     LessonsRepository lessonsRepository();
 
     void inject(ScheduleUpdateService service);
+
     void inject(LessonsViewsFactory service);
 }

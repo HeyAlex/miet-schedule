@@ -92,11 +92,11 @@ public class ScheduleAppWidgetConfigureActivity extends AppCompatActivity implem
     public void onGroupClickedListener(ScheduleModel newsModel) {
         Intent resultValue = new Intent(this, ScheduleUpdateService.class);
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
-        resultValue.setAction(ScheduleUpdateService.TODAY_ACTION +String.valueOf(mAppWidgetId));
+        resultValue.setAction(ScheduleUpdateService.TODAY_ACTION + String.valueOf(mAppWidgetId));
         resultValue.putExtra("group", newsModel.getGroup());
         this.startService(resultValue);
         Timber.i(String.valueOf(mAppWidgetId));
-        PrefUtils.saveToPrefs(this, String.valueOf(mAppWidgetId),newsModel.getGroup());
+        PrefUtils.saveToPrefs(this, String.valueOf(mAppWidgetId), newsModel.getGroup());
         ScheduleUpdateService.setupAlarm(this, mAppWidgetId, newsModel.getGroup());
         setResult(RESULT_OK);
         finish();

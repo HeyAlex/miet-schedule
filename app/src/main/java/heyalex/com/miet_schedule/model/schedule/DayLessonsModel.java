@@ -9,7 +9,7 @@ import heyalex.com.miet_schedule.LessonModel;
  * Created by mac on 10.05.17.
  */
 
-public class DayLessonsModel implements Cloneable{
+public class DayLessonsModel implements Cloneable {
 
     private String Day;
     private int DayNumber;
@@ -40,6 +40,6 @@ public class DayLessonsModel implements Cloneable{
     }
 
     public DayLessonsModel clone() throws CloneNotSupportedException {
-        return (DayLessonsModel)super.clone();
+        return (DayLessonsModel) super.clone();
     }
 }

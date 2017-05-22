@@ -20,9 +20,9 @@ import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
  * Created by alexf on 20.05.2017.
  */
 
-public class LessonsViewsFactory implements RemoteViewsService.RemoteViewsFactory{
+public class LessonsViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
-    private List<LessonModel> lessons = new  ArrayList<>();
+    private List<LessonModel> lessons = new ArrayList<>();
     private Context context;
     private String group;
     private int widgetId;
@@ -33,8 +33,8 @@ public class LessonsViewsFactory implements RemoteViewsService.RemoteViewsFactor
 
     public LessonsViewsFactory(Context context, Intent adapter) {
         this.group = adapter.getStringExtra("group");
-        this.day = adapter.getIntExtra("day",0);
-        this.week = adapter.getIntExtra("week",0);
+        this.day = adapter.getIntExtra("day", 0);
+        this.week = adapter.getIntExtra("week", 0);
         this.widgetId = adapter.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
                 AppWidgetManager.INVALID_APPWIDGET_ID);
         this.context = context;
@@ -61,7 +61,7 @@ public class LessonsViewsFactory implements RemoteViewsService.RemoteViewsFactor
 
     @Override
     public int getCount() {
-        return(lessons.size());
+        return (lessons.size());
     }
 
     @Override

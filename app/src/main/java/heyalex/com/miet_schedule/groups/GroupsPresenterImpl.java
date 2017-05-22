@@ -23,8 +23,8 @@ import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
     public void showGroups() {
         final List<ScheduleModel> groups = groupsRepository.getAll();
 
-        if(view != null){
-            if(groups != null){
+        if (view != null) {
+            if (groups != null) {
                 if (!groups.isEmpty()) {
                     view.showGroups(groups);
                 } else {
