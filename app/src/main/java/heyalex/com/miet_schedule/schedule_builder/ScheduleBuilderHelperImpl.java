@@ -8,7 +8,6 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
 import heyalex.com.miet_schedule.model.schedule.CycleWeeksLessonModel;
 import heyalex.com.miet_schedule.model.schedule.DayLessonsModel;
 import heyalex.com.miet_schedule.util.DateMietHelper;
@@ -35,10 +34,10 @@ import timber.log.Timber;
             switch (position) {
                 case 0: {
                     final List<DayLessonsModel> todayLessons = new ArrayList<>();
-                    if(schedule.getToday() != null){
+                    if (schedule.getToday() != null) {
                         schedule.getToday().setDay(toStringScheduleDay(today,
                                 DateMietHelper.getWeek(today)));
-                    }else {
+                    } else {
                         schedule.setToday(new DayLessonsModel());
                     }
 
@@ -47,10 +46,10 @@ import timber.log.Timber;
                 }
                 case 1: {
                     final List<DayLessonsModel> tommorowLessons = new ArrayList<>();
-                    if(schedule.getTommorow() != null){
+                    if (schedule.getTommorow() != null) {
                         schedule.getTommorow().setDay(toStringScheduleDay(today.plusDays(1),
                                 DateMietHelper.getWeek(today.plusDays(1))));
-                    }else {
+                    } else {
                         schedule.setTommorow(new DayLessonsModel());
                     }
 

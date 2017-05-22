@@ -22,11 +22,13 @@ public class BootBroadcastReceiver extends BroadcastReceiver {
             final AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             int widgets_IDs[] = appWidgetManager.getAppWidgetIds(new ComponentName(context,
                     ScheduleAppWidget.class));
-            for (int widget_id:widgets_IDs) {
+            for (int widget_id : widgets_IDs) {
                 Timber.i("Update widget with id %s", String.valueOf(widget_id));
+                String groupName = PrefUtils.getFromPrefs(context, String.valueOf(widget_id), "");
                 context.startService(ScheduleUpdateService.getScheduleIntent(context,
                         ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
-                        PrefUtils.getFromPrefs(context,String.valueOf(widget_id),"")));
+                        groupName));
+                ScheduleUpdateService.setupAlarm(context, widget_id, groupName);
             }
         }
     }

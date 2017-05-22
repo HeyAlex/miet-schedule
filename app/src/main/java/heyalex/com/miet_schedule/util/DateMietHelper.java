@@ -2,6 +2,8 @@ package heyalex.com.miet_schedule.util;
 
 import org.joda.time.DateTime;
 
+import timber.log.Timber;
+
 /**
  * Created by mac on 11.05.17.
  */
@@ -26,8 +28,8 @@ public class DateMietHelper {
         else return 1;
     }
 
-    public static int getWeek(DateTime dateTime){
-        return (getWeekByDay(dateTime)%4) - 1;
+    public static int getWeek(DateTime dateTime) {
+        return (getWeekByDay(dateTime) % 4) - 1;
     }
 
     public static int getDayInWeek(DateTime dateTime) {

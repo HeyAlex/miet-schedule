@@ -15,11 +15,13 @@ public class ScheduleAlarmReceiver extends WakefulBroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        Timber.i("start service");
         int widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
         String group = intent.getStringExtra("group");
         startWakefulService(context, ScheduleUpdateService.getScheduleIntent(context,
                 ScheduleUpdateService.TODAY_ACTION + String.valueOf(widgetId), widgetId, group));
-        Timber.i("start service");
-        ScheduleUpdateService.setupAlarm(context , widgetId , group);
+
+        ScheduleUpdateService.setupAlarm(context, widgetId, group);
     }
+
 }
