@@ -177,8 +177,12 @@ public class ScheduleUpdateService extends IntentService {
             Timber.i("Time for a next trigger of schedule widget update is %s", String.valueOf(ml));
             alarmManager.setAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, tomorrowStart.getMillis(), pendingIntent);
         } else {
-            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, ml, AlarmManager.INTERVAL_DAY
-                    , pendingIntent);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                alarmManager.setExact(AlarmManager.RTC_WAKEUP, tomorrowStart.getMillis(), pendingIntent);
+            }else {
+                alarmManager.set(AlarmManager.RTC_WAKEUP, tomorrowStart.getMillis(), pendingIntent);
+            }
+
         }
     }
 
