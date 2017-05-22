@@ -13,7 +13,6 @@ public class NavDrawerPresenterImpl implements NavDrawerPresenter {
 
     @Inject
     /*package*/ NavDrawerPresenterImpl() {
-
     }
 
     @Override

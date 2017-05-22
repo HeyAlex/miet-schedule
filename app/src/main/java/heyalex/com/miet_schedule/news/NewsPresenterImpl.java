@@ -33,7 +33,6 @@ import timber.log.Timber;
     @Inject
     /*package*/ NewsPresenterImpl(NewsRepository newsRepository) {
         this.newsRepository = newsRepository;
-        Timber.i("new object SchedulePresenterImpl, and CompositeDisposable size isL %s", newsResponseSubscription.size());
     }
 
     @Override

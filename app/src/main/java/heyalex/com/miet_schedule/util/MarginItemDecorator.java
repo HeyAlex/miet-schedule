@@ -19,7 +19,8 @@ public class MarginItemDecorator extends RecyclerView.ItemDecoration {
     }
 
     @Override
-    public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+    public void getItemOffsets(Rect outRect, View view, RecyclerView parent,
+                               RecyclerView.State state) {
         int itemsPerRow = getItemsPerRow(parent.getLayoutManager());
 
         int itemPosition = parent.getChildAdapterPosition(view);
