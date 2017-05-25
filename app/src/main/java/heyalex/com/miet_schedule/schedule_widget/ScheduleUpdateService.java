@@ -23,6 +23,7 @@ import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
 import heyalex.com.miet_schedule.schedule.ScheduleActivity;
 import heyalex.com.miet_schedule.util.DateMietHelper;
 import heyalex.com.miet_schedule.util.NavigationUtil;
+import heyalex.com.miet_schedule.util.VectorUtil;
 import timber.log.Timber;
 
 /**
@@ -61,7 +62,14 @@ public class ScheduleUpdateService extends IntentService {
                 if (intent.getAction().startsWith(TOMORROW_ACTION)) {
                     String group = intent.getStringExtra("group");
                     RemoteViews remoteViews = new RemoteViews(this.getPackageName(), R.layout.schedule_app_widget);
-                    remoteViews.setInt(R.id.widget_control, "setBackgroundResource", R.drawable.chevron_left);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        remoteViews.setImageViewResource(R.id.widget_control, R.drawable.chevron_left);
+                    }else {
+                        remoteViews.setImageViewBitmap(R.id.widget_control, VectorUtil.vectorToBitmap(this,R.drawable.chevron_left));
+                    }
+
+
+                       // remoteViews.setInt(R.id.widget_control, "setBackgroundResource", R.drawable.chevron_left);
                     remoteViews.setTextViewText(R.id.header, group);
                     remoteViews.setOnClickPendingIntent(R.id.header, getSchedulePendingIntent(this, group));
                     remoteViews.setOnClickPendingIntent(R.id.widget_control, getScheduleUpdateServicePendingIntent(this, TODAY_ACTION + String.valueOf(widgetId), widgetId, group));
@@ -98,7 +106,13 @@ public class ScheduleUpdateService extends IntentService {
                     RemoteViews remoteViews = new RemoteViews(this.getPackageName(), R.layout.schedule_app_widget);
                     remoteViews.setTextViewText(R.id.day, "СЕГОДНЯ" + " " +
                             NavigationUtil.weekListLong[DateMietHelper.getWeek(new DateTime()) + 2]);
-                    remoteViews.setInt(R.id.widget_control, "setBackgroundResource", R.drawable.chevron_right);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        remoteViews.setImageViewResource(R.id.widget_control, R.drawable.chevron_right);
+                    }else {
+                        remoteViews.setImageViewBitmap(R.id.widget_control, VectorUtil.vectorToBitmap(this,R.drawable.chevron_right));
+                    }
+
+                    //remoteViews.setInt(R.id.widget_control, "setBackgroundResource", R.drawable.chevron_left);
                     remoteViews.setTextViewText(R.id.header, group);
                     remoteViews.setOnClickPendingIntent(R.id.header, getSchedulePendingIntent(this, group));
                     remoteViews.setOnClickPendingIntent(R.id.widget_control, getScheduleUpdateServicePendingIntent(this, TOMORROW_ACTION + String.valueOf(widgetId), widgetId, group));

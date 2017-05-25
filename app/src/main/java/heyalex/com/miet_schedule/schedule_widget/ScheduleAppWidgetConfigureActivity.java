@@ -98,7 +98,8 @@ public class ScheduleAppWidgetConfigureActivity extends AppCompatActivity implem
         Timber.i(String.valueOf(mAppWidgetId));
         PrefUtils.saveToPrefs(this, String.valueOf(mAppWidgetId), newsModel.getGroup());
         ScheduleUpdateService.setupAlarm(this, mAppWidgetId, newsModel.getGroup());
-        setResult(RESULT_OK);
+        Intent intentParent = getIntent();
+        setResult(RESULT_OK, intentParent);
         finish();
     }
 
