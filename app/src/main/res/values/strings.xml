@@ -26,5 +26,7 @@
     <string name="schedule_updating_group">Обновляем %s…</string>
     <string name="schedule_error_while_updating">Ошибка при обновлении группы %s</string>
     <string name="no_schedule_for_current_day">%s пар нет</string>
+    <string name="tomorrow_widget_header">ЗАВТРА %s</string>
+    <string name="today_widget_header">СЕГОДНЯ %s</string>
 
 </resources>
