@@ -1,12 +1,11 @@
-
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:padding="@dimen/widget_margin"
-        android:background="?android:attr/selectableItemBackground"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/schedule_root"
-        android:orientation="vertical">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/widget_margin"
+    android:background="?android:attr/selectableItemBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/schedule_root"
+    android:orientation="vertical">
 
         <RelativeLayout
             android:layout_height="50dp"
@@ -45,10 +44,9 @@
 
             </LinearLayout>
 
-            <Button
+            <ImageView
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:background="@drawable/settings"
                 android:id="@+id/widget_control"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
