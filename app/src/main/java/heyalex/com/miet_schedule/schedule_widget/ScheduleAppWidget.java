@@ -3,7 +3,6 @@ package heyalex.com.miet_schedule.schedule_widget;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
-import android.content.Intent;
 
 import heyalex.com.miet_schedule.util.PrefUtils;
 import timber.log.Timber;

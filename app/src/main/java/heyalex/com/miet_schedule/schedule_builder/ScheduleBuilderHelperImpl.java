@@ -46,14 +46,14 @@ import timber.log.Timber;
                 }
                 case 1: {
                     final List<DayLessonsModel> tommorowLessons = new ArrayList<>();
-                    if (schedule.getTommorow() != null) {
-                        schedule.getTommorow().setDay(toStringScheduleDay(today.plusDays(1),
+                    if (schedule.getTomorrow() != null) {
+                        schedule.getTomorrow().setDay(toStringScheduleDay(today.plusDays(1),
                                 DateMietHelper.getWeek(today.plusDays(1))));
                     } else {
-                        schedule.setTommorow(new DayLessonsModel());
+                        schedule.setTomorrow(new DayLessonsModel());
                     }
 
-                    tommorowLessons.add(schedule.getTommorow());
+                    tommorowLessons.add(schedule.getTomorrow());
                     return tommorowLessons;
                 }
                 case 2: {

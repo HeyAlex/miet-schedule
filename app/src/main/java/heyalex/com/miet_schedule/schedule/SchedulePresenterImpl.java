@@ -12,7 +12,7 @@ import heyalex.com.miet_schedule.api.UniversityApiFactory;
 import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
 import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
 import heyalex.com.miet_schedule.model.schedule.CycleWeeksLessonModel;
-import heyalex.com.miet_schedule.model.schedule.SemestrData;
+import heyalex.com.miet_schedule.model.schedule.SemesterData;
 import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilder;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -68,7 +68,7 @@ import timber.log.Timber;
     }
 
 
-    private class ResponseScheduleObserver extends DisposableObserver<SemestrData> {
+    private class ResponseScheduleObserver extends DisposableObserver<SemesterData> {
 
         private String groupName;
 
@@ -77,7 +77,7 @@ import timber.log.Timber;
         }
 
         @Override
-        public void onNext(SemestrData semestrResponse) {
+        public void onNext(SemesterData semestrResponse) {
             Timber.i("Schedule for '%s' have successfully recived.", groupName);
             List<LessonModel> lessons = AddNewGroupPresenterImpl.
                     transformToDaoLessonModel(semestrResponse, groupName);

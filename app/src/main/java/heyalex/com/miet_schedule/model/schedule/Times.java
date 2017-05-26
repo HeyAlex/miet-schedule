@@ -1,13 +1,24 @@
 package heyalex.com.miet_schedule.model.schedule;
 
 /**
- * Created by alexf on 22.09.2016.
+ * Contains information about schedule time exercise
+ * Part of {@link SemesterData}
  */
-public class Times {
+/*package*/ class Times {
+
+    /**
+     * Number of exercise in all schedule time
+     */
     private String Time;
 
+    /**
+     * Lesson time start
+     */
     private String TimeFrom;
 
+    /**
+     * Lesson time end
+     */
     private String TimeTo;
 
     private String Code;

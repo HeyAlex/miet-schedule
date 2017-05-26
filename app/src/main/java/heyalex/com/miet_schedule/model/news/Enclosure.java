@@ -3,7 +3,8 @@ package heyalex.com.miet_schedule.model.news;
 import org.simpleframework.xml.Attribute;
 
 /**
- * Created by alexf on 29.10.2016.
+ * Contains a url of news picture
+ * Part of {@link Article}
  */
 
 public class Enclosure {

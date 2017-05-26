@@ -3,6 +3,7 @@ package heyalex.com.miet_schedule.schedule_widget;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -15,6 +16,7 @@ import heyalex.com.miet_schedule.LessonModel;
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
 import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
+import heyalex.com.miet_schedule.util.VectorUtil;
 
 /**
  * Created by alexf on 20.05.2017.
@@ -42,7 +44,6 @@ public class LessonsViewsFactory implements RemoteViewsService.RemoteViewsFactor
 
     @Override
     public void onCreate() {
-
         ScheduleApp.get(context)
                 .getApplicationComponent()
                 .inject(this);
@@ -67,12 +68,23 @@ public class LessonsViewsFactory implements RemoteViewsService.RemoteViewsFactor
     @Override
     public RemoteViews getViewAt(int position) {
         final LessonModel lesson = lessons.get(position);
-        RemoteViews remoteView = new RemoteViews(context.getPackageName(), R.layout.widget_lesson_item);
+        RemoteViews remoteView = new RemoteViews(context.getPackageName(),
+                R.layout.widget_lesson_item);
         remoteView.setTextViewText(R.id.itogname_schedule, lesson.getDisciplineName());
         remoteView.setTextViewText(R.id.room_schedule, lesson.getRoom());
         remoteView.setTextViewText(R.id.prep_schedule, lesson.getTeacher());
         remoteView.setTextViewText(R.id.timeTo_schedule, lesson.getTimeTo());
         remoteView.setTextViewText(R.id.timeFrom_schedule, lesson.getTimeFrom());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            remoteView.setImageViewResource(R.id.room_icon, R.drawable.login);
+            remoteView.setImageViewResource(R.id.teacher_icon,
+                    R.drawable.ic_perm_identity_black_48dp);
+        } else {
+            remoteView.setImageViewBitmap(R.id.room_icon, VectorUtil
+                    .vectorToBitmap(context, R.drawable.login));
+            remoteView.setImageViewBitmap(R.id.teacher_icon, VectorUtil
+                    .vectorToBitmap(context, R.drawable.ic_perm_identity_black_48dp));
+        }
         return remoteView;
     }
 

@@ -6,7 +6,9 @@ import java.util.List;
 import heyalex.com.miet_schedule.LessonModel;
 
 /**
- * Created by mac on 10.05.17.
+ * One day of student's life
+ * Contains all lessons that will be in current day
+ * Used in {@link heyalex.com.miet_schedule.schedule_builder.ScheduleBuilder}
  */
 
 public class DayLessonsModel implements Cloneable {

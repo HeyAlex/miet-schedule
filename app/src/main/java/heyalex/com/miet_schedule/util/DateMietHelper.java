@@ -2,8 +2,6 @@ package heyalex.com.miet_schedule.util;
 
 import org.joda.time.DateTime;
 
-import timber.log.Timber;
-
 /**
  * Created by mac on 11.05.17.
  */
@@ -15,7 +13,6 @@ public class DateMietHelper {
     private final static int semestr2_1 = 35;
     private final static int semestr2_2 = 2;
     private final static int fullWeeks = 52;
-
 
     private static int getWeekByDay(DateTime dateTime) {
         int currentYearWeek = dateTime.getWeekOfWeekyear();

@@ -6,18 +6,33 @@ import org.simpleframework.xml.Root;
 @Root(name = "item", strict = false)
 public class Article {
 
+    /**
+     * Title of a news
+     */
     @Element(name = "title")
     private String title;
 
+    /**
+     * Link that provides an actual infromation about news
+     */
     @Element(name = "link")
     private String link;
 
+    /**
+     * Description of a news
+     */
     @Element(name = "description")
     private String description;
 
+    /**
+     * Class that contains a url for news picture
+     */
     @Element(name = "enclosure")
     private Enclosure enclosure;
 
+    /**
+     * String of representation of date of publication
+     */
     @Element(name = "pubDate")
     private String pubDate;
 

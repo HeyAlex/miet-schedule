@@ -14,7 +14,7 @@ import heyalex.com.miet_schedule.api.UniversityApiFactory;
 import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
 import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
 import heyalex.com.miet_schedule.model.schedule.Data;
-import heyalex.com.miet_schedule.model.schedule.SemestrData;
+import heyalex.com.miet_schedule.model.schedule.SemesterData;
 import heyalex.com.miet_schedule.search.DataFilter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -102,7 +102,7 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
     }
 
 
-    private class ResponseScheduleObserver extends DisposableObserver<SemestrData> {
+    private class ResponseScheduleObserver extends DisposableObserver<SemesterData> {
 
         private String groupName;
 
@@ -111,7 +111,7 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
         }
 
         @Override
-        public void onNext(SemestrData semestrResponse) {
+        public void onNext(SemesterData semestrResponse) {
             Timber.i("Schedule for '%s' have successfully recived.", groupName);
             lessonsRepository.replaceAllByGroupName(groupName,
                     transformToDaoLessonModel(semestrResponse, groupName));
@@ -135,7 +135,7 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
         }
     }
 
-    public static List<LessonModel> transformToDaoLessonModel(SemestrData data, String groupName) {
+    public static List<LessonModel> transformToDaoLessonModel(SemesterData data, String groupName) {
         final DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss");
 
         List<LessonModel> lessons = new ArrayList<>();
@@ -170,8 +170,8 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
         return lessons;
     }
 
-    public static ScheduleModel transformToDaoScheduleModel(SemestrData data, String groupName) {
-        return new ScheduleModel(groupName, data.getSemestr());
+    public static ScheduleModel transformToDaoScheduleModel(SemesterData data, String groupName) {
+        return new ScheduleModel(groupName, data.getSemester());
     }
 
     private class ResponseAvailableGroups extends DisposableObserver<List<String>> {

@@ -1,13 +1,24 @@
 package heyalex.com.miet_schedule.model.schedule;
 
 /**
- * Created by alexf on 22.09.2016.
+ * This class is response holder with discipline information, includes in {@link Data}
+ * Contains information about discipline name and teacher that teach that discipline
  */
 public class ClassModel {
+
+    /**
+     * Discipline name
+     */
     private String Name;
 
+    /**
+     * Full teacher name
+     */
     private String TeacherFull;
 
+    /**
+     * Short teacher name
+     */
     private String Teacher;
 
     private String Code;

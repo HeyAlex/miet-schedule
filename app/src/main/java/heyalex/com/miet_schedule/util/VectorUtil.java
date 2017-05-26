@@ -20,7 +20,8 @@ public class VectorUtil {
 
     public static Bitmap vectorToBitmap(Context ctx, @DrawableRes int resVector) {
         Drawable drawable = AppCompatDrawableManager.get().getDrawable(ctx, resVector);
-        Bitmap b = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap b = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
+                Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(b);
         drawable.setBounds(0, 0, c.getWidth(), c.getHeight());
         drawable.draw(c);
