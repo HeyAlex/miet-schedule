@@ -6,9 +6,8 @@ import heyalex.com.miet_schedule.NewsModel;
 import heyalex.com.miet_schedule.NewsModelDao;
 
 /**
- * Created by mac on 13.04.17.
+ * Specific {@link NewsRepository} implementation
  */
-
 public class NewsRepositoryImpl implements NewsRepository {
 
     private final NewsModelDao dao;
