@@ -6,9 +6,8 @@ import heyalex.com.miet_schedule.LessonModel;
 import heyalex.com.miet_schedule.LessonModelDao;
 
 /**
- * Created by mac on 09.05.17.
+ * Specific {@link LessonsRepository} implementation
  */
-
 public class LessonsRepositoryImpl implements LessonsRepository {
 
     private final LessonModelDao dao;

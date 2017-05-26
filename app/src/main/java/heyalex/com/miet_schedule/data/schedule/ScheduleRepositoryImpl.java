@@ -6,9 +6,8 @@ import heyalex.com.miet_schedule.ScheduleModel;
 import heyalex.com.miet_schedule.ScheduleModelDao;
 
 /**
- * Created by mac on 13.04.17.
+ * Specific {@link ScheduleRepository} implementation
  */
-
 public class ScheduleRepositoryImpl implements ScheduleRepository {
 
     private final ScheduleModelDao dao;

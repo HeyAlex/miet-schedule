@@ -22,6 +22,7 @@ import heyalex.com.miet_schedule.data.schedule.ScheduleRepositoryImpl;
  */
 @Module
 public class DataModule {
+
     private static final String DATABASE_NAME = "miet.db";
     private final NewsRepository newsRepository;
     private final ScheduleRepository scheduleRepository;
