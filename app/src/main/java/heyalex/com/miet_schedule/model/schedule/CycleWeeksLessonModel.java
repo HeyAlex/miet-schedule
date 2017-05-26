@@ -3,15 +3,40 @@ package heyalex.com.miet_schedule.model.schedule;
 import java.util.List;
 
 /**
- * Created by alexf on 10.05.2017.
+ * That class is holder of full schedule for a group.
+ * Used in {@link heyalex.com.miet_schedule.schedule_builder.ScheduleBuilder} for build a schedule
+ * module
  */
-
 public class CycleWeeksLessonModel {
+
+    /**
+     * Day that will contains all lesson for today
+     */
     private DayLessonsModel today;
-    private DayLessonsModel tommorow;
+
+    /**
+     * Day that will contains all lesson for tommorow
+     */
+    private DayLessonsModel tomorrow;
+
+    /**
+     * Schedule for first numerator
+     */
     private List<DayLessonsModel> firstWeek;
+
+    /**
+     * Schedule for first denumerator
+     */
     private List<DayLessonsModel> secondWeek;
+
+    /**
+     * Schedule for second numerator
+     */
     private List<DayLessonsModel> thirdWeek;
+
+    /**
+     * Schedule for second denumerator
+     */
     private List<DayLessonsModel> fourthWeek;
 
     public List<DayLessonsModel> getFirstWeek() {
@@ -54,11 +79,11 @@ public class CycleWeeksLessonModel {
         this.today = today;
     }
 
-    public DayLessonsModel getTommorow() {
-        return tommorow;
+    public DayLessonsModel getTomorrow() {
+        return tomorrow;
     }
 
-    public void setTommorow(DayLessonsModel tommorow) {
-        this.tommorow = tommorow;
+    public void setTomorrow(DayLessonsModel tomorrow) {
+        this.tomorrow = tomorrow;
     }
 }

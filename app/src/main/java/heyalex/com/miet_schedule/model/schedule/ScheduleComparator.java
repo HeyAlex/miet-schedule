@@ -5,7 +5,7 @@ import java.util.Comparator;
 import heyalex.com.miet_schedule.LessonModel;
 
 /**
- * Created by alexf on 13.05.2017.
+ * Comparator for {@link LessonModel}
  */
 
 public class ScheduleComparator implements Comparator<LessonModel> {

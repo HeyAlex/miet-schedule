@@ -3,7 +3,7 @@ package heyalex.com.miet_schedule.api;
 import java.util.List;
 
 import heyalex.com.miet_schedule.model.news.ArticleResponse;
-import heyalex.com.miet_schedule.model.schedule.SemestrData;
+import heyalex.com.miet_schedule.model.schedule.SemesterData;
 import io.reactivex.Observable;
 import retrofit2.http.Query;
 
@@ -27,7 +27,7 @@ public class UniversityApiFactory {
         }
 
         @Override
-        public Observable<SemestrData> getScheduleResponse(@Query("group") String groupName) {
+        public Observable<SemesterData> getScheduleResponse(@Query("group") String groupName) {
             return scheduleService.getScheduleResponse(groupName);
         }
     };

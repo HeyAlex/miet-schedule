@@ -1,19 +1,40 @@
 package heyalex.com.miet_schedule.model.schedule;
 
 /**
- * Created by alexf on 22.09.2016.
+ * This class is response holder with lesson information, includes in {@link SemesterData}
+ * Contains information about room, time, week and day
  */
 public class Data {
+
+    /**
+     * Information about lesson's classroom
+     */
     private Room Room;
 
+    /**
+     * Information about lessons' time
+     */
     private Time Time;
 
+    /**
+     * Information about lesson's discipline
+     */
     private ClassModel Class;
 
+    /**
+     * number of week's lesson from 0..3 (means 1/2 numerator/denumerator)
+     */
     private String DayNumber;
 
+
+    /**
+     * number of a lesson's day in a week 0..6
+     */
     private String Day;
 
+    /**
+     * Information about lesson's group
+     */
     private Group Group;
 
     public Room getRoom() {

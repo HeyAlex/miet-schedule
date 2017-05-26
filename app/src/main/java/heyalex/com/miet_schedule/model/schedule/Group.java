@@ -4,6 +4,10 @@ package heyalex.com.miet_schedule.model.schedule;
  * Created by alexf on 22.09.2016.
  */
 public class Group {
+
+    /**
+     * Group name
+     */
     private String Name;
 
     private String Code;

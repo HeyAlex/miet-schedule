@@ -21,6 +21,7 @@ public class ScheduleBuilder {
 
     public static CycleWeeksLessonModel buildSchedule(List<LessonModel> lessons)
             throws CloneNotSupportedException {
+
         CycleWeeksLessonModel schedule = new CycleWeeksLessonModel();
         List<DayLessonsModel> weekOne = new ArrayList<>();
         List<DayLessonsModel> weekTwo = new ArrayList<>();
@@ -121,19 +122,19 @@ public class ScheduleBuilder {
             if (dayTommorow - 1 == i) {
                 switch (weekTommorow) {
                     case 0: {
-                        schedule.setTommorow(item1.clone());
+                        schedule.setTomorrow(item1.clone());
                         break;
                     }
                     case 1: {
-                        schedule.setTommorow(item2.clone());
+                        schedule.setTomorrow(item2.clone());
                         break;
                     }
                     case 2: {
-                        schedule.setTommorow(item3.clone());
+                        schedule.setTomorrow(item3.clone());
                         break;
                     }
                     case 3: {
-                        schedule.setTommorow(item4.clone());
+                        schedule.setTomorrow(item4.clone());
                         break;
                     }
                 }
