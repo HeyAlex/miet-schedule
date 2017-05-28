@@ -17,7 +17,6 @@ import timber.log.Timber;
 /**
  * Created by alexf on 14.05.2017.
  */
-
 /*package*/ class ScheduleBuilderHelperImpl implements ScheduleBuilderHelper {
 
     private CycleWeeksLessonModel schedule = null;
@@ -26,7 +25,6 @@ import timber.log.Timber;
     @Inject
     /*package*/ ScheduleBuilderHelperImpl() {
     }
-
 
     @Override
     public List<DayLessonsModel> getLessonsForCurrentFragment(int position) {

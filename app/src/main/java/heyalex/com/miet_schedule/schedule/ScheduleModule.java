@@ -5,10 +5,6 @@ import dagger.Provides;
 import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
 import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
 
-/**
- * Created by mac on 10.05.17.
- */
-
 @Module
 public class ScheduleModule {
 

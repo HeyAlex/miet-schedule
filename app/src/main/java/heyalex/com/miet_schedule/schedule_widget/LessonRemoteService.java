@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.widget.RemoteViewsService;
 
 /**
- * Created by alexf on 20.05.2017.
+ * Adapter remote service
+ * Used in {@link ScheduleUpdateService} for lessons adapter
  */
-
 public class LessonRemoteService extends RemoteViewsService {
 
     @Override

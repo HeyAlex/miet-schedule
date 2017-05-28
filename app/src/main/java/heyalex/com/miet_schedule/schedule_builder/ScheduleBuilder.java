@@ -14,9 +14,8 @@ import heyalex.com.miet_schedule.util.DateMietHelper;
 import heyalex.com.miet_schedule.util.NavigationUtil;
 
 /**
- * Created by mac on 12.05.17.
+ * Bullshit generating schedule POJO {@link CycleWeeksLessonModel}
  */
-
 public class ScheduleBuilder {
 
     public static CycleWeeksLessonModel buildSchedule(List<LessonModel> lessons)

@@ -10,9 +10,9 @@ import heyalex.com.miet_schedule.util.PrefUtils;
 import timber.log.Timber;
 
 /**
- * Created by alexf on 21.05.2017.
+ * On Boot listener
+ * Start {@link ScheduleUpdateService} if homescreen have some ids associated with widget
  */
-
 public class BootBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {

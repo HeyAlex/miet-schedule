@@ -9,13 +9,12 @@ import timber.log.Timber;
 
 /**
  * Implementation of App Widget functionality.
- * App Widget Configuration implemented in {@link ScheduleAppWidgetConfigureActivity ScheduleAppWidgetConfigureActivity}
+ * App Widget Configuration implemented in {@link ScheduleAppWidgetConfigureActivity}
  */
 public class ScheduleAppWidget extends AppWidgetProvider {
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-
     }
 
     @Override
@@ -27,6 +26,7 @@ public class ScheduleAppWidget extends AppWidgetProvider {
             ScheduleUpdateService.stopAlarm(context, widgetId, groupName);
         }
     }
+
 
     @Override
     public void onEnabled(Context context) {

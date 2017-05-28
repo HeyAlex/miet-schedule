@@ -23,9 +23,8 @@ import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 /**
- * Created by mac on 10.05.17.
+ * Specific {@link SchedulePresenter} implementation
  */
-
 /*package*/ class SchedulePresenterImpl implements SchedulePresenter {
 
     private ScheduleRepository scheduleRepository;
