@@ -6,8 +6,13 @@ import heyalex.com.miet_schedule.R;
  * Created by alexf on 14.09.2016.
  */
 public class NavigationUtil {
+
+    /**
+     * List of strings for navigation list items
+     */
     public static final int drawerList[] = {R.string.schedule,
             R.string.nav_discipline, R.string.nav_news};
+
     public static final String weekDayList[] = {"Понедельник", "Вторник", "Среда",
             "Четверг", "Пятница", "Суббота", "Воскресенье"};
     public static final String weekList[] = {"Сегодня", "Завтра", "числ 1", "знам 1",

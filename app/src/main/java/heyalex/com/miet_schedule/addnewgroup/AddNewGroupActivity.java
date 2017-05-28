@@ -1,5 +1,11 @@
 package heyalex.com.miet_schedule.addnewgroup;
 
+import android.content.Intent;
+import android.content.pm.ShortcutInfo;
+import android.content.pm.ShortcutManager;
+import android.graphics.drawable.Icon;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -13,6 +19,9 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,6 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
+import heyalex.com.miet_schedule.schedule.ScheduleActivity;
 
 /**
  * Created by mac on 28.04.17.
@@ -139,6 +149,26 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
     @Override
     public void hideDownloading() {
         downloadingSnackbar.dismiss();
+    }
+
+    @Override
+    public void addShortcut(String group) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+            ShortcutManager shortcutManager = this.getSystemService(ShortcutManager.class);
+            Intent intent = new Intent(Intent.ACTION_MAIN, Uri.EMPTY, this, ScheduleActivity.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+            if (shortcutManager.getDynamicShortcuts().size() != 4) {
+                ShortcutInfo webShortcut = new ShortcutInfo.Builder(this, group)
+                        .setShortLabel(group)
+                        .setLongLabel(group)
+                        .setRank(shortcutManager.getDynamicShortcuts().size() + 1)
+                        .setIcon(Icon.createWithResource(this, R.mipmap.ic_launcher))
+                        .setIntent(intent.putExtra("group", group))
+                        .build();
+                shortcutManager.addDynamicShortcuts(Arrays.asList(webShortcut));
+            }
+        }
     }
 
     @Override

@@ -7,7 +7,9 @@ import heyalex.com.miet_schedule.model.schedule.SemesterData;
 import io.reactivex.Observable;
 import retrofit2.http.Query;
 
-
+/**
+ * Class used to get instance of {@link UniversityService}
+ */
 public class UniversityApiFactory {
     private static final UniversityService instance = new UniversityService() {
 

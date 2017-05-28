@@ -9,9 +9,8 @@ import android.support.annotation.DrawableRes;
 import android.support.v7.widget.AppCompatDrawableManager;
 
 /**
- * Created by mac on 25.05.17.
+ * Vector Utils for pre lolipop devices
  */
-
 public class VectorUtil {
 
     public static BitmapDrawable vectorToBitmapDrawable(Context ctx, @DrawableRes int resVector) {

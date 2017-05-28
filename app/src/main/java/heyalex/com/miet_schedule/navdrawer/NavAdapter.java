@@ -19,20 +19,31 @@ import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.util.NavigationUtil;
 
 /**
- * Created by alexf on 14.04.2017.
+ * Adapter that used in {@link NavDrawerActivity}
  */
-
 /*package*/ class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder> {
 
     private Context context;
+    /**
+     * Icons for navigation list items
+     */
     private final Integer[] iconId = new Integer[]{R.drawable.calendar,
             R.drawable.newspaper, R.drawable.calendar_clock};
 
     private List<Integer> data;
 
     private int mCurrentPos = 0;
+
+    /**
+     * Callback that navigation items has clicked
+     */
     private OnNavClickedListener clickedListener;
 
+    /**
+     * Create a new instance of {@link NavAdapter}
+     * @param context where adapter was created
+     * @param clickedListener to receive callbacks
+     */
     /*package*/ NavAdapter(Context context, OnNavClickedListener clickedListener) {
         this.context = context;
         this.data = Arrays.asList(iconId);
@@ -40,6 +51,9 @@ import heyalex.com.miet_schedule.util.NavigationUtil;
         notifyDataSetChanged();
     }
 
+    /**
+     * Callback for the view that created this adapter.
+     */
     /*package*/ interface OnNavClickedListener {
         void onNavClicked(int position);
     }
@@ -88,12 +102,10 @@ import heyalex.com.miet_schedule.util.NavigationUtil;
         @BindView(R.id.drawer_text)
         TextView mItemTextView;
 
-
         /*package*/ ViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
-
 
         /*package*/ void fillView(int position) {
             mItemImageView.setImageResource(getItem(position));

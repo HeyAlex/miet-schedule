@@ -29,7 +29,7 @@ import timber.log.Timber;
 
 public class ScheduleApp extends Application {
 
-    @NonNull // initialized in onCreate()
+    @NonNull
     private ApplicationComponent applicationComponent;
 
     private NavDrawerComponent navDrawerComponent;
@@ -44,19 +44,8 @@ public class ScheduleApp extends Application {
         Timber.plant(new Timber.DebugTree());
         applicationComponent = prepareApplicationComponent().build();
         initDaggerComponents();
-        initNewsComponent();
-        initGroupsComponent();
-        initAddnewGroupComponent();
-        initScheduleComponent();
     }
 
-
-    /**
-     * Static method returns {@link ScheduleApp} instance from context
-     *
-     * @param context to get {@link ScheduleApp}
-     * @return {@link ScheduleApp} instance
-     */
     public static ScheduleApp get(Context context) {
         if (context == null) {
             throw new NullPointerException("context == null");

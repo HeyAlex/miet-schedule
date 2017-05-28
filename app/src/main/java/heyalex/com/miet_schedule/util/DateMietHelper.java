@@ -3,9 +3,9 @@ package heyalex.com.miet_schedule.util;
 import org.joda.time.DateTime;
 
 /**
- * Created by mac on 11.05.17.
+ * Util that used for get a week and day offline for schedule
+ * That class compute current week and day by current date
  */
-
 public class DateMietHelper {
 
     private final static int semestr1_1 = 6;
@@ -14,6 +14,14 @@ public class DateMietHelper {
     private final static int semestr2_2 = 2;
     private final static int fullWeeks = 52;
 
+    /**
+     * This method compute a current semester (Autumn and Spring semester) and returns a number of
+     * week in global schedule.
+     * For better understanding: Year - 52 weeks. Spring - from 6 to 26 weeks,
+     * Autumn - from 35 to 2 weeks
+     * @param dateTime date
+     * @return number of current week in schedule like 1..20
+     */
     private static int getWeekByDay(DateTime dateTime) {
         int currentYearWeek = dateTime.getWeekOfWeekyear();
         if (currentYearWeek >= semestr2_1 && currentYearWeek <= fullWeeks)
@@ -25,10 +33,22 @@ public class DateMietHelper {
         else return 1;
     }
 
+    /**
+     * 0 - first numerator
+     * 1 - first denumerator
+     * 2 - second numerator
+     * 3 - second denumerator
+     * @param dateTime date
+     * @return number of current week in schedule like 0..3
+     */
     public static int getWeek(DateTime dateTime) {
         return (getWeekByDay(dateTime) % 4) - 1;
     }
 
+    /**
+     * @param dateTime date
+     * @return number of current day of week
+     */
     public static int getDayInWeek(DateTime dateTime) {
         return dateTime.getDayOfWeek();
     }
