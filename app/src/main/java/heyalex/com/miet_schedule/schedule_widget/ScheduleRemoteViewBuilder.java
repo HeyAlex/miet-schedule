@@ -20,9 +20,9 @@ import static heyalex.com.miet_schedule.schedule_widget.ScheduleUpdateService.TO
 import static heyalex.com.miet_schedule.schedule_widget.ScheduleUpdateService.TOMORROW_ACTION;
 
 /**
- * Created by alexf on 21.05.2017.
+ * Schedule remote view builder that used in {@link ScheduleUpdateService} for building a
+ * remote view for widget
  */
-
 /*package*/ class ScheduleRemoteViewBuilder {
 
     private RemoteViews remoteViews;
@@ -54,6 +54,14 @@ import static heyalex.com.miet_schedule.schedule_widget.ScheduleUpdateService.TO
             this.context = context;
             this.group = group;
             this.widgetId = widgetId;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                remoteViews.setImageViewResource(R.id.settings_icon, R.drawable.settings);
+            } else {
+                remoteViews.setImageViewBitmap(R.id.settings_icon, VectorUtil
+                        .vectorToBitmap(context, R.drawable.settings));
+            }
+            remoteViews.setOnClickPendingIntent(R.id.settings_icon, ScheduleUpdateService
+                    .getScheduleConfigurationPendingIntent(context, widgetId));
         }
 
         /*package*/ Builder setTomorrowHeader(boolean shouldBuildTommorow) {
@@ -103,28 +111,22 @@ import static heyalex.com.miet_schedule.schedule_widget.ScheduleUpdateService.TO
 
 
         /*package*/ Builder setAdapterForLessons() {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                remoteViews.setImageViewResource(R.id.settings_icon, R.drawable.settings);
-            } else {
-                remoteViews.setImageViewBitmap(R.id.settings_icon, VectorUtil
-                        .vectorToBitmap(context, R.drawable.settings));
-            }
-            remoteViews.setOnClickPendingIntent(R.id.settings_icon, ScheduleUpdateService
-                    .getScheduleConfigurationPendingIntent(context, widgetId));
-            if (lessonsRepository.getLessonsByWeekAndDay(group, week, day).isEmpty()) {
-                remoteViews.setViewVisibility(R.id.no_schedule_view, View.VISIBLE);
-                remoteViews.setViewVisibility(R.id.lessons, View.INVISIBLE);
-            } else {
-                remoteViews.setViewVisibility(R.id.no_schedule_view, View.INVISIBLE);
-                remoteViews.setViewVisibility(R.id.lessons, View.VISIBLE);
-                Intent adapter = new Intent(context, LessonRemoteService.class);
-                adapter.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
-                adapter.putExtra("group", group);
-                adapter.putExtra("week", week);
-                adapter.putExtra("day", day);
-                Uri data = Uri.parse(adapter.toUri(Intent.URI_INTENT_SCHEME));
-                adapter.setData(data);
-                remoteViews.setRemoteAdapter(R.id.lessons, adapter);
+            if (lessonsRepository != null) {
+                if (lessonsRepository.getLessonsByWeekAndDay(group, week, day).isEmpty()) {
+                    remoteViews.setViewVisibility(R.id.no_schedule_view, View.VISIBLE);
+                    remoteViews.setViewVisibility(R.id.lessons, View.INVISIBLE);
+                } else {
+                    remoteViews.setViewVisibility(R.id.no_schedule_view, View.INVISIBLE);
+                    remoteViews.setViewVisibility(R.id.lessons, View.VISIBLE);
+                    Intent adapter = new Intent(context, LessonRemoteService.class);
+                    adapter.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+                    adapter.putExtra("group", group);
+                    adapter.putExtra("week", week);
+                    adapter.putExtra("day", day);
+                    Uri data = Uri.parse(adapter.toUri(Intent.URI_INTENT_SCHEME));
+                    adapter.setData(data);
+                    remoteViews.setRemoteAdapter(R.id.lessons, adapter);
+                }
             }
             return this;
         }

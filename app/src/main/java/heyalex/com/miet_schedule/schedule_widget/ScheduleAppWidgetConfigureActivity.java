@@ -25,7 +25,7 @@ import heyalex.com.miet_schedule.util.PrefUtils;
 import timber.log.Timber;
 
 /**
- * The configuration screen for the {@link ScheduleAppWidget ScheduleAppWidget} AppWidget.
+ * The configuration screen for the {@link ScheduleAppWidget} AppWidget.
  */
 public class ScheduleAppWidgetConfigureActivity extends AppCompatActivity implements GroupsView,
         GroupsAdapter.OnGroupClickedListener {

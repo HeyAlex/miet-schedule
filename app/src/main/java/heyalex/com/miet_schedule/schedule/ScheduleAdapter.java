@@ -20,7 +20,6 @@ import heyalex.com.miet_schedule.model.schedule.DayLessonsModel;
 /**
  * Created by mac on 10.05.17.
  */
-
 /*package*/ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
 
     private final List<DayLessonsModel> items = new ArrayList<DayLessonsModel>();

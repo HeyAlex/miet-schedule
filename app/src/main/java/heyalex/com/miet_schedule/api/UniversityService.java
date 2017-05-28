@@ -15,6 +15,7 @@ public interface UniversityService {
 
     /**
      * Returns last 20 rss {@link heyalex.com.miet_schedule.model.news.Article}
+     *
      * @return {@link ArticleResponse}
      */
     @GET("rss/news")
@@ -22,6 +23,7 @@ public interface UniversityService {
 
     /**
      * Returns a list of available group names
+     *
      * @return list of strings
      */
     @GET("schedule/groups")
@@ -29,6 +31,7 @@ public interface UniversityService {
 
     /**
      * Returns a schedule response
+     *
      * @param groupName associated with schedule
      * @return {@link SemesterData}
      */

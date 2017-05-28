@@ -19,9 +19,8 @@ import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
 import heyalex.com.miet_schedule.util.VectorUtil;
 
 /**
- * Created by alexf on 20.05.2017.
+ * A factory for list view in widget
  */
-
 public class LessonsViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
     private List<LessonModel> lessons = new ArrayList<>();

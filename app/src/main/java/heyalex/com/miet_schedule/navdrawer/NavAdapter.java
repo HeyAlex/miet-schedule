@@ -41,7 +41,8 @@ import heyalex.com.miet_schedule.util.NavigationUtil;
 
     /**
      * Create a new instance of {@link NavAdapter}
-     * @param context where adapter was created
+     *
+     * @param context         where adapter was created
      * @param clickedListener to receive callbacks
      */
     /*package*/ NavAdapter(Context context, OnNavClickedListener clickedListener) {

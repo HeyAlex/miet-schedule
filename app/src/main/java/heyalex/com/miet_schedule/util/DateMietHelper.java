@@ -19,6 +19,7 @@ public class DateMietHelper {
      * week in global schedule.
      * For better understanding: Year - 52 weeks. Spring - from 6 to 26 weeks,
      * Autumn - from 35 to 2 weeks
+     *
      * @param dateTime date
      * @return number of current week in schedule like 1..20
      */
@@ -38,6 +39,7 @@ public class DateMietHelper {
      * 1 - first denumerator
      * 2 - second numerator
      * 3 - second denumerator
+     *
      * @param dateTime date
      * @return number of current week in schedule like 0..3
      */

@@ -8,9 +8,9 @@ import android.support.v4.content.WakefulBroadcastReceiver;
 import timber.log.Timber;
 
 /**
- * Created by alexf on 21.05.2017.
+ * Schedule alarm receiver
+ * Fires in the start of a day
  */
-
 public class ScheduleAlarmReceiver extends WakefulBroadcastReceiver {
 
     @Override

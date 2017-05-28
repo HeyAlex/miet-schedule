@@ -24,6 +24,7 @@ package heyalex.com.miet_schedule.navdrawer;
 
     /**
      * Show last position of navigation drawer list
+     *
      * @param position last position
      */
     void showCurrentPosition(int position);

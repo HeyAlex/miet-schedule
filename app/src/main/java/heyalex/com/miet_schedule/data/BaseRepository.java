@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Generic interface for managing dao entities
+ *
  * @param <T> dao entity
  */
 public interface BaseRepository<T> {

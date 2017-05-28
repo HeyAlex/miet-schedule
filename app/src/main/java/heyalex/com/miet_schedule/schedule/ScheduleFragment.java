@@ -29,11 +29,13 @@ import heyalex.com.miet_schedule.util.NavigationUtil;
 /**
  * Created by mac on 10.05.17.
  */
-
 public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLessonClicked {
 
     private ScheduleAdapter scheduleAdapter = new ScheduleAdapter(this);
     private static final String POSITION = "position";
+    /**
+     * Position in the viewpager
+     */
     private int position;
 
     @BindView(R.id.schedule_list_here)

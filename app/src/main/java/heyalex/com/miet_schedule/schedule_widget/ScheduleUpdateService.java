@@ -23,9 +23,8 @@ import heyalex.com.miet_schedule.schedule.ScheduleActivity;
 import timber.log.Timber;
 
 /**
- * Created by alexf on 13.04.2017.
+ * Service for updating and building a widget
  */
-
 public class ScheduleUpdateService extends IntentService {
 
     public static final String TOMORROW_ACTION = "TOMORROW_ACTION";
