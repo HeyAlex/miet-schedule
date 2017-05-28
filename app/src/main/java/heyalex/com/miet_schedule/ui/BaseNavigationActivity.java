@@ -74,16 +74,11 @@ public abstract class BaseNavigationActivity extends AppCompatActivity {
     }
 
     private boolean isNavDrawerOpened() {
-        /**
-         * Simplified from
-         * {@code   if (drawerLayout != null) {
-         *              return drawerLayout.isDrawerOpen(GravityCompat.START);
-         *          } else {
-         *               return false;
-         *          }
-         * }
-         */
-        return drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START);
+        if (drawerLayout != null) {
+            return drawerLayout.isDrawerOpen(GravityCompat.START);
+        } else {
+            return false;
+        }
     }
 
     private void closeNavDrawer() {

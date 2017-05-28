@@ -21,10 +21,9 @@ import heyalex.com.miet_schedule.R;
 import static heyalex.com.miet_schedule.util.Preconditions.checkNotNull;
 
 /**
- * Created by mac on 05.05.17.
+ * Adapter that used in {@link NewsFragment}
  */
-
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
+/*package*/ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
 
     private Context context;
     private OnNewsClickedListener onNewsClickedListener;

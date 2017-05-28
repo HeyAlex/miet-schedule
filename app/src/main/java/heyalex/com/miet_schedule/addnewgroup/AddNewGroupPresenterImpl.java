@@ -117,7 +117,10 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
                     transformToDaoLessonModel(semestrResponse, groupName));
             groupsRepository.replaceByGroupName(groupName,
                     transformToDaoScheduleModel(semestrResponse, groupName));
-            view.hideDownloading();
+            if(view != null){
+                view.hideDownloading();
+                view.addShortcut(groupName);
+            }
         }
 
         @Override

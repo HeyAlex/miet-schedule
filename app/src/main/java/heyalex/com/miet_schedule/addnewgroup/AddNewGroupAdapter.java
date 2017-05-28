@@ -19,7 +19,6 @@ import static heyalex.com.miet_schedule.util.Preconditions.checkNotNull;
 /**
  * Created by alexf on 16.05.2017.
  */
-
 /*package*/ class AddNewGroupAdapter extends RecyclerView.Adapter<AddNewGroupAdapter.GroupsViewHolder> {
 
     private Context context;

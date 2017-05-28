@@ -18,7 +18,6 @@ import heyalex.com.miet_schedule.util.NavigationUtil;
 /**
  * Created by alexf on 04.04.2017.
  */
-
 public class NavDrawerActivity extends BaseNavigationActivity implements NavDrawerView,
         NavAdapter.OnNavClickedListener {
 
@@ -119,10 +118,10 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
     }
 
     @Override
-    public void showCurrentPosition(int postion) {
-        navAdapter.setCurrentPos(postion);
+    public void showCurrentPosition(int position) {
+        navAdapter.setCurrentPos(position);
         if (getSupportActionBar() != null) {
-            getSupportActionBar().setTitle(NavigationUtil.drawerList[postion]);
+            getSupportActionBar().setTitle(NavigationUtil.drawerList[position]);
         }
     }
 

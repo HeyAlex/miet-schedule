@@ -20,7 +20,6 @@ import static heyalex.com.miet_schedule.util.Preconditions.checkNotNull;
 /**
  * Created by mac on 09.05.17.
  */
-
 public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsViewHolder> {
 
     private Context context;

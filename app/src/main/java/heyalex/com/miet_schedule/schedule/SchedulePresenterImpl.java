@@ -93,7 +93,6 @@ import timber.log.Timber;
                 view.showStatus(false);
             }
             scheduleCompositeDisposable.clear();
-
         }
 
         @Override
@@ -104,6 +103,7 @@ import timber.log.Timber;
                 view.showStatus(false);
                 view.showErrorView();
             }
+            scheduleCompositeDisposable.clear();
         }
 
         @Override

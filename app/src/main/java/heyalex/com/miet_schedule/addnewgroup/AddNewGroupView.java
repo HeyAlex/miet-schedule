@@ -15,4 +15,6 @@ import java.util.List;
     void showDownloading(String groups);
 
     void hideDownloading();
+
+    void addShortcut(String group);
 }
