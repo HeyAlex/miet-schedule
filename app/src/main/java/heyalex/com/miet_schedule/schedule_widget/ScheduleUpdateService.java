@@ -14,11 +14,8 @@ import android.widget.RemoteViews;
 import org.joda.time.DateTime;
 import org.joda.time.Duration;
 
-import javax.inject.Inject;
-
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
-import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
 import heyalex.com.miet_schedule.schedule.ScheduleActivity;
 import timber.log.Timber;
 
@@ -29,10 +26,6 @@ public class ScheduleUpdateService extends IntentService {
 
     public static final String TOMORROW_ACTION = "TOMORROW_ACTION";
     public static final String TODAY_ACTION = "TODAY_ACTION";
-
-    @Inject
-    LessonsRepository lessonsRepository;
-
 
     public ScheduleUpdateService() {
         super("ScheduleUpdateService");
@@ -55,8 +48,7 @@ public class ScheduleUpdateService extends IntentService {
             Timber.i("Schedule widget service update");
             if (intent.getAction() != null) {
                 String group = intent.getStringExtra("group");
-                RemoteViews views = ScheduleRemoteViewBuilder.newBuilder(this, group, widgetId,
-                        lessonsRepository)
+                RemoteViews views = ScheduleRemoteViewBuilder.newBuilder(this, group, widgetId)
                         .setTomorrowHeader(intent.getAction().startsWith(TOMORROW_ACTION))
                         .setTodayHeader(intent.getAction().startsWith(TODAY_ACTION))
                         .setAdapterForLessons()
@@ -73,18 +65,16 @@ public class ScheduleUpdateService extends IntentService {
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
         resultValue.putExtra("group", group);
         resultValue.setAction(action);
-        return PendingIntent.getService(context, 0, resultValue, 0);
+        return PendingIntent.getService(context, 0, resultValue, PendingIntent.FLAG_CANCEL_CURRENT);
     }
 
     public static PendingIntent getScheduleConfigurationPendingIntent(Context context,
-
                                                                       int widgetId) {
         Intent resultValue = new Intent(context, ScheduleAppWidgetConfigureActivity.class);
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
-        resultValue.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         Uri data = Uri.parse(resultValue.toUri(Intent.URI_INTENT_SCHEME));
         resultValue.setData(data);
-        return PendingIntent.getActivity(context, 0, resultValue, 0);
+        return PendingIntent.getActivity(context, 0, resultValue, PendingIntent.FLAG_CANCEL_CURRENT);
     }
 
     public static PendingIntent getAlarmIntent(Context context, String action, int widgetId,

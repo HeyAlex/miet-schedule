@@ -156,6 +156,7 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
             Intent intent = new Intent(Intent.ACTION_MAIN, Uri.EMPTY, this, ScheduleActivity.class)
                     .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
+
             if (shortcutManager.getDynamicShortcuts().size() != 4) {
                 ShortcutInfo webShortcut = new ShortcutInfo.Builder(this, group)
                         .setShortLabel(group)

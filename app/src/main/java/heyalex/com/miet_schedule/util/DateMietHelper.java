@@ -43,7 +43,7 @@ public class DateMietHelper {
      * 3 - second denumerator
      *
      * @param dateTime date
-     * @return number of current week in schedule like 0..3
+     * @return number of current study week in schedule like 0..3
      */
     public static int getWeek(DateTime dateTime) {
         return getStudyWeek(getWeekByDay(dateTime) % 4);
