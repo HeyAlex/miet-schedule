@@ -2,6 +2,8 @@ package heyalex.com.miet_schedule.util;
 
 import org.joda.time.DateTime;
 
+import timber.log.Timber;
+
 /**
  * Util that used for get a week and day offline for schedule
  * That class compute current week and day by current date
@@ -44,7 +46,26 @@ public class DateMietHelper {
      * @return number of current week in schedule like 0..3
      */
     public static int getWeek(DateTime dateTime) {
-        return (getWeekByDay(dateTime) % 4) - 1;
+        return getStudyWeek(getWeekByDay(dateTime) % 4);
+    }
+
+    private static int getStudyWeek(int week) {
+        switch (week % 4) {
+            case 1: {
+                return 0;
+            }
+            case 2: {
+                return 1;
+            }
+            case 3: {
+                return 2;
+            }
+            case 0: {
+                return 3;
+            }
+            default:
+                return 0;
+        }
     }
 
     /**
