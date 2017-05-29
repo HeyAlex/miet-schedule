@@ -89,7 +89,7 @@ public class LessonsViewsFactory implements RemoteViewsService.RemoteViewsFactor
 
     @Override
     public RemoteViews getLoadingView() {
-        return null;
+        return new RemoteViews(context.getPackageName(), R.layout.widget_loading);
     }
 
     @Override
