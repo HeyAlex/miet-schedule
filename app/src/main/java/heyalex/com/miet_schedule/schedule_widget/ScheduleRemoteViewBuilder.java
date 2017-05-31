@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.widget.RemoteViews;
 
 import org.joda.time.DateTime;
@@ -13,6 +14,8 @@ import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.util.DateMietHelper;
 import heyalex.com.miet_schedule.util.NavigationUtil;
 import heyalex.com.miet_schedule.util.VectorUtil;
+import heyalex.com.miet_schedule.widget_test_lib.WidgetBuilder;
+import timber.log.Timber;
 
 import static heyalex.com.miet_schedule.schedule_widget.ScheduleUpdateService.TODAY_ACTION;
 import static heyalex.com.miet_schedule.schedule_widget.ScheduleUpdateService.TOMORROW_ACTION;
@@ -21,7 +24,7 @@ import static heyalex.com.miet_schedule.schedule_widget.ScheduleUpdateService.TO
  * Schedule remote view builder that used in {@link ScheduleUpdateService} for building a
  * remote view for widget
  */
-/*package*/ class ScheduleRemoteViewBuilder {
+/*package*/ class ScheduleRemoteViewBuilder{
 
     private RemoteViews remoteViews;
 
@@ -47,6 +50,7 @@ import static heyalex.com.miet_schedule.schedule_widget.ScheduleUpdateService.TO
     static Builder newBuilder(Context context, String group, int widgetId) {
         return new ScheduleRemoteViewBuilder(context).new Builder(context, group, widgetId);
     }
+
 
     public class Builder {
         private Context context;

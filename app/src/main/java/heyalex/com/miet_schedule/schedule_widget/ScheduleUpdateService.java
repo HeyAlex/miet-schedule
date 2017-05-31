@@ -59,6 +59,7 @@ public class ScheduleUpdateService extends IntentService {
         }
     }
 
+
     public static PendingIntent getScheduleUpdateServicePendingIntent(Context context, String action,
                                                                       int widgetId, String group) {
         Intent resultValue = new Intent(context, ScheduleUpdateService.class);

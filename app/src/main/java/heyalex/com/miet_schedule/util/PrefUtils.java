@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 /**
- * Created by alexf on 09.09.2016.
+ * Shared preference util
  */
 public class PrefUtils {
     /**
@@ -16,6 +16,7 @@ public class PrefUtils {
      * @param value   Value to save
      */
     public static void saveToPrefs(Context context, String key, String value) {
+        Preconditions.checkNotNull(key);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         final SharedPreferences.Editor editor = prefs.edit();
         editor.putString(key, value);
@@ -32,12 +33,11 @@ public class PrefUtils {
      * @return Return the value found against given key, default if not found or any error occurs
      */
     public static String getFromPrefs(Context context, String key, String defaultValue) {
-
+        Preconditions.checkNotNull(key);
         try {
             SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
             return sharedPrefs.getString(key, defaultValue);
         } catch (NullPointerException e) {
-            e.printStackTrace();
             return defaultValue;
         }
     }
@@ -47,6 +47,7 @@ public class PrefUtils {
      * @param key     Key to delete from SharedPreferences
      */
     public static void removeFromPrefs(Context context, String key) {
+        Preconditions.checkNotNull(key);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         final SharedPreferences.Editor editor = prefs.edit();
         editor.remove(key);
