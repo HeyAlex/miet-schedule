@@ -15,12 +15,17 @@ import java.util.List;
 
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.schedule.ScheduleActivity;
+import heyalex.com.miet_schedule.util.PrefUtils;
 
 /**
- * Created by mac on 29.05.17.
+ * Shortcut Manager
  */
-
 public class ShortcutPreferenceImpl implements ShortcutPreference {
+
+    /**
+     * Shortcut Preference Key for counter
+     */
+    private static final String SHORTCUT_PREF = "shortcut_counter";
 
     @NonNull
     private Context context;
@@ -33,32 +38,42 @@ public class ShortcutPreferenceImpl implements ShortcutPreference {
             Intent intent = new Intent(Intent.ACTION_MAIN, Uri.EMPTY, context,
                     ScheduleActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
+            int dynamicShortcutCounter = Integer.valueOf(PrefUtils.getFromPrefs(context,
+                    SHORTCUT_PREF, "0"));
 
-            if (shortcutManager.getDynamicShortcuts().size() != 3) {
-                ShortcutInfo scheduleShortcut = new ShortcutInfo.Builder(context, groupName)
-                        .setShortLabel(groupName)
-                        .setLongLabel(groupName)
-                        .setRank(shortcutManager.getDynamicShortcuts().size() + 1)
-                        .setIcon(Icon.createWithResource(context, R.mipmap.ic_launcher))
-                        .setIntent(intent.putExtra("group", groupName))
-                        .build();
-                shortcutManager.addDynamicShortcuts(Collections.singletonList(scheduleShortcut));
-            }else {
-                ShortcutInfo scheduleShortcut = new ShortcutInfo.Builder(context, groupName)
-                        .setShortLabel(groupName)
-                        .setLongLabel(groupName)
-                        .setRank(1)
-                        .setIcon(Icon.createWithResource(context, R.mipmap.ic_launcher))
-                        .setIntent(intent.putExtra("group", groupName))
-                        .build();
-                shortcutManager.addDynamicShortcuts(Collections.singletonList(scheduleShortcut));
+            if (dynamicShortcutCounter == 4) {
+                dynamicShortcutCounter = 0;
+                PrefUtils.saveToPrefs(context, SHORTCUT_PREF, String
+                        .valueOf(dynamicShortcutCounter));
             }
+
+
+            ShortcutInfo scheduleShortcut = new ShortcutInfo.Builder(context, groupName)
+                    .setShortLabel(groupName)
+                    .setLongLabel(groupName)
+                    .setRank(dynamicShortcutCounter)
+                    .setIcon(Icon.createWithResource(context, R.mipmap.ic_launcher))
+                    .setIntent(intent.putExtra("group", groupName))
+                    .build();
+            shortcutManager.addDynamicShortcuts(Collections.singletonList(scheduleShortcut));
+
+            dynamicShortcutCounter++;
+            PrefUtils.saveToPrefs(context, SHORTCUT_PREF, String
+                    .valueOf(dynamicShortcutCounter));
         }
     }
 
     @Override
     public void addStaticShortcut(String groupName) {
-
+        Intent shortcutIntent = new Intent(context, ScheduleActivity.class);
+        shortcutIntent.putExtra("group", groupName);
+        Intent addIntent = new Intent();
+        addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+        addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, groupName);
+        addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
+                Intent.ShortcutIconResource.fromContext(context, R.drawable.calendar));
+        addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
+        context.sendBroadcast(addIntent);
     }
 
     @Override
@@ -73,11 +88,23 @@ public class ShortcutPreferenceImpl implements ShortcutPreference {
                 }
 
             }
+
+            int dynamicShortcutCounter = Integer.valueOf(PrefUtils.getFromPrefs(context,
+                    SHORTCUT_PREF, "0"));
+            dynamicShortcutCounter--;
+            PrefUtils.saveToPrefs(context, SHORTCUT_PREF, String
+                    .valueOf(dynamicShortcutCounter));
         }
     }
 
     @Override
-    public void deleteStaticShortcut(String groupname) {
-
+    public void deleteStaticShortcut(String groupName) {
+        Intent shortcutIntent = new Intent(context, ScheduleActivity.class);
+        shortcutIntent.putExtra("group", groupName);
+        Intent removeIntent = new Intent();
+        removeIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+        removeIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, groupName);
+        removeIntent.setAction("com.android.launcher.action.UNINSTALL_SHORTCUT");
+        context.sendBroadcast(removeIntent);
     }
 }

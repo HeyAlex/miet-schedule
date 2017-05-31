@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 
 import heyalex.com.miet_schedule.util.PrefUtils;
+import heyalex.com.miet_schedule.widget_test_lib.RemoteViewsBuilder;
 import timber.log.Timber;
 
 /**

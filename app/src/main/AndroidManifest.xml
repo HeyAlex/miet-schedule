@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+
     <application
         android:name=".ScheduleApp"
         android:allowBackup="true"
@@ -41,6 +44,7 @@
         </activity>
 
         <service android:name=".schedule_widget.ScheduleUpdateService"/>
+
         <service
             android:name=".schedule_widget.LessonRemoteService"
             android:permission="android.permission.BIND_REMOTEVIEWS">
@@ -50,6 +54,7 @@
 
         </receiver>
         <receiver android:name=".schedule_widget.ScheduleAlarmReceiver" />
+
     </application>
 
 </manifest>
