@@ -21,6 +21,8 @@ import heyalex.com.miet_schedule.schedule.DaggerScheduleComponent;
 import heyalex.com.miet_schedule.schedule.ScheduleComponent;
 import heyalex.com.miet_schedule.schedule.ScheduleModule;
 import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilderModule;
+import heyalex.com.miet_schedule.shortcut.ShortcutPreferenceImpl;
+import heyalex.com.miet_schedule.shortcut.ShortcutPreferenceModule;
 import timber.log.Timber;
 
 /**
@@ -57,7 +59,8 @@ public class ScheduleApp extends Application {
         return DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .navDrawerModule(new NavDrawerModule())
-                .dataModule(new DataModule(getApplicationContext()));
+                .dataModule(new DataModule(getApplicationContext()))
+                .shortcutPreferenceModule(new ShortcutPreferenceModule());
     }
 
     @NonNull

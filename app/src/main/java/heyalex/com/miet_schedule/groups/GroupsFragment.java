@@ -23,10 +23,6 @@ import heyalex.com.miet_schedule.ScheduleModel;
 import heyalex.com.miet_schedule.addnewgroup.AddNewGroupActivity;
 import heyalex.com.miet_schedule.schedule.ScheduleActivity;
 
-/**
- * Created by mac on 28.04.17.
- */
-
 public class GroupsFragment extends Fragment implements GroupsView, GroupsAdapter.OnGroupClickedListener {
 
     private GroupsAdapter groupsAdapter = new GroupsAdapter(this);

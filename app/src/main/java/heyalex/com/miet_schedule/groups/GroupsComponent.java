@@ -7,11 +7,9 @@ import heyalex.com.miet_schedule.schedule_widget.ScheduleAppWidgetConfigureActiv
 /**
  * Created by mac on 09.05.17.
  */
-
 @GroupsScope
 @Component(modules = GroupsModule.class, dependencies = ApplicationComponent.class)
 public interface GroupsComponent {
     void inject(GroupsFragment fragment);
-
     void inject(ScheduleAppWidgetConfigureActivity activity);
 }

@@ -16,6 +16,7 @@ import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
 import heyalex.com.miet_schedule.model.schedule.Data;
 import heyalex.com.miet_schedule.model.schedule.SemesterData;
 import heyalex.com.miet_schedule.search.DataFilter;
+import heyalex.com.miet_schedule.shortcut.ShortcutPreference;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
@@ -30,6 +31,7 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
 
     private ScheduleRepository groupsRepository;
     private LessonsRepository lessonsRepository;
+    private ShortcutPreference shortcutPreference;
     private AddNewGroupView view;
     private String searchQuery = "";
     private List<String> cachedGroups;
@@ -38,9 +40,11 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
 
     @Inject
     public AddNewGroupPresenterImpl(ScheduleRepository groupsRepository,
-                                    LessonsRepository lessonsRepository) {
+                                    LessonsRepository lessonsRepository,
+                                    ShortcutPreference shortcutPreference) {
         this.groupsRepository = groupsRepository;
         this.lessonsRepository = lessonsRepository;
+        this.shortcutPreference = shortcutPreference;
     }
 
     @Override
@@ -119,7 +123,7 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
                     transformToDaoScheduleModel(semestrResponse, groupName));
             if (view != null) {
                 view.hideDownloading();
-                view.addShortcut(groupName);
+                shortcutPreference.addNewDynamicShortcut(groupName);
             }
         }
 
@@ -192,8 +196,10 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
         @Override
         public void onError(Throwable e) {
             Timber.e(e, "An error occurred while trying to take groups");
-            view.hideDownloading();
-            view.showErrorView("при скачивании доступных групп.");
+            if(view != null){
+                view.hideDownloading();
+                view.showErrorView("при скачивании доступных групп.");
+            }
         }
 
         @Override

@@ -11,7 +11,7 @@ public class Generator {
         Schema schema = new Schema(1, "heyalex.com.miet_schedule");
         addNews(schema);
         addSchedule(schema);
-        new DaoGenerator().generateAll(schema, "../MIET_Schedule/app/src/main/java-gen");
+        new DaoGenerator().generateAll(schema, "../some_works/app/src/main/java-gen");
     }
 
     public static void addNews(Schema schema) {
