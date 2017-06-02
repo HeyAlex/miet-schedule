@@ -1,7 +1,7 @@
 package heyalex.com.miet_schedule.news;
 
 import heyalex.com.miet_schedule.NewsModel;
-import heyalex.com.miet_schedule.mvp.BasePresenter;
+import heyalex.com.miet_schedule.util.BasePresenter;
 
 /**
  * Created by mac on 28.04.17.

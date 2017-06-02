@@ -1,6 +1,6 @@
 package heyalex.com.miet_schedule.groups;
 
-import heyalex.com.miet_schedule.mvp.BasePresenter;
+import heyalex.com.miet_schedule.util.BasePresenter;
 
 /**
  * Created by mac on 09.05.17.

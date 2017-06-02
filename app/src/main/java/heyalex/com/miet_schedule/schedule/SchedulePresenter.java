@@ -1,6 +1,6 @@
 package heyalex.com.miet_schedule.schedule;
 
-import heyalex.com.miet_schedule.mvp.BasePresenter;
+import heyalex.com.miet_schedule.util.BasePresenter;
 
 /**
  * Presenter for {@link ScheduleView}
