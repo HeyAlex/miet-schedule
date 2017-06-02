@@ -12,15 +12,21 @@ import heyalex.com.miet_schedule.navdrawer.NavDrawerModule;
 import heyalex.com.miet_schedule.navdrawer.NavDrawerPresenter;
 import heyalex.com.miet_schedule.schedule_widget.LessonsViewsFactory;
 import heyalex.com.miet_schedule.schedule_widget.ScheduleUpdateService;
+import heyalex.com.miet_schedule.shortcut.ShortcutPreference;
+import heyalex.com.miet_schedule.shortcut.ShortcutPreferenceModule;
 
 @Singleton
 @Component(modules = {
         ApplicationModule.class,
         NavDrawerModule.class,
-        DataModule.class
+        DataModule.class,
+        ShortcutPreferenceModule.class
 })
 
 public interface ApplicationComponent {
+
+    ShortcutPreference getShortcutPreference();
+
     NavDrawerPresenter getNavDrawerPresenter();
 
     NewsRepository newsRepository();

@@ -17,7 +17,6 @@ public interface GroupsView {
 
     /**
      * Show groups
-     *
      * @param groups that user already downloaded
      */
     void showGroups(List<ScheduleModel> groups);

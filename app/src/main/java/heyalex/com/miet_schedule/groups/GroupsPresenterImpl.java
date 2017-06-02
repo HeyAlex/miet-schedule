@@ -4,6 +4,7 @@ import java.util.List;
 
 import heyalex.com.miet_schedule.ScheduleModel;
 import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
+import heyalex.com.miet_schedule.shortcut.ShortcutPreference;
 
 /**
  * Created by mac on 09.05.17.
@@ -13,10 +14,13 @@ import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
 
     private GroupsView view;
     private ScheduleRepository groupsRepository;
+    private ShortcutPreference shortcutPreference;
 
 
-    /*package*/ GroupsPresenterImpl(ScheduleRepository groupsRepository) {
+    /*package*/ GroupsPresenterImpl(ScheduleRepository groupsRepository,
+                                    ShortcutPreference shortcutPreference) {
         this.groupsRepository = groupsRepository;
+        this.shortcutPreference = shortcutPreference;
     }
 
     @Override
@@ -34,6 +38,16 @@ import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
                 view.showHint();
             }
         }
+    }
+
+    @Override
+    public void deleteGroup(String groupName) {
+
+    }
+
+    @Override
+    public void addNewStaticShortcut(String groupName) {
+
     }
 
     @Override

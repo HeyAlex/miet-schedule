@@ -14,7 +14,6 @@ import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.util.DateMietHelper;
 import heyalex.com.miet_schedule.util.NavigationUtil;
 import heyalex.com.miet_schedule.util.VectorUtil;
-import heyalex.com.miet_schedule.widget_test_lib.WidgetBuilder;
 import timber.log.Timber;
 
 import static heyalex.com.miet_schedule.schedule_widget.ScheduleUpdateService.TODAY_ACTION;
