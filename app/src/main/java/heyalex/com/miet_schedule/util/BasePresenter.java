@@ -1,4 +1,4 @@
-package heyalex.com.miet_schedule.mvp;
+package heyalex.com.miet_schedule.util;
 
 /**
  * Base interface for presenters
