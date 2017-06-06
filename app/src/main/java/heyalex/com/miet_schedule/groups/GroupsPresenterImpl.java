@@ -1,8 +1,11 @@
 package heyalex.com.miet_schedule.groups;
 
+import android.content.Context;
+
 import java.util.List;
 
 import heyalex.com.miet_schedule.ScheduleModel;
+import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
 import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
 import heyalex.com.miet_schedule.shortcut.ShortcutPreference;
 
@@ -14,12 +17,15 @@ import heyalex.com.miet_schedule.shortcut.ShortcutPreference;
 
     private GroupsView view;
     private ScheduleRepository groupsRepository;
+    private LessonsRepository lessonsRepository;
     private ShortcutPreference shortcutPreference;
 
 
     /*package*/ GroupsPresenterImpl(ScheduleRepository groupsRepository,
+                                    LessonsRepository lessonsRepository,
                                     ShortcutPreference shortcutPreference) {
         this.groupsRepository = groupsRepository;
+        this.lessonsRepository = lessonsRepository;
         this.shortcutPreference = shortcutPreference;
     }
 
@@ -42,12 +48,15 @@ import heyalex.com.miet_schedule.shortcut.ShortcutPreference;
 
     @Override
     public void deleteGroup(String groupName) {
-
+        groupsRepository.deleteByGroupName(groupName);
+        lessonsRepository.deleteAllByGroupName(groupName);
+        shortcutPreference.deleteStaticShortcut(groupName);
+        shortcutPreference.deleteDynamicShortcut(groupName);
     }
 
     @Override
     public void addNewStaticShortcut(String groupName) {
-
+        shortcutPreference.addStaticShortcut(groupName);
     }
 
     @Override

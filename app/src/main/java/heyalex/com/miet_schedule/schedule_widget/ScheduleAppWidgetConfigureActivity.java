@@ -1,6 +1,7 @@
 package heyalex.com.miet_schedule.schedule_widget;
 
 import android.appwidget.AppWidgetManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -101,6 +102,16 @@ public class ScheduleAppWidgetConfigureActivity extends AppCompatActivity implem
         Intent intentParent = getIntent();
         setResult(RESULT_OK, intentParent);
         finish();
+    }
+
+    @Override
+    public void onAddNewStaticIcon(String group) {
+        presenter.addNewStaticShortcut(group);
+    }
+
+    @Override
+    public void onDeleteGroup(String group) {
+        presenter.deleteGroup(group);
     }
 
     @Override

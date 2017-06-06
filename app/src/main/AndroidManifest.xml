@@ -25,7 +25,12 @@
         </activity>
 
         <activity android:name=".addnewgroup.AddNewGroupActivity"/>
-        <activity android:name=".schedule.ScheduleActivity"/>
+
+        <activity android:name=".schedule.ScheduleActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
 
         <receiver android:name=".schedule_widget.ScheduleAppWidget">
             <intent-filter>
@@ -50,9 +55,7 @@
             android:permission="android.permission.BIND_REMOTEVIEWS">
         </service>
 
-        <receiver android:name=".schedule_widget.BootBroadcastReceiver">
-
-        </receiver>
+        <receiver android:name=".schedule_widget.BootBroadcastReceiver"/>
         <receiver android:name=".schedule_widget.ScheduleAlarmReceiver" />
 
     </application>

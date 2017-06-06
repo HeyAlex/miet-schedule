@@ -2,7 +2,9 @@ package heyalex.com.miet_schedule.groups;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -45,7 +47,12 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
 
 
     public interface OnGroupClickedListener {
-        void onGroupClickedListener(ScheduleModel newsModel);
+
+        void onGroupClickedListener(ScheduleModel scheduleModel);
+
+        void onAddNewStaticIcon(String group);
+
+        void onDeleteGroup(String group);
     }
 
     @Override
@@ -81,12 +88,45 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
 
         public void bind(final ScheduleModel groupModel) {
             group.setText(groupModel.getGroup());
+
+            itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
+                @Override
+                public void onCreateContextMenu(ContextMenu menu, View v,
+                                                ContextMenu.ContextMenuInfo menuInfo) {
+                    menu.add("Удалить группу " + groupModel.getGroup())
+                            .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            items.remove(groupModel);
+                            onGroupClickedListener.onDeleteGroup(groupModel.getGroup());
+                            notifyDataSetChanged();
+                            return false;
+                        }
+                    });
+                    menu.add("Добавить на рабочий стол " + groupModel.getGroup())
+                            .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                        @Override
+                        public boolean onMenuItemClick(MenuItem item) {
+                            onGroupClickedListener.onAddNewStaticIcon(groupModel.getGroup());
+                            return false;
+                        }
+                    });
+                }
+            });
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     onGroupClickedListener.onGroupClickedListener(groupModel);
                 }
             });
+            itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    itemView.showContextMenu();
+                    return true;
+                }
+            });
         }
+
     }
 }

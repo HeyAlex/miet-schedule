@@ -1,6 +1,8 @@
 package heyalex.com.miet_schedule.shortcut;
 
 
+import android.content.Context;
+
 /**
  * ShortcutPreference helps do manage with shortcuts
  */
