@@ -1,9 +1,11 @@
 package heyalex.com.miet_schedule.data.lessons;
 
+import java.util.Collections;
 import java.util.List;
 
 import heyalex.com.miet_schedule.LessonModel;
 import heyalex.com.miet_schedule.LessonModelDao;
+import heyalex.com.miet_schedule.model.schedule.ScheduleComparator;
 
 /**
  * Specific {@link LessonsRepository} implementation
@@ -68,9 +70,11 @@ public class LessonsRepositoryImpl implements LessonsRepository {
 
     @Override
     public List<LessonModel> getLessonsByWeekAndDay(String groupName, int week, int day) {
-        return dao.queryBuilder().where(LessonModelDao.Properties.GroupName.eq(groupName),
+        List<LessonModel> lessons = dao.queryBuilder().where(LessonModelDao.Properties.GroupName.eq(groupName),
                 LessonModelDao.Properties.Week.eq(week),
                 LessonModelDao.Properties.Day.eq(day)).build().list();
+        Collections.sort(lessons, new ScheduleComparator());
+        return lessons;
     }
 
     @Override

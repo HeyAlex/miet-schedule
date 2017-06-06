@@ -10,6 +10,7 @@ import android.os.Build;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import heyalex.com.miet_schedule.R;
@@ -39,8 +40,10 @@ public class ShortcutPreferenceImpl implements ShortcutPreference {
             Timber.i("Dynamic shortcut list has %d elements.", scSize);
             //if size of dynamic shortcut is 4, just delete last element
             if (scSize >= 4) {
-                scInfo.remove(3);
+                scInfo.remove(0);
             }
+
+            Collections.sort(scInfo, new ShortcutComparator());
 
             Intent intent = new Intent(Intent.ACTION_MAIN, Uri.EMPTY, context,
                     ScheduleActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -63,12 +66,14 @@ public class ShortcutPreferenceImpl implements ShortcutPreference {
     @Override
     public void addStaticShortcut(String groupName) {
         Intent shortcutIntent = new Intent(context, ScheduleActivity.class);
+        shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         shortcutIntent.putExtra("group", groupName);
         Intent addIntent = new Intent();
         addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
         addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, groupName);
         addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
-                Intent.ShortcutIconResource.fromContext(context, R.drawable.calendar));
+                Intent.ShortcutIconResource.fromContext(context, R.mipmap.ic_launcher));
         addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
         context.sendBroadcast(addIntent);
     }

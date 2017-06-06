@@ -1,5 +1,7 @@
 package heyalex.com.miet_schedule.groups;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -40,7 +43,8 @@ public class GroupsFragment extends Fragment implements GroupsView, GroupsAdapte
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.groups_fragement, container, false);
         ButterKnife.bind(this, root);
         initViews();
@@ -89,9 +93,21 @@ public class GroupsFragment extends Fragment implements GroupsView, GroupsAdapte
         startActivity(intent);
     }
 
+    @Override
+    public void onAddNewStaticIcon(String group) {
+        presenter.addNewStaticShortcut(group);
+    }
+
+    @Override
+    public void onDeleteGroup(String group) {
+        presenter.deleteGroup(group);
+    }
+
+
     @OnClick(R.id.add_group)
     public void AddNewGroup() {
         Intent intent = new Intent(getActivity(), AddNewGroupActivity.class);
         startActivity(intent);
     }
+
 }
