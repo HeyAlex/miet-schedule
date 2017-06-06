@@ -33,6 +33,7 @@ import heyalex.com.miet_schedule.util.NavigationUtil;
 public class ScheduleActivity extends AppCompatActivity implements ScheduleView {
 
     private ScheduleViewPagerAdapter pagerAdapter;
+    private static int currentPosition = 0;
     private static final String GROUP = "group";
 
     @BindView(R.id.schedule_activity_root)
@@ -88,6 +89,7 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 pager.setCurrentItem(tab.getPosition());
+                currentPosition = tab.getPosition();
             }
 
             @Override
@@ -162,6 +164,8 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
     @Override
     public void showReloadedSchedule(CycleWeeksLessonModel schedule) {
         scheduleBuilder.setBuildedLessonSchedule(schedule);
+        pager.setAdapter(pagerAdapter);
+        pager.setCurrentItem(currentPosition);
         pagerAdapter.notifyDataSetChanged();
     }
 

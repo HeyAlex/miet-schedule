@@ -25,8 +25,6 @@ public class ShortcutPreferenceImpl implements ShortcutPreference {
     @NonNull
     private Context context;
 
-    private ShortcutManager shortcutManager;
-
     /*package*/ ShortcutPreferenceImpl(Context context) {
         this.context = context;
     }
@@ -95,6 +93,8 @@ public class ShortcutPreferenceImpl implements ShortcutPreference {
     @Override
     public void deleteStaticShortcut(String groupName) {
         Intent shortcutIntent = new Intent(context, ScheduleActivity.class);
+        shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         shortcutIntent.putExtra("group", groupName);
         Intent removeIntent = new Intent();
         removeIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);

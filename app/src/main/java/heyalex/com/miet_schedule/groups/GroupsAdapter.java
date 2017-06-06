@@ -87,27 +87,28 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
         }
 
         public void bind(final ScheduleModel groupModel) {
-            group.setText(groupModel.getGroup());
+            final String groupName = groupModel.getGroup();
+            group.setText(groupName);
 
             itemView.setOnCreateContextMenuListener(new View.OnCreateContextMenuListener() {
                 @Override
                 public void onCreateContextMenu(ContextMenu menu, View v,
                                                 ContextMenu.ContextMenuInfo menuInfo) {
-                    menu.add("Удалить группу " + groupModel.getGroup())
+                    menu.add(context.getString(R.string.menu_delete_group, groupName))
                             .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
+                            onGroupClickedListener.onDeleteGroup(groupName);
                             items.remove(groupModel);
-                            onGroupClickedListener.onDeleteGroup(groupModel.getGroup());
                             notifyDataSetChanged();
                             return false;
                         }
                     });
-                    menu.add("Добавить на рабочий стол " + groupModel.getGroup())
+                    menu.add(context.getString(R.string.menu_add_static_icon, groupName))
                             .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                         @Override
                         public boolean onMenuItemClick(MenuItem item) {
-                            onGroupClickedListener.onAddNewStaticIcon(groupModel.getGroup());
+                            onGroupClickedListener.onAddNewStaticIcon(groupName);
                             return false;
                         }
                     });
