@@ -28,5 +28,7 @@
     <string name="no_schedule_for_current_day">%s пар нет</string>
     <string name="tomorrow_widget_header">ЗАВТРА %s</string>
     <string name="today_widget_header">СЕГОДНЯ %s</string>
+    <string name="menu_add_static_icon">Добавить на рабочий стол %s</string>
+    <string name="menu_delete_group">Удалить группу %s</string>
 
 </resources>

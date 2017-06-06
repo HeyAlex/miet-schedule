@@ -48,10 +48,10 @@ import heyalex.com.miet_schedule.shortcut.ShortcutPreference;
 
     @Override
     public void deleteGroup(String groupName) {
-        groupsRepository.deleteByGroupName(groupName);
-        lessonsRepository.deleteAllByGroupName(groupName);
         shortcutPreference.deleteStaticShortcut(groupName);
         shortcutPreference.deleteDynamicShortcut(groupName);
+        groupsRepository.deleteByGroupName(groupName);
+        lessonsRepository.deleteAllByGroupName(groupName);
     }
 
     @Override
