@@ -37,6 +37,7 @@ import static heyalex.com.miet_schedule.util.Preconditions.checkNotNull;
         holder.bind(items.get(position));
     }
 
+
     @Override
     public int getItemCount() {
         return items.size();

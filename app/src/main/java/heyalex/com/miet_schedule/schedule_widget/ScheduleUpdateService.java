@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.widget.RemoteViews;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.Duration;
 
 import heyalex.com.miet_schedule.R;
@@ -112,7 +113,7 @@ public class ScheduleUpdateService extends IntentService {
         PendingIntent pendingIntent = getAlarmIntent(context, ScheduleUpdateService.TODAY_ACTION
                 + String.valueOf(widgetId), widgetId, group);
         alarmManager.cancel(pendingIntent);
-        DateTime todayStart = new DateTime();
+        DateTime todayStart = new DateTime().withZone(DateTimeZone.forID("Europe/Moscow"));
         DateTime tomorrowStart = todayStart.plusDays(1).withTimeAtStartOfDay();
         long ml = new Duration(todayStart, tomorrowStart).getMillis();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

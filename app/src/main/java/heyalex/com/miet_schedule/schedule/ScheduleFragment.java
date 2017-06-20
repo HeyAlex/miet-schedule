@@ -78,9 +78,8 @@ public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLess
                     .inject(this);
         }
         scheduleRecycleView.setAdapter(scheduleAdapter);
-        int horizontal = (int) getResources().getDimension(R.dimen.activity_horizontal_margin);
         int vertical = (int) getResources().getDimension(R.dimen.activity_vertical_margin);
-        scheduleRecycleView.addItemDecoration(new MarginItemDecorator(horizontal, vertical));
+        scheduleRecycleView.addItemDecoration(new MarginItemDecorator(vertical));
         scheduleRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         if (scheduleBuilder != null) {

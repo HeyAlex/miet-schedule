@@ -18,9 +18,17 @@ public class ScheduleAppWidget extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         Timber.i("ScheduleAppWidget onUpdate");
         for (int widget_id : appWidgetIds) {
-            context.startService(ScheduleUpdateService.getScheduleIntent(context,
-                    ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
-                    "Нет группы"));
+            Timber.i("Update widget with id %s", String.valueOf(widget_id));
+            String groupName = PrefUtils.getFromPrefs(context, String.valueOf(widget_id), "");
+            if(groupName != null){
+                context.startService(ScheduleUpdateService.getScheduleIntent(context,
+                        ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
+                        groupName));
+            } else {
+                context.startService(ScheduleUpdateService.getScheduleIntent(context,
+                        ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
+                        "Нет группы"));
+            }
         }
     }
 
