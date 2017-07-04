@@ -1,5 +1,6 @@
 package heyalex.com.miet_schedule.ui;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -52,6 +53,11 @@ public abstract class BaseNavigationActivity extends AppCompatActivity {
                 actionBar.setDisplayHomeAsUpEnabled(true);
             }
         }
+    }
+
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
     }
 
     @Override

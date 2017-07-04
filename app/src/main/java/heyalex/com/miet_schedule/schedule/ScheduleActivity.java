@@ -1,5 +1,8 @@
 package heyalex.com.miet_schedule.schedule;
 
+import android.app.Fragment;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -15,6 +18,12 @@ import android.widget.LinearLayout;
 
 import org.joda.time.DateTime;
 
+import java.util.HashMap;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorCompletionService;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -25,12 +34,14 @@ import heyalex.com.miet_schedule.model.schedule.CycleWeeksLessonModel;
 import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilderHelper;
 import heyalex.com.miet_schedule.util.DateMietHelper;
 import heyalex.com.miet_schedule.util.NavigationUtil;
+import timber.log.Timber;
 
 /**
  * Created by alexf on 07.04.2017.
  */
 
 public class ScheduleActivity extends AppCompatActivity implements ScheduleView {
+
 
     private ScheduleViewPagerAdapter pagerAdapter;
     private static int currentPosition = 0;
@@ -107,12 +118,14 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        Timber.d("onCreateOptionsMenu");
         getMenuInflater().inflate(R.menu.schedule_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Timber.d("onOptionsItemSelected");
         int id = item.getItemId();
         if (id == R.id.schedule_action_update) {
             presenter.updateScheduleForGroup(groupName);
@@ -138,6 +151,7 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
 
     @Override
     protected void onDestroy() {
+        Timber.d("onDestroy");
         super.onDestroy();
         if (pager != null) {
             pager.clearOnPageChangeListeners();

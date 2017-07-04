@@ -20,6 +20,7 @@ import heyalex.com.miet_schedule.shortcut.ShortcutPreference;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
+import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -106,7 +107,7 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
     }
 
 
-    private class ResponseScheduleObserver extends DisposableObserver<SemesterData> {
+    private class ResponseScheduleObserver extends DisposableSingleObserver<SemesterData> {
 
         private String groupName;
 
@@ -114,8 +115,9 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
             this.groupName = groupName;
         }
 
+
         @Override
-        public void onNext(SemesterData semestrResponse) {
+        public void onSuccess(SemesterData semestrResponse) {
             Timber.i("Schedule for '%s' have successfully recived.", groupName);
             lessonsRepository.replaceAllByGroupName(groupName,
                     transformToDaoLessonModel(semestrResponse, groupName));
@@ -134,11 +136,6 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
                 view.hideDownloading();
                 view.showErrorView(groupName);
             }
-        }
-
-        @Override
-        public void onComplete() {
-
         }
     }
 
@@ -181,10 +178,10 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
         return new ScheduleModel(groupName, data.getSemester());
     }
 
-    private class ResponseAvailableGroups extends DisposableObserver<List<String>> {
+    private class ResponseAvailableGroups extends DisposableSingleObserver<List<String>> {
 
         @Override
-        public void onNext(List<String> value) {
+        public void onSuccess(List<String> value) {
             Timber.i("Set of groups have successfully recived.");
             if (view != null) {
                 cachedGroups = value;
@@ -200,11 +197,6 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
                 view.hideDownloading();
                 view.showErrorView("при скачивании доступных групп.");
             }
-        }
-
-        @Override
-        public void onComplete() {
-
         }
     }
 }

@@ -31,6 +31,7 @@ import heyalex.com.miet_schedule.util.NavigationUtil;
  */
 public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLessonClicked {
 
+
     private ScheduleAdapter scheduleAdapter = new ScheduleAdapter(this);
     private static final String POSITION = "position";
     /**

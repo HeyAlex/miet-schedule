@@ -14,11 +14,14 @@ import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
 import heyalex.com.miet_schedule.model.schedule.CycleWeeksLessonModel;
 import heyalex.com.miet_schedule.model.schedule.SemesterData;
 import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilder;
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Function;
+import io.reactivex.observers.DisposableMaybeObserver;
 import io.reactivex.observers.DisposableObserver;
+import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
@@ -67,7 +70,7 @@ import timber.log.Timber;
     }
 
 
-    private class ResponseScheduleObserver extends DisposableObserver<SemesterData> {
+    private class ResponseScheduleObserver extends DisposableSingleObserver<SemesterData> {
 
         private String groupName;
 
@@ -75,8 +78,9 @@ import timber.log.Timber;
             this.groupName = groupName;
         }
 
+
         @Override
-        public void onNext(SemesterData semestrResponse) {
+        public void onSuccess(SemesterData semestrResponse) {
             Timber.i("Schedule for '%s' have successfully recived.", groupName);
             List<LessonModel> lessons = AddNewGroupPresenterImpl.
                     transformToDaoLessonModel(semestrResponse, groupName);
@@ -105,13 +109,10 @@ import timber.log.Timber;
             scheduleCompositeDisposable.clear();
         }
 
-        @Override
-        public void onComplete() {
-        }
     }
 
-    private Observable<CycleWeeksLessonModel> retrieveSchedule(final String groupName) {
-        return Observable.fromCallable(new Callable<ScheduleModel>() {
+    private Maybe<CycleWeeksLessonModel> retrieveSchedule(final String groupName) {
+        return Maybe.fromCallable(new Callable<ScheduleModel>() {
             @Override
             public ScheduleModel call() throws Exception {
                 return scheduleRepository.getGroupByName(groupName);
@@ -126,13 +127,13 @@ import timber.log.Timber;
                 .subscribeOn(Schedulers.io());
     }
 
-    private class ResponseNewsSubscriber extends DisposableObserver<CycleWeeksLessonModel> {
+    private class ResponseNewsSubscriber extends DisposableMaybeObserver<CycleWeeksLessonModel> {
 
         /*package*/ ResponseNewsSubscriber() {
         }
 
         @Override
-        public void onNext(CycleWeeksLessonModel schedule) {
+        public void onSuccess(CycleWeeksLessonModel schedule) {
             if (view != null) {
                 view.showSchedule(schedule);
             }

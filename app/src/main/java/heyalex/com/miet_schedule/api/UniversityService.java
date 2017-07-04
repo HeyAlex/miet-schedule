@@ -5,6 +5,7 @@ import java.util.List;
 import heyalex.com.miet_schedule.model.news.ArticleResponse;
 import heyalex.com.miet_schedule.model.schedule.SemesterData;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
@@ -14,12 +15,12 @@ import retrofit2.http.Query;
 public interface UniversityService {
 
     /**
-     * Returns last 20 rss {@link heyalex.com.miet_schedule.model.news.Article}
+     * Returns last 20 rss article {@link heyalex.com.miet_schedule.model.news.Article}
      *
      * @return {@link ArticleResponse}
      */
     @GET("rss/news")
-    Observable<ArticleResponse> getNews();
+    Single<ArticleResponse> getNews();
 
     /**
      * Returns a list of available group names
@@ -27,7 +28,7 @@ public interface UniversityService {
      * @return list of strings
      */
     @GET("schedule/groups")
-    Observable<List<String>> getGroupNames();
+    Single<List<String>> getGroupNames();
 
     /**
      * Returns a schedule response
@@ -36,5 +37,5 @@ public interface UniversityService {
      * @return {@link SemesterData}
      */
     @GET("schedule/data")
-    Observable<SemesterData> getScheduleResponse(@Query("group") String groupName);
+    Single<SemesterData> getScheduleResponse(@Query("group") String groupName);
 }

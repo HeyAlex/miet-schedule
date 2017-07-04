@@ -17,6 +17,7 @@ import heyalex.com.miet_schedule.model.news.ArticleResponse;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
+import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -66,7 +67,7 @@ import io.reactivex.schedulers.Schedulers;
     }
 
 
-    private class ResponseNewsSubscriber extends DisposableObserver<ArticleResponse> {
+    private class ResponseNewsSubscriber extends DisposableSingleObserver<ArticleResponse> {
 
         /*package*/ ResponseNewsSubscriber() {
         }
@@ -75,7 +76,7 @@ import io.reactivex.schedulers.Schedulers;
                 .withLocale(Locale.ENGLISH);
 
         @Override
-        public void onNext(ArticleResponse articleResponse) {
+        public void onSuccess(ArticleResponse articleResponse) {
             newsRepository.deleteAll();
             List<NewsModel> newsModelList = transfromResponseToDaoModel(articleResponse);
             newsRepository.saveAll(newsModelList);
@@ -93,11 +94,6 @@ import io.reactivex.schedulers.Schedulers;
                 view.setRefreshing(false);
                 view.showErrorView();
             }
-        }
-
-        @Override
-        public void onComplete() {
-
         }
 
         private List<NewsModel> transfromResponseToDaoModel(ArticleResponse response) {
