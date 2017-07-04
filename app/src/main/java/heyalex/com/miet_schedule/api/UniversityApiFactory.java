@@ -5,6 +5,7 @@ import java.util.List;
 import heyalex.com.miet_schedule.model.news.ArticleResponse;
 import heyalex.com.miet_schedule.model.schedule.SemesterData;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 import retrofit2.http.Query;
 
 /**
@@ -19,17 +20,17 @@ public class UniversityApiFactory {
                 = UniversityServiceGenerator.createNewsService(UniversityService.class);
 
         @Override
-        public Observable<ArticleResponse> getNews() {
+        public Single<ArticleResponse> getNews() {
             return newsService.getNews();
         }
 
         @Override
-        public Observable<List<String>> getGroupNames() {
+        public Single<List<String>> getGroupNames() {
             return scheduleService.getGroupNames();
         }
 
         @Override
-        public Observable<SemesterData> getScheduleResponse(@Query("group") String groupName) {
+        public Single<SemesterData> getScheduleResponse(@Query("group") String groupName) {
             return scheduleService.getScheduleResponse(groupName);
         }
     };
