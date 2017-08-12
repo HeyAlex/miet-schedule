@@ -12,7 +12,9 @@
         android:clipToPadding="false" />
 
     <TextView
-        android:layout_centerInParent="true"
+        android:layout_marginBottom="@dimen/dimen_32dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/headerSchedule"

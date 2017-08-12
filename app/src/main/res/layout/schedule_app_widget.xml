@@ -72,11 +72,11 @@
             android:layout_centerVertical="true"
             android:padding="4dp"
             android:text="ПАР НЕТ"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:textSize="@dimen/content_text_size_big"
             android:textStyle="bold"
             android:id="@+id/no_schedule_view"
-            android:textColor="@color/color_black"
+            android:textColor="@color/iron"
             android:layout_height="wrap_content" />
 
         <ListView xmlns:android="http://schemas.android.com/apk/res/android"
