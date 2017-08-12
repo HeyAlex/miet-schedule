@@ -19,10 +19,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
-
-/**
- * Created by mac on 02.05.17.
- */
+import timber.log.Timber;
 
 /*package*/ class NewsPresenterImpl implements NewsPresenter {
 
@@ -33,6 +30,7 @@ import io.reactivex.schedulers.Schedulers;
     @Inject
     /*package*/ NewsPresenterImpl(NewsRepository newsRepository) {
         this.newsRepository = newsRepository;
+        Timber.d("NewsPresenterImpl");
     }
 
     @Override
@@ -42,6 +40,7 @@ import io.reactivex.schedulers.Schedulers;
 
     @Override
     public void onRefreshRequest() {
+        Timber.d("onRefreshRequest");
         newsResponseSubscription.add(UniversityApiFactory.getUniversityApi().getNews()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -55,6 +54,7 @@ import io.reactivex.schedulers.Schedulers;
 
     @Override
     public void onViewAttached(NewsView view) {
+        Timber.d("onViewAttached");
         this.view = view;
         this.view.setRefreshing(newsResponseSubscription.size() != 0);
         this.view.showNews(newsRepository.getAll());
@@ -62,6 +62,7 @@ import io.reactivex.schedulers.Schedulers;
 
     @Override
     public void onViewDetached() {
+        Timber.d("onViewDetached");
         this.view = null;
         newsResponseSubscription.dispose();
     }

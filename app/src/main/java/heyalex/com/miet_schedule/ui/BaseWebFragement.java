@@ -15,10 +15,6 @@ import android.widget.ProgressBar;
 import butterknife.ButterKnife;
 import heyalex.com.miet_schedule.R;
 
-/**
- * Created by alexf on 06.04.2017.
- */
-
 public class BaseWebFragement extends Fragment {
 
     private WebView webView;

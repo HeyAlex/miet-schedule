@@ -3,7 +3,6 @@
     package="heyalex.com.miet_schedule">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
@@ -17,16 +16,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".navdrawer.NavDrawerActivity">
+        <activity
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:name=".navdrawer.NavDrawerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".addnewgroup.AddNewGroupActivity"/>
+        <activity
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:name=".addnewgroup.AddNewGroupActivity"/>
 
-        <activity android:name=".schedule.ScheduleActivity">
+        <activity
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:name=".schedule.ScheduleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
@@ -42,7 +47,11 @@
                 android:resource="@xml/schedule_app_widget_info" />
         </receiver>
 
-        <activity android:name=".schedule_widget.ScheduleAppWidgetConfigureActivity">
+        <activity
+            android:launchMode="singleInstance"
+            android:noHistory="true"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
+            android:name=".schedule_widget.ScheduleAppWidgetConfigureActivity">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
@@ -55,7 +64,6 @@
             android:permission="android.permission.BIND_REMOTEVIEWS">
         </service>
 
-        <receiver android:name=".schedule_widget.BootBroadcastReceiver"/>
         <receiver android:name=".schedule_widget.ScheduleAlarmReceiver" />
 
     </application>
