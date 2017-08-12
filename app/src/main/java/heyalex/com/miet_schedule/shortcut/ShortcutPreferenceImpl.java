@@ -38,7 +38,7 @@ public class ShortcutPreferenceImpl implements ShortcutPreference {
             Timber.i("Dynamic shortcut list has %d elements.", scSize);
             //if size of dynamic shortcut is 4, just delete last element
             if (scSize >= 4) {
-                scInfo.remove(0);
+                scInfo.remove(3);
             }
 
             Collections.sort(scInfo, new ShortcutComparator());
@@ -55,7 +55,7 @@ public class ShortcutPreferenceImpl implements ShortcutPreference {
                     .build();
 
             //add shortcut on the top of dynamic shortcut list
-            scInfo.add(0, scheduleShortcut);
+            scInfo.add(scheduleShortcut);
 
             shortcutManager.setDynamicShortcuts(scInfo);
         }
@@ -64,7 +64,7 @@ public class ShortcutPreferenceImpl implements ShortcutPreference {
     @Override
     public void addStaticShortcut(String groupName) {
         Intent shortcutIntent = new Intent(context, ScheduleActivity.class);
-        shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         shortcutIntent.putExtra("group", groupName);
         Intent addIntent = new Intent();
@@ -93,7 +93,7 @@ public class ShortcutPreferenceImpl implements ShortcutPreference {
     @Override
     public void deleteStaticShortcut(String groupName) {
         Intent shortcutIntent = new Intent(context, ScheduleActivity.class);
-        shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         shortcutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         shortcutIntent.putExtra("group", groupName);
         Intent removeIntent = new Intent();

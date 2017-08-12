@@ -18,10 +18,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import heyalex.com.miet_schedule.R;
 
-/**
- * Created by alexf on 06.04.2017.
- */
-
 public abstract class BaseNavigationActivity extends AppCompatActivity {
 
     @Nullable

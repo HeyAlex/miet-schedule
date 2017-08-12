@@ -1,6 +1,6 @@
 package heyalex.com.miet_schedule.navdrawer;
 
-import android.content.res.Configuration;
+
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,9 +16,6 @@ import heyalex.com.miet_schedule.ui.BaseNavigationActivity;
 import heyalex.com.miet_schedule.ui.BaseWebFragement;
 import heyalex.com.miet_schedule.util.NavigationUtil;
 
-/**
- * Created by alexf on 04.04.2017.
- */
 public class NavDrawerActivity extends BaseNavigationActivity implements NavDrawerView,
         NavAdapter.OnNavClickedListener {
 
