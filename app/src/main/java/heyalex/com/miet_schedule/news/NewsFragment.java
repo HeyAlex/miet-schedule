@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.thefinestartist.finestwebview.FinestWebView;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -97,7 +99,9 @@ public class NewsFragment extends Fragment implements NewsView, NewsAdapter.OnNe
 
     @Override
     public void onNewsClicked(NewsModel newsModel) {
-        //TODO: STARTACTIVITY
+        new FinestWebView.Builder(getActivity())
+                .showIconMenu(false)
+                .show(newsModel.getLink() + "?print=1");
     }
 
     @Override

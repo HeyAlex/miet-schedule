@@ -20,7 +20,6 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
         NavAdapter.OnNavClickedListener {
 
     private static final String FRAGMENT_TAG_GROUPS = "FRAGMENT_TAG_GROUPS";
-    private static final String FRAGMENT_TAG_SETTINGS = "FRAGMENT_TAG_SETTINGS";
     private static final String FRAGMENT_TAG_ORIOKS = "FRAGMENT_TAG_ORIOKS";
     private static final String FRAGMENT_TAG_NEWS = "FRAGMENT_TAG_NEWS";
     private static final String ORIOKS_URL = "https://orioks.miet.ru/student/student";
@@ -98,20 +97,6 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
                 .beginTransaction()
                 .replace(R.id.fl_content, fragment, FRAGMENT_TAG_ORIOKS)
                 .commitNow();
-
-    }
-
-    @Override
-    public void navigateToSettings() {
-//        Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_SETTINGS);
-//        if (fragment == null) {
-//        //    fragment = new SettingsFragment();
-//            fragment.setRetainInstance(true);
-//        }
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_SETTINGS)
-//                .commitNow();
 
     }
 

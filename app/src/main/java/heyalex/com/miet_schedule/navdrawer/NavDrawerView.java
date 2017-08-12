@@ -20,7 +20,6 @@ package heyalex.com.miet_schedule.navdrawer;
      */
     void navigateToOrioks();
 
-    void navigateToSettings();
 
     /**
      * Show last position of navigation drawer list
