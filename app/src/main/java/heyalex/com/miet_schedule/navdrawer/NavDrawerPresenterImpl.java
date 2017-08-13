@@ -46,11 +46,6 @@ public class NavDrawerPresenterImpl implements NavDrawerPresenter {
                 view.navigateToNews();
                 break;
             }
-            case 3: {
-                mCurrentPosition = position;
-                view.navigateToSettings();
-                break;
-            }
         }
     }
 
