@@ -62,11 +62,6 @@ public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLess
         position = getArguments() != null ? getArguments().getInt(POSITION) : 0;
     }
 
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,

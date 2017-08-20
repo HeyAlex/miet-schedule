@@ -87,9 +87,11 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
             ScheduleApp.get(this)
                     .getScheduleComponent()
                     .inject(this);
+
+            presenter.onViewAttached(this); 
             presenter.getCachedScheduleForGroup(groupName);
         }
-        presenter.onViewAttached(this);
+
         pagerAdapter = new ScheduleViewPagerAdapter(getSupportFragmentManager());
         for (String tabHeader : NavigationUtil.weekList) {
             tabLayout.addTab(tabLayout.newTab().setText(tabHeader));
@@ -157,7 +159,21 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
             pager.clearOnPageChangeListeners();
             tabLayout.clearOnTabSelectedListeners();
         }
-        presenter.onViewDetached();
+        if (presenter != null) {
+            presenter.onViewDetached();
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(GROUP, groupName);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        groupName = savedInstanceState.getString(GROUP);
     }
 
     @Override

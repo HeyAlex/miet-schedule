@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 // dagger2
-apply plugin: 'com.neenbedankt.android-apt'
 
 android {
     compileSdkVersion 25
@@ -46,7 +45,7 @@ dependencies {
     compile 'com.thefinestartist:finestwebview:1.2.7'
     // Butter knife
     compile 'com.jakewharton:butterknife:8.5.1'
-    apt 'com.jakewharton:butterknife-compiler:8.5.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 
     // Retrofit
     compile 'com.squareup.retrofit2:retrofit:2.2.0'
@@ -58,7 +57,7 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
 
     // dagger 2
-    apt 'com.google.dagger:dagger-compiler:2.9'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.9'
     compile 'com.google.dagger:dagger:2.9'
     provided 'javax.annotation:jsr250-api:1.0'
 
@@ -94,7 +93,7 @@ dependencies {
 
     // dagger
     androidTestCompile 'com.google.dagger:dagger:2.9'
-    androidTestApt 'com.google.dagger:dagger-compiler:2.9'
+    androidTestAnnotationProcessor 'com.google.dagger:dagger-compiler:2.9'
 
     androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
 }

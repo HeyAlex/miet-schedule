@@ -33,7 +33,7 @@ import timber.log.Timber;
     private ScheduleRepository scheduleRepository;
     private LessonsRepository lessonsRepository;
     private ScheduleView view;
-    private final CompositeDisposable scheduleCompositeDisposable = new CompositeDisposable();
+    private CompositeDisposable scheduleCompositeDisposable;
 
     @Inject
     /*package*/ SchedulePresenterImpl(ScheduleRepository scheduleRepository,
@@ -45,12 +45,14 @@ import timber.log.Timber;
     @Override
     public void onViewAttached(ScheduleView view) {
         this.view = view;
-        view.showStatus(scheduleCompositeDisposable.size() == 0);
+        scheduleCompositeDisposable = new CompositeDisposable();
+        view.showStatus(scheduleCompositeDisposable.size() != 0);
     }
 
     @Override
     public void onViewDetached() {
         this.view = null;
+        scheduleCompositeDisposable.dispose();
     }
 
     @Override
@@ -95,18 +97,18 @@ import timber.log.Timber;
                 }
                 view.showStatus(false);
             }
-            scheduleCompositeDisposable.clear();
+            scheduleCompositeDisposable.delete(this);
         }
 
         @Override
         public void onError(Throwable t) {
             Timber.e(t, "An error occurred while trying to take shedule for group '%s,", groupName);
-            scheduleCompositeDisposable.clear();
+            scheduleCompositeDisposable.delete(this);
             if (view != null) {
                 view.showStatus(false);
                 view.showErrorView();
             }
-            scheduleCompositeDisposable.clear();
+            scheduleCompositeDisposable.delete(this);
         }
 
     }
@@ -137,12 +139,12 @@ import timber.log.Timber;
             if (view != null) {
                 view.showSchedule(schedule);
             }
-            scheduleCompositeDisposable.clear();
+            scheduleCompositeDisposable.delete(this);
         }
 
         @Override
         public void onError(Throwable t) {
-            scheduleCompositeDisposable.clear();
+            scheduleCompositeDisposable.delete(this);
         }
 
         @Override
