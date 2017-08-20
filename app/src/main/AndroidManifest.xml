@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="heyalex.com.miet_schedule">
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -17,9 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:name=".navdrawer.NavDrawerActivity">
+        <activity android:name=".navdrawer.NavDrawerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -27,32 +26,20 @@
         </activity>
 
         <activity
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:name=".addnewgroup.AddNewGroupActivity"/>
+            android:name=".addnewgroup.AddNewGroupActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
 
-        <activity
-            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:name=".schedule.ScheduleActivity">
+        <activity android:name=".schedule.ScheduleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
 
-        <receiver android:name=".schedule_widget.ScheduleAppWidget">
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/schedule_app_widget_info" />
-        </receiver>
-
         <activity
-            android:launchMode="singleInstance"
-            android:noHistory="true"
+            android:name=".schedule_widget.ScheduleAppWidgetConfigureActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-            android:name=".schedule_widget.ScheduleAppWidgetConfigureActivity">
+            android:launchMode="singleInstance"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
@@ -65,14 +52,23 @@
             android:screenOrientation="sensor"
             android:theme="@style/FinestWebViewTheme.Light" />
 
-        <service android:name=".schedule_widget.ScheduleUpdateService"/>
+        <service android:name=".schedule_widget.ScheduleUpdateService" />
 
         <service
             android:name=".schedule_widget.LessonRemoteService"
-            android:permission="android.permission.BIND_REMOTEVIEWS">
-        </service>
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
 
         <receiver android:name=".schedule_widget.ScheduleAlarmReceiver" />
+
+        <receiver android:name=".schedule_widget.ScheduleAppWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/schedule_app_widget_info" />
+        </receiver>
 
     </application>
 
