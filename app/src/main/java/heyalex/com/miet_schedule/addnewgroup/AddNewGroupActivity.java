@@ -1,5 +1,7 @@
 package heyalex.com.miet_schedule.addnewgroup;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ShortcutInfo;
 import android.content.pm.ShortcutManager;
@@ -38,7 +40,8 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
         AddNewGroupAdapter.OnGroupClickedListener {
 
     private AddNewGroupAdapter groupsAdapter = new AddNewGroupAdapter(this);
-    private Snackbar downloadingSnackbar;
+    //private Snackbar downloadingSnackbar;
+    private ProgressDialog progressDialog;
 
     @BindView(R.id.addnewgroup_root)
     View root;
@@ -140,13 +143,13 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
 
     @Override
     public void showDownloading(String groups) {
-        downloadingSnackbar = initSnackBar(groups);
-        downloadingSnackbar.show();
+        //downloadingSnackbar = initSnackBar(groups);
+        progressDialog.show();
     }
 
     @Override
     public void hideDownloading() {
-        downloadingSnackbar.dismiss();
+        progressDialog.dismiss();
     }
 
     @Override
@@ -176,6 +179,17 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
     }
 
     private void initViews() {
+        progressDialog = new ProgressDialog(AddNewGroupActivity.this,
+                R.style.AppTheme_Dark_Dialog);
+        progressDialog.setIndeterminate(true);
+        progressDialog.setMessage("Загрузка...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                dismisDownloading();
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(groupsAdapter);
     }
