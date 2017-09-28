@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="8dp"
-    android:paddingRight="16dp"
+    android:orientation="vertical"
     android:paddingLeft="16dp"
-    android:orientation="vertical">
+    android:paddingRight="16dp"
+    android:paddingTop="8dp">
 
 
     <LinearLayout
@@ -16,18 +16,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:text="Пара: "
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Пара: " />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/name"
-            android:textSize="16sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Нет информации"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Нет информации" />
+            android:textSize="16sp" />
     </LinearLayout>
 
 
@@ -39,18 +39,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:text="Преподаватель: "
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Преподаватель: " />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tutor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -61,18 +61,18 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:text="Время: "
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Время: " />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
+            android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -83,17 +83,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:text="Аудитория: "
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Аудитория: " />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/room"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16dp"
+            android:text=""
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="" />
+            android:textSize="16dp" />
     </LinearLayout>
 </LinearLayout>

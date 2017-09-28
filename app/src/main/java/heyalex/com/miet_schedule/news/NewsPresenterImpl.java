@@ -16,16 +16,15 @@ import heyalex.com.miet_schedule.model.news.Article;
 import heyalex.com.miet_schedule.model.news.ArticleResponse;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.observers.DisposableObserver;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 /*package*/ class NewsPresenterImpl implements NewsPresenter {
 
+    private final CompositeDisposable newsResponseSubscription = new CompositeDisposable();
     private NewsView view;
     private NewsRepository newsRepository;
-    private final CompositeDisposable newsResponseSubscription = new CompositeDisposable();
 
     @Inject
     /*package*/ NewsPresenterImpl(NewsRepository newsRepository) {
@@ -70,11 +69,11 @@ import timber.log.Timber;
 
     private class ResponseNewsSubscriber extends DisposableSingleObserver<ArticleResponse> {
 
-        /*package*/ ResponseNewsSubscriber() {
-        }
-
         final DateTimeFormatter dtf = DateTimeFormat.forPattern("EEE, d MMM yyyy HH:mm:ss Z")
                 .withLocale(Locale.ENGLISH);
+
+        /*package*/ ResponseNewsSubscriber() {
+        }
 
         @Override
         public void onSuccess(ArticleResponse articleResponse) {

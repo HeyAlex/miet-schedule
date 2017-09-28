@@ -1,7 +1,5 @@
 package heyalex.com.miet_schedule.groups;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,7 +7,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -28,13 +25,11 @@ import heyalex.com.miet_schedule.schedule.ScheduleActivity;
 
 public class GroupsFragment extends Fragment implements GroupsView, GroupsAdapter.OnGroupClickedListener {
 
-    private GroupsAdapter groupsAdapter = new GroupsAdapter(this);
-
     @BindView(R.id.group_list)
     RecyclerView recyclerView;
-
     @Inject
     GroupsPresenter presenter;
+    private GroupsAdapter groupsAdapter = new GroupsAdapter(this);
 
     private void initViews() {
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -95,6 +90,7 @@ public class GroupsFragment extends Fragment implements GroupsView, GroupsAdapte
 
     @Override
     public void onAddNewStaticIcon(String group) {
+
         presenter.addNewStaticShortcut(group);
     }
 

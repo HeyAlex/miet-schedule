@@ -1,37 +1,30 @@
 package heyalex.com.miet_schedule.groups;
 
-import android.content.Context;
-
 import java.util.List;
 
 import heyalex.com.miet_schedule.ScheduleModel;
-import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
-import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
-import heyalex.com.miet_schedule.shortcut.ShortcutPreference;
-
-/**
- * Created by mac on 09.05.17.
- */
+import heyalex.com.miet_schedule.data.shared_interactor.ScheduleInteractor;
 
 /*package*/ class GroupsPresenterImpl implements GroupsPresenter {
 
     private GroupsView view;
-    private ScheduleRepository groupsRepository;
-    private LessonsRepository lessonsRepository;
-    private ShortcutPreference shortcutPreference;
+    //    private ScheduleRepository groupsRepository;
+//    private LessonsRepository lessonsRepository;
+//    private ShortcutPreference shortcutPreference;
+    private ScheduleInteractor interactor;
 
 
-    /*package*/ GroupsPresenterImpl(ScheduleRepository groupsRepository,
-                                    LessonsRepository lessonsRepository,
-                                    ShortcutPreference shortcutPreference) {
-        this.groupsRepository = groupsRepository;
-        this.lessonsRepository = lessonsRepository;
-        this.shortcutPreference = shortcutPreference;
+    /*package*/ GroupsPresenterImpl(ScheduleInteractor interactor) {
+//        this.groupsRepository = groupsRepository;
+//        this.lessonsRepository = lessonsRepository;
+//        this.shortcutPreference = shortcutPreference;
+        this.interactor = interactor;
     }
 
     @Override
     public void showGroups() {
-        final List<ScheduleModel> groups = groupsRepository.getAll();
+        final List<ScheduleModel> groups = interactor.getDownloadedGroups();
+        ;
 
         if (view != null) {
             if (groups != null) {
@@ -48,15 +41,12 @@ import heyalex.com.miet_schedule.shortcut.ShortcutPreference;
 
     @Override
     public void deleteGroup(String groupName) {
-        shortcutPreference.deleteStaticShortcut(groupName);
-        shortcutPreference.deleteDynamicShortcut(groupName);
-        groupsRepository.deleteByGroupName(groupName);
-        lessonsRepository.deleteAllByGroupName(groupName);
+        interactor.deleteGroup(groupName);
     }
 
     @Override
     public void addNewStaticShortcut(String groupName) {
-        shortcutPreference.addStaticShortcut(groupName);
+        interactor.addNewStaticShortcut(groupName);
     }
 
     @Override

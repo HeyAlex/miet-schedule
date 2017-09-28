@@ -31,4 +31,13 @@
     <string name="menu_add_static_icon">Добавить на рабочий стол %s</string>
     <string name="menu_delete_group">Удалить группу %s</string>
 
+    <!--Schedule-->
+    <!--News-->
+    <!--Widget-->
+    <!--NavDrawer-->
+    <!---->
+    <!--AddNewGroup-->
+    <string name="addnewgroup_downloading">Загрузка…</string>
+    <string name="addnewgroup_downloading_availible_groups">Загружем доступные группы...</string>
+
 </resources>

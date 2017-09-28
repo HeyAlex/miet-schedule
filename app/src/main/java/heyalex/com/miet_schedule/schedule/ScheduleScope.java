@@ -1,8 +1,5 @@
 package heyalex.com.miet_schedule.schedule;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-
 import javax.inject.Scope;
 
 /**

@@ -71,4 +71,9 @@ public class ScheduleRepositoryImpl implements ScheduleRepository {
             delete(scheduleByGroup);
         }
     }
+
+    @Override
+    public boolean isGroupCached(String groupName) {
+        return getGroupByName(groupName) != null;
+    }
 }

@@ -32,21 +32,18 @@ import heyalex.com.miet_schedule.util.NavigationUtil;
 public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLessonClicked {
 
 
-    private ScheduleAdapter scheduleAdapter = new ScheduleAdapter(this);
     private static final String POSITION = "position";
+    @BindView(R.id.schedule_list_here)
+    RecyclerView scheduleRecycleView;
+    @BindView(R.id.no_schedule)
+    TextView no_schedule;
+    @Inject
+    ScheduleBuilderHelper scheduleBuilder;
+    private ScheduleAdapter scheduleAdapter = new ScheduleAdapter(this);
     /**
      * Position in the viewpager
      */
     private int position;
-
-    @BindView(R.id.schedule_list_here)
-    RecyclerView scheduleRecycleView;
-
-    @BindView(R.id.no_schedule)
-    TextView no_schedule;
-
-    @Inject
-    ScheduleBuilderHelper scheduleBuilder;
 
     public static Fragment newInstance(int position) {
         ScheduleFragment f = new ScheduleFragment();

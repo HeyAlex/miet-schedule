@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 // dagger2
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 26
+    buildToolsVersion "26.0.1"
     defaultConfig {
         applicationId "heyalex.com.miet_schedule"
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 26
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
@@ -22,11 +22,12 @@ android {
 
     sourceSets {
         main {
-            java.srcDirs = ['src/main/java', 'src/main/java-gen']
+            java.srcDirs = ['src/main/java', 'src/main/java_gen']
         }
     }
     repositories {
         maven { url "https://jitpack.io" }
+        google()
     }
 }
 

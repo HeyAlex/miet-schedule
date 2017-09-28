@@ -1,9 +1,13 @@
 package heyalex.com.miet_schedule.schedule_widget;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
 
 import heyalex.com.miet_schedule.util.PrefUtils;
 import timber.log.Timber;
@@ -20,14 +24,27 @@ public class ScheduleAppWidget extends AppWidgetProvider {
         for (int widget_id : appWidgetIds) {
             Timber.i("Update widget with id %s", String.valueOf(widget_id));
             String groupName = PrefUtils.getFromPrefs(context, String.valueOf(widget_id), "");
-            if(groupName != null){
-                context.startService(ScheduleUpdateService.getScheduleIntent(context,
-                        ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
-                        groupName));
+            if (groupName != null) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    context.startForegroundService(ScheduleUpdateService.getScheduleIntent(context,
+                            ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
+                            groupName));
+                } else {
+                    context.startService(ScheduleUpdateService.getScheduleIntent(context,
+                            ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
+                            groupName));
+                }
+
             } else {
-                context.startService(ScheduleUpdateService.getScheduleIntent(context,
-                        ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
-                        "Нет группы"));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    context.startForegroundService(ScheduleUpdateService.getScheduleIntent(context,
+                            ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
+                            "Нет группы"));
+                } else {
+                    context.startService(ScheduleUpdateService.getScheduleIntent(context,
+                            ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
+                            "Нет группы"));
+                }
             }
         }
     }
@@ -53,9 +70,17 @@ public class ScheduleAppWidget extends AppWidgetProvider {
         for (int widget_id : widgets_IDs) {
             Timber.i("Update widget with id %s", String.valueOf(widget_id));
             String groupName = PrefUtils.getFromPrefs(context, String.valueOf(widget_id), "");
-            context.startService(ScheduleUpdateService.getScheduleIntent(context,
-                    ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
-                    groupName));
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+                context.startForegroundService(ScheduleUpdateService.getScheduleIntent(context,
+                        ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
+                        groupName));
+            } else {
+                context.startService(ScheduleUpdateService.getScheduleIntent(context,
+                        ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
+                        groupName));
+            }
             ScheduleUpdateService.setupAlarm(context, widget_id, groupName);
         }
     }
@@ -65,5 +90,20 @@ public class ScheduleAppWidget extends AppWidgetProvider {
         // Enter relevant functionality for when the last widget is disabled
     }
 
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//
+//            context.startForegroundService(ScheduleUpdateService.getScheduleIntent(context,
+//                    ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
+//                    groupName));
+//        } else {
+//            context.startService(ScheduleUpdateService.getScheduleIntent(context,
+//                    ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
+//                    groupName));
+//        }
+    }
 }
 

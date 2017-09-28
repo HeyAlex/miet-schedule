@@ -2,8 +2,6 @@ package heyalex.com.miet_schedule.util;
 
 import org.joda.time.DateTime;
 
-import timber.log.Timber;
-
 /**
  * Util that used for get a week and day offline for schedule
  * That class compute current week and day by current date

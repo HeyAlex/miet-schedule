@@ -30,10 +30,6 @@ import heyalex.com.miet_schedule.model.schedule.DayLessonsModel;
         this.onLessonClickedListener = listener;
     }
 
-    /*package*/ interface OnLessonClicked {
-        void onLessonClickedListener(LessonModel lesson);
-    }
-
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.schedule_item,
@@ -61,6 +57,21 @@ import heyalex.com.miet_schedule.model.schedule.DayLessonsModel;
         this.items.clear();
         this.items.add(item);
         notifyDataSetChanged();
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        this.context = recyclerView.getContext();
+    }
+
+    @Override
+    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
+        super.onDetachedFromRecyclerView(recyclerView);
+    }
+
+    /*package*/ interface OnLessonClicked {
+        void onLessonClickedListener(LessonModel lesson);
     }
 
     /*package*/ class ViewHolder extends RecyclerView.ViewHolder {
@@ -122,16 +133,5 @@ import heyalex.com.miet_schedule.model.schedule.DayLessonsModel;
                 return view;
             }
         }
-    }
-
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-        this.context = recyclerView.getContext();
-    }
-
-    @Override
-    public void onDetachedFromRecyclerView(RecyclerView recyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView);
     }
 }

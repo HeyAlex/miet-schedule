@@ -21,7 +21,6 @@ import heyalex.com.miet_schedule.schedule.DaggerScheduleComponent;
 import heyalex.com.miet_schedule.schedule.ScheduleComponent;
 import heyalex.com.miet_schedule.schedule.ScheduleModule;
 import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilderModule;
-import heyalex.com.miet_schedule.shortcut.ShortcutPreferenceModule;
 import timber.log.Timber;
 
 /**
@@ -39,6 +38,13 @@ public class ScheduleApp extends Application {
     private AddNewGroupComponent addNewGroupComponent;
     private ScheduleComponent scheduleComponent;
 
+    public static ScheduleApp get(Context context) {
+        if (context == null) {
+            throw new NullPointerException("context == null");
+        }
+        return (ScheduleApp) context.getApplicationContext();
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -47,19 +53,11 @@ public class ScheduleApp extends Application {
         initDaggerComponents();
     }
 
-    public static ScheduleApp get(Context context) {
-        if (context == null) {
-            throw new NullPointerException("context == null");
-        }
-        return (ScheduleApp) context.getApplicationContext();
-    }
-
     protected DaggerApplicationComponent.Builder prepareApplicationComponent() {
         return DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
                 .navDrawerModule(new NavDrawerModule())
-                .dataModule(new DataModule(getApplicationContext()))
-                .shortcutPreferenceModule(new ShortcutPreferenceModule());
+                .dataModule(new DataModule(getApplicationContext()));
     }
 
     @NonNull

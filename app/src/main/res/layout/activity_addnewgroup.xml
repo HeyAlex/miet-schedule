@@ -2,20 +2,20 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/addnewgroup_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/addnewgroup_root"
-    android:background="@color/color_white">
+    android:background="@color/color_white"
+    android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        app:layout_scrollFlags="scroll|enterAlways"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
         android:fitsSystemWindows="true"
         android:minHeight="?attr/actionBarSize"
+        app:layout_scrollFlags="scroll|enterAlways"
         app:navigationIcon="?attr/homeAsUpIndicator"
         app:titleTextColor="@color/color_white">
 
@@ -23,14 +23,14 @@
             android:id="@+id/search_edittext"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:theme="@style/editTextToolbar"
             android:layout_marginLeft="0dp"
             android:layout_marginRight="20dp"
             android:layout_marginTop="4dp"
             android:hint="Введите группу"
             android:inputType="textNoSuggestions"
             android:textColor="@color/color_white"
-            android:textColorHint="@color/color_white" />
+            android:textColorHint="@color/color_white"
+            android:theme="@style/editTextToolbar" />
     </android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView
@@ -42,9 +42,9 @@
     </android.support.v7.widget.RecyclerView>
 
     <LinearLayout
-        android:background="@color/iron"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/iron">
 
     </LinearLayout>
 

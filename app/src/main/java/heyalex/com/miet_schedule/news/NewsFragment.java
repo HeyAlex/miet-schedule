@@ -31,19 +31,15 @@ import timber.log.Timber;
 public class NewsFragment extends Fragment implements NewsView, NewsAdapter.OnNewsClickedListener,
         SwipeRefreshLayout.OnRefreshListener {
 
-    private NewsAdapter newsAdapter = new NewsAdapter(this);
-
     @Inject
     NewsPresenter presenter;
-
     @BindView(R.id.news_root)
     View root;
-
     @BindView(R.id.news_refresh_layout)
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.news_recycleview)
     RecyclerView recyclerView;
-
+    private NewsAdapter newsAdapter = new NewsAdapter(this);
 
     @Override
     public void showNews(List<NewsModel> news) {

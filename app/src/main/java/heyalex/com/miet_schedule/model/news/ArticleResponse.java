@@ -18,6 +18,9 @@ public class ArticleResponse {
     @Element(name = "channel")
     private Channel channel;
 
+    public List<Article> getAllArticles() {
+        return channel.articles;
+    }
 
     /**
      * Class that contains all articles
@@ -28,10 +31,5 @@ public class ArticleResponse {
 
         @ElementList(inline = true, name = "item")
         private List<Article> articles;
-    }
-
-
-    public List<Article> getAllArticles() {
-        return channel.articles;
     }
 }

@@ -6,12 +6,16 @@ import org.greenrobot.greendao.generator.Property;
 import org.greenrobot.greendao.generator.Schema;
 import org.greenrobot.greendao.generator.ToMany;
 
+import java.io.File;
+
 public class Generator {
     public static void main(String[] args) throws Exception {
         Schema schema = new Schema(1, "heyalex.com.miet_schedule");
         addNews(schema);
         addSchedule(schema);
-        new DaoGenerator().generateAll(schema, "../some_works/app/src/main/java-gen");
+        File dir = new File("../some_works/app/src/main/java-gen");
+        dir.mkdirs();
+        new DaoGenerator().generateAll(schema, dir.getAbsolutePath());
     }
 
     public static void addNews(Schema schema) {

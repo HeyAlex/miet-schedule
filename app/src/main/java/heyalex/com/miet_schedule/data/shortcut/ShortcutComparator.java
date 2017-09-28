@@ -1,4 +1,4 @@
-package heyalex.com.miet_schedule.shortcut;
+package heyalex.com.miet_schedule.data.shortcut;
 
 import android.content.pm.ShortcutInfo;
 import android.os.Build;

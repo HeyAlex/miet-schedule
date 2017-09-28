@@ -23,14 +23,14 @@ import heyalex.com.miet_schedule.util.VectorUtil;
  */
 public class LessonsViewsFactory implements RemoteViewsService.RemoteViewsFactory {
 
+    @Inject
+    LessonsRepository lessonsRepository;
     private List<LessonModel> lessons = new ArrayList<>();
     private Context context;
     private String group;
     private int widgetId;
     private int week;
     private int day;
-    @Inject
-    LessonsRepository lessonsRepository;
 
     public LessonsViewsFactory(Context context, Intent adapter) {
         this.group = adapter.getStringExtra("group");
