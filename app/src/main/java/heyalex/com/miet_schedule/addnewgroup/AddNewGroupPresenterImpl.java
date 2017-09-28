@@ -1,25 +1,16 @@
 package heyalex.com.miet_schedule.addnewgroup;
 
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import heyalex.com.miet_schedule.LessonModel;
-import heyalex.com.miet_schedule.ScheduleModel;
 import heyalex.com.miet_schedule.api.UniversityApiFactory;
-import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
-import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
-import heyalex.com.miet_schedule.model.schedule.Data;
-import heyalex.com.miet_schedule.model.schedule.SemesterData;
+import heyalex.com.miet_schedule.data.shared_interactor.OnScheduleDownload;
+import heyalex.com.miet_schedule.data.shared_interactor.ScheduleInteractor;
 import heyalex.com.miet_schedule.search.DataFilter;
-import heyalex.com.miet_schedule.shortcut.ShortcutPreference;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.observers.DisposableObserver;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
@@ -28,29 +19,23 @@ import timber.log.Timber;
  * Created by mac on 09.05.17.
  */
 
-public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
+public class AddNewGroupPresenterImpl implements AddNewGroupPresenter, OnScheduleDownload {
 
-    private ScheduleRepository groupsRepository;
-    private LessonsRepository lessonsRepository;
-    private ShortcutPreference shortcutPreference;
+    private final CompositeDisposable scheduleResponseSubscription = new CompositeDisposable();
     private AddNewGroupView view;
     private String searchQuery = "";
     private List<String> cachedGroups;
     private DataFilter<String> groupFilter = new GroupsFilter();
-    private final CompositeDisposable scheduleResponseSubscription = new CompositeDisposable();
+    private ScheduleInteractor interactor;
 
     @Inject
-    public AddNewGroupPresenterImpl(ScheduleRepository groupsRepository,
-                                    LessonsRepository lessonsRepository,
-                                    ShortcutPreference shortcutPreference) {
-        this.groupsRepository = groupsRepository;
-        this.lessonsRepository = lessonsRepository;
-        this.shortcutPreference = shortcutPreference;
+    public AddNewGroupPresenterImpl(ScheduleInteractor interactor) {
+        this.interactor = interactor;
     }
 
     @Override
     public void getAvailableGroups() {
-        view.showDownloading("доступные группы");
+        view.showDownloadingAvailibleGroups();
         scheduleResponseSubscription.add(UniversityApiFactory.getUniversityApi().getGroupNames()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -59,12 +44,8 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
 
     @Override
     public void addNewGroup(String groupName) {
-        view.showDownloading(groupName);
-        scheduleResponseSubscription.add(UniversityApiFactory.getUniversityApi()
-                .getScheduleResponse(groupName)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new ResponseScheduleObserver(groupName)));
+        view.showDownloadingGroup(groupName);
+        interactor.downloadGroup(groupName);
     }
 
     @Override
@@ -77,6 +58,11 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
     public void onSearchCanceled() {
         searchQuery = "";
         showGroups();
+    }
+
+    @Override
+    public void onCancelDownloadingGroup() {
+        interactor.stopDownloading();
     }
 
     private boolean isSearching() {
@@ -98,91 +84,37 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
     @Override
     public void onViewAttached(AddNewGroupView view) {
         this.view = view;
+        interactor.attach(this);
         getAvailableGroups();
     }
 
     @Override
     public void onViewDetached() {
         this.view = null;
+        interactor.detach();
+        scheduleResponseSubscription.dispose();
     }
 
-
-    private class ResponseScheduleObserver extends DisposableSingleObserver<SemesterData> {
-
-        private String groupName;
-
-        public ResponseScheduleObserver(String groupName) {
-            this.groupName = groupName;
-        }
-
-
-        @Override
-        public void onSuccess(SemesterData semestrResponse) {
-            Timber.i("Schedule for '%s' have successfully recived.", groupName);
-            lessonsRepository.replaceAllByGroupName(groupName,
-                    transformToDaoLessonModel(semestrResponse, groupName));
-            groupsRepository.replaceByGroupName(groupName,
-                    transformToDaoScheduleModel(semestrResponse, groupName));
+    @Override
+    public void onGroupDownloaded(List<LessonModel> lessons, String groupName) {
+        if (view != null) {
+            view.hideDownloading();
             if (view != null) {
                 view.hideDownloading();
-                shortcutPreference.addNewDynamicShortcut(groupName);
-            }
-        }
-
-        @Override
-        public void onError(Throwable t) {
-            Timber.e(t, "An error occurred while trying to take shedule for group '%s,", groupName);
-            if (view != null) {
-                view.hideDownloading();
-                view.showErrorView(groupName);
             }
         }
     }
 
-    public static List<LessonModel> transformToDaoLessonModel(SemesterData data, String groupName) {
-        final DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss");
-
-        List<LessonModel> lessons = new ArrayList<>();
-        for (Data model : data.getData()) {
-            String toDate = formatter.parseDateTime(model.getTime().getTimeTo())
-                    .toString("HH:mm");
-            String fromDate = formatter.parseDateTime(model.getTime().getTimeFrom())
-                    .toString("HH:mm");
-            String disciplineName = model.getClassModel().getName();
-            LessonModel dataLesson = new LessonModel();
-            dataLesson.setWeek(Integer.valueOf(model.getDayNumber()));
-            dataLesson.setDay(Integer.valueOf(model.getDay()));
-            dataLesson.setGroupName(groupName);
-            dataLesson.setRoom(model.getRoom().getName());
-            dataLesson.setTimeFrom(fromDate);
-            dataLesson.setTimeTo(toDate);
-            dataLesson.setTime(Integer.valueOf(model.getTime().getCode()));
-            dataLesson.setTimeFull(fromDate + " - " + toDate + " (" + model.getTime().getTime() + ")");
-            dataLesson.setDisciplineName(disciplineName);
-            dataLesson.setTeacherFull(model.getClassModel().getTeacherFull());
-            dataLesson.setTeacher(model.getClassModel().getTeacher());
-            dataLesson.setCode(model.getTime().getCode());
-            if (disciplineName.contains("[Лаб]"))
-                dataLesson.setDisciplineType("Лабораторная работа");
-            else if (disciplineName.contains("[Лек]")) dataLesson.setDisciplineType("Лекция");
-            else if (disciplineName.contains("[Пр]")) dataLesson.setDisciplineType("Практика");
-            else if (disciplineName.contains("Физ")) dataLesson.setDisciplineType("Физ-ра");
-            else dataLesson.setDisciplineType("УВЦ");
-
-            lessons.add(dataLesson);
-        }
-        return lessons;
-    }
-
-    public static ScheduleModel transformToDaoScheduleModel(SemesterData data, String groupName) {
-        return new ScheduleModel(groupName, data.getSemester());
+    @Override
+    public void onErrorWhileDownloadingGroup(String groupName) {
+        view.showErrorView("");
     }
 
     private class ResponseAvailableGroups extends DisposableSingleObserver<List<String>> {
 
         @Override
         public void onSuccess(List<String> value) {
-            Timber.i("Set of groups have successfully recived.");
+            Timber.i("Set of groups have successfully received.");
             if (view != null) {
                 cachedGroups = value;
                 view.showAvailibleGroups(value);
@@ -193,7 +125,7 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter {
         @Override
         public void onError(Throwable e) {
             Timber.e(e, "An error occurred while trying to take groups");
-            if(view != null){
+            if (view != null) {
                 view.hideDownloading();
                 view.showErrorView("при скачивании доступных групп.");
             }

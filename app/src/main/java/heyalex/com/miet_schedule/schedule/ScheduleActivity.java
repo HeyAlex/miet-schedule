@@ -1,8 +1,5 @@
 package heyalex.com.miet_schedule.schedule;
 
-import android.app.Fragment;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -18,12 +15,6 @@ import android.widget.LinearLayout;
 
 import org.joda.time.DateTime;
 
-import java.util.HashMap;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorCompletionService;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -36,37 +27,25 @@ import heyalex.com.miet_schedule.util.DateMietHelper;
 import heyalex.com.miet_schedule.util.NavigationUtil;
 import timber.log.Timber;
 
-/**
- * Created by alexf on 07.04.2017.
- */
-
 public class ScheduleActivity extends AppCompatActivity implements ScheduleView {
 
-
-    private ScheduleViewPagerAdapter pagerAdapter;
-    private static int currentPosition = 0;
     private static final String GROUP = "group";
-
+    private static int currentPosition = 0;
     @BindView(R.id.schedule_activity_root)
     View schedule_root;
-
     @BindView(R.id.schedule_viewpager)
     ViewPager pager;
-
     @BindView(R.id.tab_layout)
     TabLayout tabLayout;
-
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-
     @Inject
     SchedulePresenter presenter;
-
     @Inject
     ScheduleBuilderHelper scheduleBuilder;
-
+    private ScheduleViewPagerAdapter pagerAdapter;
     private String groupName;
-    private Snackbar updatingSnacbar;
+    private Snackbar updatingSnackbar;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,17 +61,17 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
                 finish();
             }
         });
-        updatingSnacbar = initSnackBar();
+        updatingSnackbar = initSnackBar();
+        pagerAdapter = new ScheduleViewPagerAdapter(getSupportFragmentManager());
         if (presenter == null) {
             ScheduleApp.get(this)
                     .getScheduleComponent()
                     .inject(this);
 
-            presenter.onViewAttached(this); 
+            presenter.onViewAttached(this);
             presenter.getCachedScheduleForGroup(groupName);
         }
 
-        pagerAdapter = new ScheduleViewPagerAdapter(getSupportFragmentManager());
         for (String tabHeader : NavigationUtil.weekList) {
             tabLayout.addTab(tabLayout.newTab().setText(tabHeader));
         }
@@ -130,12 +109,13 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
         Timber.d("onOptionsItemSelected");
         int id = item.getItemId();
         if (id == R.id.schedule_action_update) {
+            item.setEnabled(false);
             presenter.updateScheduleForGroup(groupName);
             return true;
         }
         if (id == R.id.schedule_go_to_current_week) {
             if (tabLayout.getSelectedTabPosition() != DateMietHelper.getWeek(DateTime.now()) + 2) {
-                pager.setCurrentItem(DateMietHelper.getWeek(DateTime.now()) + 2);
+                pager.setCurrentItem(DateMietHelper.getWeek(DateTime.now()) + 2, true);
             } else {
                 Snackbar.make(schedule_root, R.string.schedule_error_this_week,
                         Snackbar.LENGTH_SHORT).show();
@@ -155,10 +135,8 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
     protected void onDestroy() {
         Timber.d("onDestroy");
         super.onDestroy();
-        if (pager != null) {
-            pager.clearOnPageChangeListeners();
-            tabLayout.clearOnTabSelectedListeners();
-        }
+        pager.clearOnPageChangeListeners();
+        tabLayout.clearOnTabSelectedListeners();
         if (presenter != null) {
             presenter.onViewDetached();
         }
@@ -177,26 +155,20 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
     }
 
     @Override
-    public void showSchedule(CycleWeeksLessonModel schedule) {
-        scheduleBuilder.setBuildedLessonSchedule(schedule);
-        pager.setAdapter(pagerAdapter);
-    }
-
-    @Override
     public void showStatus(boolean state) {
         if (state) {
-            updatingSnacbar.show();
+            updatingSnackbar.show();
         } else {
-            updatingSnacbar.dismiss();
+            updatingSnackbar.dismiss();
         }
     }
 
     @Override
-    public void showReloadedSchedule(CycleWeeksLessonModel schedule) {
+    public void showSchedule(CycleWeeksLessonModel schedule) {
         scheduleBuilder.setBuildedLessonSchedule(schedule);
+        pagerAdapter.notifyDataSetChanged();
         pager.setAdapter(pagerAdapter);
         pager.setCurrentItem(currentPosition);
-        pagerAdapter.notifyDataSetChanged();
     }
 
     @Override

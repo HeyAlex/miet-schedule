@@ -2,9 +2,7 @@ package heyalex.com.miet_schedule.addnewgroup;
 
 import dagger.Module;
 import dagger.Provides;
-import heyalex.com.miet_schedule.data.lessons.LessonsRepository;
-import heyalex.com.miet_schedule.data.schedule.ScheduleRepository;
-import heyalex.com.miet_schedule.shortcut.ShortcutPreference;
+import heyalex.com.miet_schedule.data.shared_interactor.ScheduleInteractor;
 
 /**
  * Created by mac on 09.05.17.
@@ -15,9 +13,7 @@ public class AddNewGroupModule {
 
     @Provides
     @AddNewGroupScope
-    /*package*/ AddNewGroupPresenter provideAddNewGroupPresenter(ScheduleRepository groupsRepository,
-                                                                 LessonsRepository lessonsRepository,
-                                                                 ShortcutPreference shortcutPreference) {
-        return new AddNewGroupPresenterImpl(groupsRepository, lessonsRepository, shortcutPreference);
+    /*package*/ AddNewGroupPresenter provideAddNewGroupPresenter(ScheduleInteractor interactor) {
+        return new AddNewGroupPresenterImpl(interactor);
     }
 }

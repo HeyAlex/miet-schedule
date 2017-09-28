@@ -1,7 +1,5 @@
 package heyalex.com.miet_schedule.groups;
 
-import android.content.Context;
-
 import heyalex.com.miet_schedule.util.BasePresenter;
 
 /**
@@ -17,12 +15,14 @@ public interface GroupsPresenter extends BasePresenter<GroupsView> {
 
     /**
      * Delete downloaded schedule
+     *
      * @param groupName associated with schedule
      */
     void deleteGroup(String groupName);
 
     /**
      * Add new static shortcut on home screen
+     *
      * @param groupName associated with schedule
      */
     void addNewStaticShortcut(String groupName);

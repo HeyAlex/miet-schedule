@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@color/iron_divider"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/iron_divider"
+    android:orientation="vertical">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/schedule_list_here"
@@ -12,14 +12,14 @@
         android:clipToPadding="false" />
 
     <TextView
-        android:layout_marginBottom="@dimen/dimen_32dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:id="@+id/no_schedule"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="@dimen/dimen_32dp"
+        android:textColor="@color/scheduleFROM"
         android:textSize="@dimen/headerSchedule"
-        android:textStyle="bold"
-        android:id="@+id/no_schedule"
-        android:textColor="@color/scheduleFROM" />
+        android:textStyle="bold" />
 
 </RelativeLayout>

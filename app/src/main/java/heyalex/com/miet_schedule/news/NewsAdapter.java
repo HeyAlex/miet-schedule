@@ -25,9 +25,13 @@ import static heyalex.com.miet_schedule.util.Preconditions.checkNotNull;
  */
 /*package*/ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
 
+    private final List<NewsModel> items = new ArrayList<>();
     private Context context;
     private OnNewsClickedListener onNewsClickedListener;
-    private final List<NewsModel> items = new ArrayList<>();
+
+    /*package*/ NewsAdapter(OnNewsClickedListener onNewsClickedListener) {
+        this.onNewsClickedListener = checkNotNull(onNewsClickedListener);
+    }
 
     @Override
     public NewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -46,10 +50,6 @@ import static heyalex.com.miet_schedule.util.Preconditions.checkNotNull;
         return items.size();
     }
 
-    /*package*/ interface OnNewsClickedListener {
-        void onNewsClicked(NewsModel newsModel);
-    }
-
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
@@ -62,14 +62,14 @@ import static heyalex.com.miet_schedule.util.Preconditions.checkNotNull;
         context = null;
     }
 
-    /*package*/ NewsAdapter(OnNewsClickedListener onNewsClickedListener) {
-        this.onNewsClickedListener = checkNotNull(onNewsClickedListener);
-    }
-
     /*package*/ void setItems(List<NewsModel> items) {
         this.items.clear();
         this.items.addAll(items);
         notifyDataSetChanged();
+    }
+
+    /*package*/ interface OnNewsClickedListener {
+        void onNewsClicked(NewsModel newsModel);
     }
 
     /*package*/ class NewsViewHolder extends RecyclerView.ViewHolder {

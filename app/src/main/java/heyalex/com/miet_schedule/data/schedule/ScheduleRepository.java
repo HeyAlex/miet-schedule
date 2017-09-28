@@ -30,4 +30,6 @@ public interface ScheduleRepository extends BaseRepository<ScheduleModel> {
      * @param groupName that associated with schedule
      */
     void deleteByGroupName(String groupName);
+
+    boolean isGroupCached(String groupName);
 }

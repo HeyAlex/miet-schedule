@@ -14,4 +14,6 @@ import heyalex.com.miet_schedule.util.BasePresenter;
     void onSearch(String searchQuery);
 
     void onSearchCanceled();
+
+    void onCancelDownloadingGroup();
 }

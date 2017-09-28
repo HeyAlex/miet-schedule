@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="@dimen/dimen_4dp"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_height="wrap_content">
+    android:padding="@dimen/dimen_4dp">
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@mipmap/ic_launcher"/>
+        android:background="@mipmap/ic_launcher" />
 
     <LinearLayout
-        android:layout_marginLeft="4dp"
-        android:layout_gravity="center_vertical"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="4dp"
+        android:orientation="vertical">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Распиание МИЭТ"
-            android:textSize="18dp"
             android:textColor="@color/color_black"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="18dp" />
+
         <TextView
-            android:text="Версия 3.0"
-            android:textSize="16dp"
-            android:textColor="@color/scheduleFROM"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Версия 3.0"
+            android:textColor="@color/scheduleFROM"
+            android:textSize="16dp" />
 
     </LinearLayout>
 

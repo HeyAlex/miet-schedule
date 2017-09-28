@@ -11,7 +11,5 @@ import heyalex.com.miet_schedule.model.schedule.CycleWeeksLessonModel;
 
     void showStatus(boolean state);
 
-    void showReloadedSchedule(CycleWeeksLessonModel schedule);
-
     void showErrorView();
 }

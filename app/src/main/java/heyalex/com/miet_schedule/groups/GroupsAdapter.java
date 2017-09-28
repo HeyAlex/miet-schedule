@@ -24,9 +24,13 @@ import static heyalex.com.miet_schedule.util.Preconditions.checkNotNull;
  */
 public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsViewHolder> {
 
+    private final List<ScheduleModel> items = new ArrayList<>();
     private Context context;
     private GroupsAdapter.OnGroupClickedListener onGroupClickedListener;
-    private final List<ScheduleModel> items = new ArrayList<>();
+
+    public GroupsAdapter(OnGroupClickedListener onGroupClickedListener) {
+        this.onGroupClickedListener = checkNotNull(onGroupClickedListener);
+    }
 
     @Override
     public GroupsAdapter.GroupsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -45,16 +49,6 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
         return items.size();
     }
 
-
-    public interface OnGroupClickedListener {
-
-        void onGroupClickedListener(ScheduleModel scheduleModel);
-
-        void onAddNewStaticIcon(String group);
-
-        void onDeleteGroup(String group);
-    }
-
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
@@ -66,14 +60,19 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
         super.onDetachedFromRecyclerView(recyclerView);
     }
 
-    public GroupsAdapter(OnGroupClickedListener onGroupClickedListener) {
-        this.onGroupClickedListener = checkNotNull(onGroupClickedListener);
-    }
-
     public void setItems(List<ScheduleModel> items) {
         this.items.clear();
         this.items.addAll(items);
         notifyDataSetChanged();
+    }
+
+    public interface OnGroupClickedListener {
+
+        void onGroupClickedListener(ScheduleModel scheduleModel);
+
+        void onAddNewStaticIcon(String group);
+
+        void onDeleteGroup(String group);
     }
 
     /*package*/ class GroupsViewHolder extends RecyclerView.ViewHolder {
@@ -96,22 +95,22 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
                                                 ContextMenu.ContextMenuInfo menuInfo) {
                     menu.add(context.getString(R.string.menu_delete_group, groupName))
                             .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            onGroupClickedListener.onDeleteGroup(groupName);
-                            items.remove(groupModel);
-                            notifyDataSetChanged();
-                            return false;
-                        }
-                    });
+                                @Override
+                                public boolean onMenuItemClick(MenuItem item) {
+                                    onGroupClickedListener.onDeleteGroup(groupName);
+                                    items.remove(groupModel);
+                                    notifyDataSetChanged();
+                                    return false;
+                                }
+                            });
                     menu.add(context.getString(R.string.menu_add_static_icon, groupName))
                             .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            onGroupClickedListener.onAddNewStaticIcon(groupName);
-                            return false;
-                        }
-                    });
+                                @Override
+                                public boolean onMenuItemClick(MenuItem item) {
+                                    onGroupClickedListener.onAddNewStaticIcon(groupName);
+                                    return true;
+                                }
+                            });
                 }
             });
             itemView.setOnClickListener(new View.OnClickListener() {

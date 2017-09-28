@@ -23,21 +23,23 @@ import heyalex.com.miet_schedule.util.NavigationUtil;
  */
 /*package*/ class NavAdapter extends RecyclerView.Adapter<NavAdapter.ViewHolder> {
 
-    private Context context;
+    private static final int WHITE_COLOR = Color.parseColor("#f1f1f1");
+    private static final int GRAY_COLOR = Color.parseColor("#ffffff");
+    private static final int SELECTED_COLOR = Color.parseColor("#2196F3");
+    private static final int UNSELECTED_COLOR = Color.parseColor("#4b4b4b");
     /**
      * Icons for navigation list items
      */
     private final Integer[] iconId = new Integer[]{R.drawable.calendar,
             R.drawable.newspaper, R.drawable.calendar_clock};
-
+    private Context context;
     private List<Integer> data;
-
     private int mCurrentPos = 0;
-
     /**
      * Callback that navigation items has clicked
      */
     private OnNavClickedListener clickedListener;
+
 
     /**
      * Create a new instance of {@link NavAdapter}
@@ -52,21 +54,13 @@ import heyalex.com.miet_schedule.util.NavigationUtil;
         notifyDataSetChanged();
     }
 
-    /**
-     * Callback for the view that created this adapter.
-     */
-    /*package*/ interface OnNavClickedListener {
-        void onNavClicked(int position);
+    public int getCurrentPos() {
+        return mCurrentPos;
     }
 
     /*package*/ void setCurrentPos(int currentPos) {
         mCurrentPos = currentPos;
     }
-
-    public int getCurrentPos() {
-        return mCurrentPos;
-    }
-
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -88,11 +82,12 @@ import heyalex.com.miet_schedule.util.NavigationUtil;
     /*package*/ int getItem(int position) {
         return data.get(position);
     }
-
-    private static final int WHITE_COLOR = Color.parseColor("#f1f1f1");
-    private static final int GRAY_COLOR = Color.parseColor("#ffffff");
-    private static final int SELECTED_COLOR = Color.parseColor("#2196F3");
-    private static final int UNSELECTED_COLOR = Color.parseColor("#4b4b4b");
+    /**
+     * Callback for the view that created this adapter.
+     */
+    /*package*/ interface OnNavClickedListener {
+        void onNavClicked(int position);
+    }
 
     /*package*/ class ViewHolder extends RecyclerView.ViewHolder {
 

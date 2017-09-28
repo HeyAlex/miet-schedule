@@ -23,11 +23,9 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
     private static final String FRAGMENT_TAG_ORIOKS = "FRAGMENT_TAG_ORIOKS";
     private static final String FRAGMENT_TAG_NEWS = "FRAGMENT_TAG_NEWS";
     private static final String ORIOKS_URL = "https://orioks.miet.ru/student/student";
-
-    private NavAdapter navAdapter;
-
     @Inject
     NavDrawerPresenter navDrawerPresenter;
+    private NavAdapter navAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

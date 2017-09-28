@@ -21,9 +21,13 @@ import static heyalex.com.miet_schedule.util.Preconditions.checkNotNull;
  */
 /*package*/ class AddNewGroupAdapter extends RecyclerView.Adapter<AddNewGroupAdapter.GroupsViewHolder> {
 
+    private final List<String> items = new ArrayList<>();
     private Context context;
     private AddNewGroupAdapter.OnGroupClickedListener onGroupClickedListener;
-    private final List<String> items = new ArrayList<>();
+
+    AddNewGroupAdapter(AddNewGroupAdapter.OnGroupClickedListener onGroupClickedListener) {
+        this.onGroupClickedListener = checkNotNull(onGroupClickedListener);
+    }
 
     @Override
     public AddNewGroupAdapter.GroupsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -37,14 +41,9 @@ import static heyalex.com.miet_schedule.util.Preconditions.checkNotNull;
         holder.bind(items.get(position));
     }
 
-
     @Override
     public int getItemCount() {
         return items.size();
-    }
-
-    /*package*/ interface OnGroupClickedListener {
-        void onGroupClickedListener(String groupName);
     }
 
     @Override
@@ -58,14 +57,14 @@ import static heyalex.com.miet_schedule.util.Preconditions.checkNotNull;
         super.onDetachedFromRecyclerView(recyclerView);
     }
 
-    AddNewGroupAdapter(AddNewGroupAdapter.OnGroupClickedListener onGroupClickedListener) {
-        this.onGroupClickedListener = checkNotNull(onGroupClickedListener);
-    }
-
     /*package*/ void setItems(List<String> items) {
         this.items.clear();
         this.items.addAll(items);
         notifyDataSetChanged();
+    }
+
+    /*package*/ interface OnGroupClickedListener {
+        void onGroupClickedListener(String groupName);
     }
 
     /*package*/ class GroupsViewHolder extends RecyclerView.ViewHolder {

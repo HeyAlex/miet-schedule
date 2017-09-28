@@ -1,91 +1,91 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="@dimen/widget_margin"
-    android:background="?android:attr/selectableItemBackground"
+    android:id="@+id/schedule_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/schedule_root"
-    android:orientation="vertical">
+    android:background="?android:attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:padding="@dimen/widget_margin">
 
     <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/colorPrimary"
-        android:orientation="horizontal"
-        android:layout_width="match_parent">
+        android:orientation="horizontal">
 
 
         <ImageView
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dimen_2dp"
             android:id="@+id/settings_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dimen_2dp"
             android:gravity="start" />
 
         <LinearLayout
-            android:layout_toRightOf="@+id/settings_icon"
-            android:layout_marginTop="10dp"
-            android:layout_centerVertical="true"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/settings_icon"
             android:orientation="vertical">
 
             <TextView
-                android:layout_gravity="center_vertical"
                 android:id="@+id/header"
-                android:text="Группа"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="6dp"
+                android:text="Группа"
                 android:textColor="@color/color_white"
                 android:textSize="@dimen/content_text_size_big"
                 android:textStyle="bold" />
 
             <TextView
-                android:layout_gravity="center_vertical"
                 android:id="@+id/day"
-                android:text="День"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="6dp"
+                android:text="День"
                 android:textColor="@color/color_white"
                 android:textSize="12sp" />
 
         </LinearLayout>
 
         <ImageView
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
             android:id="@+id/widget_control"
             android:layout_width="35dp"
             android:layout_height="35dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_gravity="end"
             android:gravity="end" />
     </RelativeLayout>
 
     <RelativeLayout
-        android:background="@color/color_white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/color_white">
 
         <TextView
+            android:id="@+id/no_schedule_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:padding="4dp"
             android:text="ПАР НЕТ"
-            android:layout_width="wrap_content"
-            android:textSize="@dimen/content_text_size_big"
-            android:textStyle="bold"
-            android:id="@+id/no_schedule_view"
             android:textColor="@color/iron"
-            android:layout_height="wrap_content" />
+            android:textSize="@dimen/content_text_size_big"
+            android:textStyle="bold" />
 
         <ListView xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/lessons"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true" />
     </RelativeLayout>
 
 </LinearLayout>

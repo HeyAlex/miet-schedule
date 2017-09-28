@@ -3,8 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_white"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    android:clickable="true">
+    android:clickable="true"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
 
     <include
@@ -22,9 +22,9 @@
         android:layout_alignParentRight="true"
         android:layout_marginBottom="@dimen/base_margin"
         android:layout_marginRight="@dimen/drawer_icon_margin"
+        android:orientation="vertical"
         android:paddingLeft="@dimen/base_margin"
-        android:paddingRight="@dimen/base_margin"
-        android:orientation="vertical">
+        android:paddingRight="@dimen/base_margin">
 
     </LinearLayout>
 
@@ -34,8 +34,8 @@
         android:layout_height="match_parent"
         android:layout_above="@id/ll_drawer_profile"
         android:layout_below="@id/iv_drawer_top"
+        android:layout_marginTop="4dp"
         android:background="@android:color/transparent"
         android:overScrollMode="never"
-        android:scrollbars="none"
-        android:layout_marginTop="4dp" />
+        android:scrollbars="none" />
 </RelativeLayout>

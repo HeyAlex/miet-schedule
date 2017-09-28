@@ -13,10 +13,8 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
  */
 /*package*/ class UniversityServiceGenerator {
 
-    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-
     private final static String SERVICE_MIET_ENDPOINT = "https://miet.ru";
-
+    private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
     private static Retrofit.Builder retrofitScheduleBuilder
             = new Retrofit.Builder()
             .baseUrl(SERVICE_MIET_ENDPOINT)

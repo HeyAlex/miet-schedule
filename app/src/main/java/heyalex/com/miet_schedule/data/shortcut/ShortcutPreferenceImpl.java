@@ -1,4 +1,4 @@
-package heyalex.com.miet_schedule.shortcut;
+package heyalex.com.miet_schedule.data.shortcut;
 
 import android.content.Context;
 import android.content.Intent;
@@ -25,7 +25,8 @@ public class ShortcutPreferenceImpl implements ShortcutPreference {
     @NonNull
     private Context context;
 
-    /*package*/ ShortcutPreferenceImpl(Context context) {
+    /*package*/
+    public ShortcutPreferenceImpl(Context context) {
         this.context = context;
     }
 

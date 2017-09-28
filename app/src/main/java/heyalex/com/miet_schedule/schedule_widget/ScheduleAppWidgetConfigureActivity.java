@@ -1,7 +1,6 @@
 package heyalex.com.miet_schedule.schedule_widget;
 
 import android.appwidget.AppWidgetManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -31,14 +30,12 @@ import timber.log.Timber;
 public class ScheduleAppWidgetConfigureActivity extends AppCompatActivity implements GroupsView,
         GroupsAdapter.OnGroupClickedListener {
 
-    private GroupsAdapter groupsAdapter = new GroupsAdapter(this);
-
     @BindView(R.id.group_list)
     RecyclerView recyclerView;
-
     @Inject
     GroupsPresenter presenter;
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+    private GroupsAdapter groupsAdapter = new GroupsAdapter(this);
 
     private void initViews() {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

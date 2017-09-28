@@ -2,12 +2,14 @@ package heyalex.com.miet_schedule.schedule_widget;
 
 import android.app.AlarmManager;
 import android.app.IntentService;
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.widget.RemoteViews;
 
@@ -15,8 +17,11 @@ import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.Duration;
 
+import javax.inject.Inject;
+
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
+import heyalex.com.miet_schedule.data.shared_interactor.ScheduleInteractor;
 import heyalex.com.miet_schedule.schedule.ScheduleActivity;
 import timber.log.Timber;
 
@@ -27,39 +32,14 @@ public class ScheduleUpdateService extends IntentService {
 
     public static final String TOMORROW_ACTION = "TOMORROW_ACTION";
     public static final String TODAY_ACTION = "TODAY_ACTION";
+    private static final int NOTIFICATION_ID = 100;
+
+    @Inject
+    ScheduleInteractor interactor;
 
     public ScheduleUpdateService() {
         super("ScheduleUpdateService");
     }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        ScheduleApp.get(this)
-                .getApplicationComponent()
-                .inject(this);
-    }
-
-    @Override
-    protected void onHandleIntent(@Nullable Intent intent) {
-        if (intent != null) {
-            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
-            int widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
-
-            Timber.i("Schedule widget service update");
-            if (intent.getAction() != null) {
-                String group = intent.getStringExtra("group");
-                RemoteViews views = ScheduleRemoteViewBuilder.newBuilder(this, group, widgetId)
-                        .setTomorrowHeader(intent.getAction().startsWith(TOMORROW_ACTION))
-                        .setTodayHeader(intent.getAction().startsWith(TODAY_ACTION))
-                        .setAdapterForLessons()
-                        .build();
-                appWidgetManager.updateAppWidget(widgetId, views);
-                appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.lessons);
-            }
-        }
-    }
-
 
     public static PendingIntent getScheduleUpdateServicePendingIntent(Context context, String action,
                                                                       int widgetId, String group) {
@@ -87,7 +67,6 @@ public class ScheduleUpdateService extends IntentService {
         resultValue.setAction(action);
         return PendingIntent.getBroadcast(context, 0, resultValue, 0);
     }
-
 
     public static PendingIntent getSchedulePendingIntent(Context context, String group) {
         Intent resultValue = new Intent(context, ScheduleActivity.class);
@@ -135,5 +114,37 @@ public class ScheduleUpdateService extends IntentService {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         alarmManager.cancel(getScheduleUpdateServicePendingIntent(context, TODAY_ACTION
                 + String.valueOf(widgetId), widgetId, group));
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        startForeground(NOTIFICATION_ID, new Notification());
+        ScheduleApp.get(this)
+                .getApplicationComponent()
+                .inject(this);
+    }
+
+    @Override
+    protected void onHandleIntent(@Nullable Intent intent) {
+        if (intent != null) {
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+            int widgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 0);
+
+            Timber.i("Schedule widget service update");
+            if (intent.getAction() != null) {
+                String groupName = intent.getStringExtra("group");
+                if (!interactor.isGroupInCache(groupName)) {
+                    interactor.downloadGroup(groupName);
+                }
+                RemoteViews views = ScheduleRemoteViewBuilder.newBuilder(this, groupName, widgetId)
+                        .setTomorrowHeader(intent.getAction().startsWith(TOMORROW_ACTION))
+                        .setTodayHeader(intent.getAction().startsWith(TODAY_ACTION))
+                        .setAdapterForLessons()
+                        .build();
+                appWidgetManager.updateAppWidget(widgetId, views);
+                appWidgetManager.notifyAppWidgetViewDataChanged(widgetId, R.id.lessons);
+            }
+        }
     }
 }
