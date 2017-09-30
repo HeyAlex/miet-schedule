@@ -8,23 +8,16 @@ import heyalex.com.miet_schedule.data.shared_interactor.ScheduleInteractor;
 /*package*/ class GroupsPresenterImpl implements GroupsPresenter {
 
     private GroupsView view;
-    //    private ScheduleRepository groupsRepository;
-//    private LessonsRepository lessonsRepository;
-//    private ShortcutPreference shortcutPreference;
     private ScheduleInteractor interactor;
 
 
     /*package*/ GroupsPresenterImpl(ScheduleInteractor interactor) {
-//        this.groupsRepository = groupsRepository;
-//        this.lessonsRepository = lessonsRepository;
-//        this.shortcutPreference = shortcutPreference;
         this.interactor = interactor;
     }
 
     @Override
     public void showGroups() {
         final List<ScheduleModel> groups = interactor.getDownloadedGroups();
-        ;
 
         if (view != null) {
             if (groups != null) {
@@ -47,6 +40,11 @@ import heyalex.com.miet_schedule.data.shared_interactor.ScheduleInteractor;
     @Override
     public void addNewStaticShortcut(String groupName) {
         interactor.addNewStaticShortcut(groupName);
+    }
+
+    @Override
+    public void requestWidget(String groupName) {
+        interactor.requestWidgetOnHomescreen(groupName);
     }
 
     @Override

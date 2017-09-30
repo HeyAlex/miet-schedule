@@ -24,6 +24,8 @@ import heyalex.com.miet_schedule.groups.GroupsView;
 import heyalex.com.miet_schedule.util.PrefUtils;
 import timber.log.Timber;
 
+import static heyalex.com.miet_schedule.schedule_widget.ScheduleUpdateService.GROUPNAME_KEY;
+
 /**
  * The configuration screen for the {@link ScheduleAppWidget} AppWidget.
  */
@@ -67,6 +69,10 @@ public class ScheduleAppWidgetConfigureActivity extends AppCompatActivity implem
         if (extras != null) {
             mAppWidgetId = extras.getInt(
                     AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+            if (extras.containsKey(GROUPNAME_KEY)) {
+                pinWindget(extras.getString(GROUPNAME_KEY));
+
+            }
         }
 
         // If this activity was started with an intent without an app widget ID, finish with an error.
@@ -87,15 +93,19 @@ public class ScheduleAppWidgetConfigureActivity extends AppCompatActivity implem
     }
 
     @Override
-    public void onGroupClickedListener(ScheduleModel newsModel) {
+    public void onGroupClickedListener(ScheduleModel scheduleModel) {
+        pinWindget(scheduleModel.getGroup());
+    }
+
+    private void pinWindget(String groupName){
         Intent resultValue = new Intent(this, ScheduleUpdateService.class);
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
         resultValue.setAction(ScheduleUpdateService.TODAY_ACTION + String.valueOf(mAppWidgetId));
-        resultValue.putExtra("group", newsModel.getGroup());
+        resultValue.putExtra("group", groupName);
         this.startService(resultValue);
         Timber.i(String.valueOf(mAppWidgetId));
-        PrefUtils.saveToPrefs(this, String.valueOf(mAppWidgetId), newsModel.getGroup());
-        ScheduleUpdateService.setupAlarm(this, mAppWidgetId, newsModel.getGroup());
+        PrefUtils.saveToPrefs(this, String.valueOf(mAppWidgetId), groupName);
+        ScheduleUpdateService.setupAlarm(this, mAppWidgetId, groupName);
         Intent intentParent = getIntent();
         setResult(RESULT_OK, intentParent);
         finish();
@@ -104,6 +114,10 @@ public class ScheduleAppWidgetConfigureActivity extends AppCompatActivity implem
     @Override
     public void onAddNewStaticIcon(String group) {
         presenter.addNewStaticShortcut(group);
+    }
+
+    @Override
+    public void onRequestWidgetConfigure(String group) {
     }
 
     @Override

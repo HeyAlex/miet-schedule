@@ -1,6 +1,7 @@
 package heyalex.com.miet_schedule.groups;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -27,9 +28,13 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
     private final List<ScheduleModel> items = new ArrayList<>();
     private Context context;
     private GroupsAdapter.OnGroupClickedListener onGroupClickedListener;
+    private boolean isOreo = false;
 
     public GroupsAdapter(OnGroupClickedListener onGroupClickedListener) {
         this.onGroupClickedListener = checkNotNull(onGroupClickedListener);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            isOreo = true;
+        }
     }
 
     @Override
@@ -72,6 +77,8 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
 
         void onAddNewStaticIcon(String group);
 
+        void onRequestWidgetConfigure(String group);
+
         void onDeleteGroup(String group);
     }
 
@@ -111,6 +118,16 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
                                     return true;
                                 }
                             });
+                    if(isOreo){
+                        menu.add(context.getString(R.string.menu_add_widget_on_homescreen))
+                                .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                                    @Override
+                                    public boolean onMenuItemClick(MenuItem item) {
+                                        onGroupClickedListener.onRequestWidgetConfigure(groupName);
+                                        return true;
+                                    }
+                                });
+                    }
                 }
             });
             itemView.setOnClickListener(new View.OnClickListener() {

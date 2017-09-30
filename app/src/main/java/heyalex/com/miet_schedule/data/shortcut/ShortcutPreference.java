@@ -34,5 +34,6 @@ public interface ShortcutPreference {
      */
     void deleteStaticShortcut(String groupName);
 
+    void requestWidgetPin(String groupName);
 
 }

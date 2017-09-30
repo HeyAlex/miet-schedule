@@ -90,8 +90,12 @@ public class GroupsFragment extends Fragment implements GroupsView, GroupsAdapte
 
     @Override
     public void onAddNewStaticIcon(String group) {
-
         presenter.addNewStaticShortcut(group);
+    }
+
+    @Override
+    public void onRequestWidgetConfigure(String groupName) {
+        presenter.requestWidget(groupName);
     }
 
     @Override

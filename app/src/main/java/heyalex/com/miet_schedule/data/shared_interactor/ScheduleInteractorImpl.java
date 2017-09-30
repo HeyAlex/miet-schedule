@@ -153,6 +153,11 @@ public class ScheduleInteractorImpl implements ScheduleInteractor {
         return groupsRepository.isGroupCached(groupName);
     }
 
+    @Override
+    public void requestWidgetOnHomescreen(String groupName) {
+        shortcutPreference.requestWidgetPin(groupName);
+    }
+
     public class ResponseScheduleObserver extends DisposableSingleObserver<SemesterData> {
 
         private String groupName;
