@@ -29,6 +29,7 @@ import timber.log.Timber;
  * Service for updating and building a widget
  */
 public class ScheduleUpdateService extends IntentService {
+    public static final String GROUPNAME_KEY = "group";
 
     public static final String TOMORROW_ACTION = "TOMORROW_ACTION";
     public static final String TODAY_ACTION = "TODAY_ACTION";
@@ -45,7 +46,7 @@ public class ScheduleUpdateService extends IntentService {
                                                                       int widgetId, String group) {
         Intent resultValue = new Intent(context, ScheduleUpdateService.class);
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
-        resultValue.putExtra("group", group);
+        resultValue.putExtra(GROUPNAME_KEY, group);
         resultValue.setAction(action);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             return PendingIntent.getForegroundService(context, 0, resultValue, PendingIntent.FLAG_CANCEL_CURRENT);
@@ -63,18 +64,27 @@ public class ScheduleUpdateService extends IntentService {
         return PendingIntent.getActivity(context, 0, resultValue, PendingIntent.FLAG_CANCEL_CURRENT);
     }
 
+    public static PendingIntent getScheduleConfigurationPendingIntentForPinning(Context context,
+                                                                                String groupName) {
+        Intent resultValue = new Intent(context, ScheduleAppWidgetConfigureActivity.class);
+        resultValue.putExtra(GROUPNAME_KEY, groupName);
+        Uri data = Uri.parse(resultValue.toUri(Intent.URI_INTENT_SCHEME));
+        resultValue.setData(data);
+        return PendingIntent.getActivity(context, 0, resultValue, PendingIntent.FLAG_CANCEL_CURRENT);
+    }
+
     public static PendingIntent getAlarmIntent(Context context, String action, int widgetId,
                                                String group) {
         Intent resultValue = new Intent(context, ScheduleAlarmReceiver.class);
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
-        resultValue.putExtra("group", group);
+        resultValue.putExtra(GROUPNAME_KEY, group);
         resultValue.setAction(action);
         return PendingIntent.getBroadcast(context, 0, resultValue, 0);
     }
 
     public static PendingIntent getSchedulePendingIntent(Context context, String group) {
         Intent resultValue = new Intent(context, ScheduleActivity.class);
-        resultValue.putExtra("group", group);
+        resultValue.putExtra(GROUPNAME_KEY, group);
         resultValue.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         Uri data = Uri.parse(resultValue.toUri(Intent.URI_INTENT_SCHEME));
         resultValue.setData(data);
@@ -85,7 +95,7 @@ public class ScheduleUpdateService extends IntentService {
                                            String group) {
         Intent resultValue = new Intent(context, ScheduleUpdateService.class);
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
-        resultValue.putExtra("group", group);
+        resultValue.putExtra(GROUPNAME_KEY, group);
         resultValue.setAction(action);
         return resultValue;
     }
@@ -137,7 +147,7 @@ public class ScheduleUpdateService extends IntentService {
 
             Timber.i("Schedule widget service update");
             if (intent.getAction() != null) {
-                String groupName = intent.getStringExtra("group");
+                String groupName = intent.getStringExtra(GROUPNAME_KEY);
                 if (!interactor.isGroupInCache(groupName)) {
                     interactor.downloadGroup(groupName);
                 }

@@ -26,4 +26,6 @@ public interface ScheduleInteractor {
     void addNewStaticShortcut(String groupName);
 
     boolean isGroupInCache(String groupName);
+
+    void requestWidgetOnHomescreen(String groupName);
 }

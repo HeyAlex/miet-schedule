@@ -26,4 +26,6 @@ public interface GroupsPresenter extends BasePresenter<GroupsView> {
      * @param groupName associated with schedule
      */
     void addNewStaticShortcut(String groupName);
+
+    void requestWidget(String groupName);
 }

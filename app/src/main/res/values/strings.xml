@@ -30,6 +30,7 @@
     <string name="today_widget_header">СЕГОДНЯ %s</string>
     <string name="menu_add_static_icon">Добавить на рабочий стол %s</string>
     <string name="menu_delete_group">Удалить группу %s</string>
+    <string name="menu_add_widget_on_homescreen">Добавить виджет на рыбочий стол</string>
 
     <!--Schedule-->
     <!--News-->
