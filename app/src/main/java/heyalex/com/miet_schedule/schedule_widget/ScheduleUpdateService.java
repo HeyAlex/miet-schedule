@@ -47,7 +47,11 @@ public class ScheduleUpdateService extends IntentService {
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
         resultValue.putExtra("group", group);
         resultValue.setAction(action);
-        return PendingIntent.getService(context, 0, resultValue, PendingIntent.FLAG_CANCEL_CURRENT);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return PendingIntent.getForegroundService(context, 0, resultValue, PendingIntent.FLAG_CANCEL_CURRENT);
+        } else {
+            return PendingIntent.getService(context, 0, resultValue, PendingIntent.FLAG_CANCEL_CURRENT);
+        }
     }
 
     public static PendingIntent getScheduleConfigurationPendingIntent(Context context,
