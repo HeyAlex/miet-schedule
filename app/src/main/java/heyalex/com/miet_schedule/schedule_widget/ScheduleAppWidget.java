@@ -89,21 +89,5 @@ public class ScheduleAppWidget extends AppWidgetProvider {
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled
     }
-
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//
-//            context.startForegroundService(ScheduleUpdateService.getScheduleIntent(context,
-//                    ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
-//                    groupName));
-//        } else {
-//            context.startService(ScheduleUpdateService.getScheduleIntent(context,
-//                    ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
-//                    groupName));
-//        }
-    }
 }
 
