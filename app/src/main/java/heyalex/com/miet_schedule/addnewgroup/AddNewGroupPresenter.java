@@ -7,7 +7,7 @@ import heyalex.com.miet_schedule.util.BasePresenter;
  */
 /*package*/ interface AddNewGroupPresenter extends BasePresenter<AddNewGroupView> {
 
-    void getAvailableGroups();
+    void showGroups();
 
     void addNewGroup(String groupName);
 

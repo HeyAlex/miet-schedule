@@ -26,9 +26,6 @@ import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilderHelper;
 import heyalex.com.miet_schedule.util.MarginItemDecorator;
 import heyalex.com.miet_schedule.util.NavigationUtil;
 
-/**
- * Created by mac on 10.05.17.
- */
 public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLessonClicked {
 
 
