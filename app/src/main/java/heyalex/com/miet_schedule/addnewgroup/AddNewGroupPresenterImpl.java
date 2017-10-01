@@ -33,8 +33,8 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter, OnSchedul
         this.interactor = interactor;
     }
 
-    @Override
-    public void getAvailableGroups() {
+
+    private void getAvailableGroups() {
         view.showDownloadingAvailibleGroups();
         scheduleResponseSubscription.add(UniversityApiFactory.getUniversityApi().getGroupNames()
                 .subscribeOn(Schedulers.io())
@@ -69,7 +69,8 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter, OnSchedul
         return searchQuery != null && !searchQuery.isEmpty();
     }
 
-    private void showGroups() {
+    @Override
+    public void showGroups() {
         if (cachedGroups != null) {
             if (isSearching()) {
                 view.showAvailibleGroups(groupFilter.filter(cachedGroups, searchQuery));
@@ -85,7 +86,7 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter, OnSchedul
     public void onViewAttached(AddNewGroupView view) {
         this.view = view;
         interactor.attach(this);
-        getAvailableGroups();
+        showGroups();
     }
 
     @Override

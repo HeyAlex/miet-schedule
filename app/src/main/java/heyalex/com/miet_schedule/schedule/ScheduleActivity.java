@@ -77,6 +77,7 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
         }
         allotEachTabWithEqualWidth();
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        pager.setCurrentItem(DateMietHelper.getWeek(DateTime.now()) + 2, true);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

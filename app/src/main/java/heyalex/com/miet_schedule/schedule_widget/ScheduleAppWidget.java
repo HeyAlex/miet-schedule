@@ -1,12 +1,9 @@
 package heyalex.com.miet_schedule.schedule_widget;
 
-import android.app.Notification;
-import android.app.NotificationManager;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Build;
 
 import heyalex.com.miet_schedule.util.PrefUtils;
@@ -72,7 +69,6 @@ public class ScheduleAppWidget extends AppWidgetProvider {
             String groupName = PrefUtils.getFromPrefs(context, String.valueOf(widget_id), "");
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
                 context.startForegroundService(ScheduleUpdateService.getScheduleIntent(context,
                         ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
                         groupName));
