@@ -14,13 +14,11 @@ import heyalex.com.miet_schedule.util.DateMietHelper;
 import heyalex.com.miet_schedule.util.NavigationUtil;
 import timber.log.Timber;
 
-/**
- * Created by alexf on 14.05.2017.
- */
 /*package*/ class ScheduleBuilderHelperImpl implements ScheduleBuilderHelper {
 
     private CycleWeeksLessonModel schedule = null;
     private DateTime today;
+    private final String datePattern = "d MMMM yyyy";
 
     @Inject
     /*package*/ ScheduleBuilderHelperImpl() {
@@ -73,7 +71,7 @@ import timber.log.Timber;
     }
 
     private String toStringScheduleDay(DateTime date, int week) {
-        return date.toString("dd MMMM yyyy", new Locale("ru")) + "г. ("
+        return date.toString(datePattern, new Locale("ru")) + "г. ("
                 + NavigationUtil.weekListLong[week + 2] + ")";
     }
 

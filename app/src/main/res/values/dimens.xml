@@ -2,6 +2,7 @@
 <resources>
 
     <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_horizontal_left_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="widget_margin">8dp</dimen>
@@ -43,6 +44,7 @@
     <dimen name="content_text_size">12sp</dimen>
     <dimen name="title_text_size_big">20sp</dimen>
     <dimen name="content_text_size_big">16sp</dimen>
+    <dimen name="group_text_size">18sp</dimen>
 
     <!-- google -->
     <dimen name="refresh_header_height_google">100dp</dimen>
