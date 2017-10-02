@@ -99,8 +99,10 @@ public class ScheduleInteractorImpl implements ScheduleInteractor {
 
     @Override
     public void downloadGroup(String groupName) {
-        if(scheduleDisposbleSubscription.size() != 0) {
-            return;
+        if (scheduleDisposable != null) {
+            if (!scheduleDisposable.isDisposed()) {
+                scheduleDisposable.dispose();
+            }
         }
         scheduleDisposable = UniversityApiFactory.getUniversityApi()
                 .getScheduleResponse(groupName)
@@ -122,7 +124,9 @@ public class ScheduleInteractorImpl implements ScheduleInteractor {
 
     @Override
     public void stopDownloading() {
-        // scheduleDisposable.dispose();
+        if (scheduleDisposable != null) {
+            scheduleDisposable.dispose();
+        }
     }
 
     @Override

@@ -102,6 +102,10 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
     public boolean onCreateOptionsMenu(Menu menu) {
         Timber.d("onCreateOptionsMenu");
         getMenuInflater().inflate(R.menu.schedule_menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.schedule_go_to_current_week);
+        if(!menuItem.isEnabled()){
+            menuItem.setEnabled(true);
+        }
         return true;
     }
 
@@ -170,6 +174,7 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
         pagerAdapter.notifyDataSetChanged();
         pager.setAdapter(pagerAdapter);
         pager.setCurrentItem(currentPosition);
+        invalidateOptionsMenu();
     }
 
     @Override
