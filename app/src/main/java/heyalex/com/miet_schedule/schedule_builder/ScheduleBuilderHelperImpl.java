@@ -14,7 +14,7 @@ import heyalex.com.miet_schedule.util.DateMietHelper;
 import heyalex.com.miet_schedule.util.NavigationUtil;
 import timber.log.Timber;
 
-/*package*/ class ScheduleBuilderHelperImpl implements ScheduleBuilderHelper {
+/*package*/ public class ScheduleBuilderHelperImpl implements ScheduleBuilderHelper {
 
     private CycleWeeksLessonModel schedule = null;
     private DateTime today;

@@ -15,10 +15,6 @@ import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
-/**
- * Created by mac on 09.05.17.
- */
-
 public class AddNewGroupPresenterImpl implements AddNewGroupPresenter, OnScheduleDownload {
 
     private final CompositeDisposable scheduleResponseSubscription = new CompositeDisposable();

@@ -79,8 +79,7 @@ public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLess
 
                 if (dayLesson.size() != 0) {
                     if (dayLesson.get(0).getLessons().size() > 0) {
-                        scheduleAdapter.setItems(scheduleBuilder
-                                .getLessonsForCurrentFragment(position));
+                        scheduleAdapter.setItems(dayLesson);
                         no_schedule.setVisibility(View.INVISIBLE);
                         scheduleRecycleView.setVisibility(View.VISIBLE);
                     } else {
