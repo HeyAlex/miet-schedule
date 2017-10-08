@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,7 @@ import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
 import heyalex.com.miet_schedule.model.schedule.CycleWeeksLessonModel;
 import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilderHelper;
+import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilderHelperImpl;
 import heyalex.com.miet_schedule.util.DateMietHelper;
 import heyalex.com.miet_schedule.util.NavigationUtil;
 import timber.log.Timber;
@@ -30,7 +32,7 @@ import timber.log.Timber;
 public class ScheduleActivity extends AppCompatActivity implements ScheduleView {
 
     private static final String GROUP = "group";
-    private static int currentPosition = 0;
+    private int currentPosition = 0;
     @BindView(R.id.schedule_activity_root)
     View schedule_root;
     @BindView(R.id.schedule_viewpager)
@@ -77,7 +79,6 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
         }
         allotEachTabWithEqualWidth();
         pager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-        pager.setCurrentItem(DateMietHelper.getWeek(DateTime.now()) + 2, true);
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -171,9 +172,9 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
     @Override
     public void showSchedule(CycleWeeksLessonModel schedule) {
         scheduleBuilder.setBuildedLessonSchedule(schedule);
-        pagerAdapter.notifyDataSetChanged();
         pager.setAdapter(pagerAdapter);
         pager.setCurrentItem(currentPosition);
+        pagerAdapter.notifyDataSetChanged();
         invalidateOptionsMenu();
     }
 
