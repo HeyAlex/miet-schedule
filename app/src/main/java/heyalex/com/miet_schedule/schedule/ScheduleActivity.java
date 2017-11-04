@@ -7,7 +7,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,7 +23,6 @@ import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
 import heyalex.com.miet_schedule.model.schedule.CycleWeeksLessonModel;
 import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilderHelper;
-import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilderHelperImpl;
 import heyalex.com.miet_schedule.util.DateMietHelper;
 import heyalex.com.miet_schedule.util.NavigationUtil;
 import timber.log.Timber;
@@ -32,7 +30,6 @@ import timber.log.Timber;
 public class ScheduleActivity extends AppCompatActivity implements ScheduleView {
 
     private static final String GROUP = "group";
-    private int currentPosition = 0;
     @BindView(R.id.schedule_activity_root)
     View schedule_root;
     @BindView(R.id.schedule_viewpager)
@@ -45,6 +42,7 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
     SchedulePresenter presenter;
     @Inject
     ScheduleBuilderHelper scheduleBuilder;
+    private int currentPosition = 0;
     private ScheduleViewPagerAdapter pagerAdapter;
     private String groupName;
     private Snackbar updatingSnackbar;
@@ -104,7 +102,7 @@ public class ScheduleActivity extends AppCompatActivity implements ScheduleView 
         Timber.d("onCreateOptionsMenu");
         getMenuInflater().inflate(R.menu.schedule_menu, menu);
         MenuItem menuItem = menu.findItem(R.id.schedule_go_to_current_week);
-        if(!menuItem.isEnabled()){
+        if (!menuItem.isEnabled()) {
             menuItem.setEnabled(true);
         }
         return true;

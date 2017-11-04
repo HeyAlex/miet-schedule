@@ -4,6 +4,8 @@ import heyalex.com.miet_schedule.LessonModel;
 
 public class LessonAdapterModel extends TypeAdapterModel {
 
+    private LessonModel lesson;
+
     public LessonModel getLesson() {
         return lesson;
     }
@@ -11,8 +13,6 @@ public class LessonAdapterModel extends TypeAdapterModel {
     public void setLesson(LessonModel lesson) {
         this.lesson = lesson;
     }
-
-    private LessonModel lesson;
 
     @Override
     protected ViewType setViewType() {

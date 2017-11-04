@@ -4,7 +4,7 @@ public abstract class TypeAdapterModel {
 
     protected abstract ViewType setViewType();
 
-    public enum ViewType{
+    public enum ViewType {
         HEADER,
         LESSON
     }

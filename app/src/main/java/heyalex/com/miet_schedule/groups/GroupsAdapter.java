@@ -20,9 +20,6 @@ import heyalex.com.miet_schedule.ScheduleModel;
 
 import static heyalex.com.miet_schedule.util.Preconditions.checkNotNull;
 
-/**
- * Created by mac on 09.05.17.
- */
 public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsViewHolder> {
 
     private final List<ScheduleModel> items = new ArrayList<>();
@@ -32,7 +29,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
 
     public GroupsAdapter(OnGroupClickedListener onGroupClickedListener) {
         this.onGroupClickedListener = checkNotNull(onGroupClickedListener);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             isOreo = true;
         }
     }
@@ -118,7 +115,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
                                     return true;
                                 }
                             });
-                    if(isOreo){
+                    if (isOreo) {
                         menu.add(context.getString(R.string.menu_add_widget_on_homescreen))
                                 .setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
                                     @Override
