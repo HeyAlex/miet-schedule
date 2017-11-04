@@ -7,11 +7,13 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -37,6 +39,7 @@ public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLess
     @Inject
     ScheduleBuilderHelper scheduleBuilder;
     private ScheduleAdapter scheduleAdapter = new ScheduleAdapter(this);
+    private List<DayLessonsModel> dayLesson = new ArrayList<>();
     /**
      * Position in the viewpager
      */
@@ -53,52 +56,65 @@ public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLess
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (scheduleBuilder == null) {
+            ScheduleApp.get(getContext())
+                    .getScheduleComponent()
+                    .inject(this);
+        }
         position = getArguments() != null ? getArguments().getInt(POSITION) : 0;
+        if (scheduleBuilder != null) {
+            if (scheduleBuilder.getLessonsForCurrentFragment(position) != null) {
+                dayLesson = scheduleBuilder
+                        .getLessonsForCurrentFragment(position);
+
+                if (dayLesson.size() != 0) {
+                    if (dayLesson.get(0).getLessons().size() > 0) {
+                        scheduleAdapter.setItems(dayLesson);
+                    }
+
+
+                }
+            }
+        }
+        Log.d("FRAGMENT_CREATE", String.valueOf(position));
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.schedule_fragment, container, false);
-        ButterKnife.bind(this, root);
-        if (scheduleBuilder == null) {
-            ScheduleApp.get(getContext())
-                    .getScheduleComponent()
-                    .inject(this);
-        }
+        return inflater.inflate(R.layout.schedule_fragment, container, false);
+    }
+
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        Log.d("FRAGMENT_CHECK", String.valueOf(position));
+        ButterKnife.bind(this, view);
         scheduleRecycleView.setAdapter(scheduleAdapter);
         int vertical = (int) getResources().getDimension(R.dimen.activity_vertical_margin);
         scheduleRecycleView.addItemDecoration(new MarginItemDecorator(vertical));
         scheduleRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        if (scheduleBuilder != null) {
-            if (scheduleBuilder.getLessonsForCurrentFragment(position) != null) {
-                final List<DayLessonsModel> dayLesson = scheduleBuilder
-                        .getLessonsForCurrentFragment(position);
-
-                if (dayLesson.size() != 0) {
-                    if (dayLesson.get(0).getLessons().size() > 0) {
-                        scheduleAdapter.setItems(dayLesson);
-                        no_schedule.setVisibility(View.INVISIBLE);
-                        scheduleRecycleView.setVisibility(View.VISIBLE);
-                    } else {
-                        no_schedule.setVisibility(View.VISIBLE);
-                        scheduleRecycleView.setVisibility(View.INVISIBLE);
-                        no_schedule.setText(getString(R.string.no_schedule_for_current_day,
-                                NavigationUtil.weekListLong[position]));
-                    }
-                } else {
-                    no_schedule.setVisibility(View.VISIBLE);
-                    scheduleRecycleView.setVisibility(View.INVISIBLE);
-                    no_schedule.setText(getString(R.string.no_schedule_for_current_day,
-                            NavigationUtil.weekListLong[position]));
-                }
+        if (dayLesson.size() != 0) {
+            if (dayLesson.get(0).getLessons().size() > 0) {
+                scheduleAdapter.setItems(dayLesson);
+                no_schedule.setVisibility(View.INVISIBLE);
+                scheduleRecycleView.setVisibility(View.VISIBLE);
+            } else {
+                no_schedule.setVisibility(View.VISIBLE);
+                scheduleRecycleView.setVisibility(View.INVISIBLE);
+                no_schedule.setText(getString(R.string.no_schedule_for_current_day,
+                        NavigationUtil.weekListLong[position]));
             }
+        } else {
+            no_schedule.setVisibility(View.VISIBLE);
+            scheduleRecycleView.setVisibility(View.INVISIBLE);
+            no_schedule.setText(getString(R.string.no_schedule_for_current_day,
+                    NavigationUtil.weekListLong[position]));
         }
-        return root;
-    }
 
+    }
 
     @Override
     public void onLessonClickedListener(LessonModel lesson) {

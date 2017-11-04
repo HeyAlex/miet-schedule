@@ -4,7 +4,6 @@ import android.graphics.Canvas;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -86,6 +85,7 @@ public class ScheduleHeaderItemDecoration extends RecyclerView.ItemDecoration {
 
     /**
      * Properly measures and layouts the top sticky header.
+     *
      * @param parent ViewGroup: RecyclerView in this case.
      */
     private void fixLayoutSize(ViewGroup parent, View view) {
@@ -111,6 +111,7 @@ public class ScheduleHeaderItemDecoration extends RecyclerView.ItemDecoration {
          * This method gets called by {@link ScheduleHeaderItemDecoration} to fetch the position of
          * the header item in the adapter
          * that is used for (represents) item at specified position.
+         *
          * @param itemPosition int. Adapter's position of the item for which to do the search of
          *                     the position of the header item.
          * @return int. Position of the header item in the adapter.
@@ -120,6 +121,7 @@ public class ScheduleHeaderItemDecoration extends RecyclerView.ItemDecoration {
         /**
          * This method gets called by {@link ScheduleHeaderItemDecoration} to get layout resource id
          * for the header item at specified adapter's position.
+         *
          * @param headerPosition int. Position of the header item in the adapter.
          * @return int. Layout resource id.
          */
@@ -127,7 +129,8 @@ public class ScheduleHeaderItemDecoration extends RecyclerView.ItemDecoration {
 
         /**
          * This method gets called by {@link ScheduleHeaderItemDecoration} to setup the header View.
-         * @param header View. Header to set the data on.
+         *
+         * @param header         View. Header to set the data on.
          * @param headerPosition int. Position of the header item in the adapter.
          */
         void bindHeaderData(View header, int headerPosition);
@@ -135,6 +138,7 @@ public class ScheduleHeaderItemDecoration extends RecyclerView.ItemDecoration {
         /**
          * This method gets called by {@link ScheduleHeaderItemDecoration} to verify whether the
          * item represents a header.
+         *
          * @param itemPosition int.
          * @return true, if item at the specified adapter's position represents a header.
          */

@@ -82,6 +82,7 @@ import heyalex.com.miet_schedule.util.NavigationUtil;
     /*package*/ int getItem(int position) {
         return data.get(position);
     }
+
     /**
      * Callback for the view that created this adapter.
      */

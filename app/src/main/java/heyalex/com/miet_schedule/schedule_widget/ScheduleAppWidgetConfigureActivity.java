@@ -44,13 +44,10 @@ public class ScheduleAppWidgetConfigureActivity extends AppCompatActivity implem
         recyclerView.setAdapter(groupsAdapter);
     }
 
-
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
-        // Set the result to CANCELED.  This will cause the widget host to cancel
-        // out of the widget placement if the user presses the back button.
         setResult(RESULT_CANCELED);
 
         setContentView(R.layout.schedule_app_widget_configure);
@@ -63,7 +60,6 @@ public class ScheduleAppWidgetConfigureActivity extends AppCompatActivity implem
                     .inject(this);
         }
         presenter.onViewAttached(this);
-        // Find the widget id from the intent.
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null) {
@@ -75,16 +71,14 @@ public class ScheduleAppWidgetConfigureActivity extends AppCompatActivity implem
             }
         }
 
-        // If this activity was started with an intent without an app widget ID, finish with an error.
         if (mAppWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
             finish();
         }
-
     }
 
     @Override
     public void showHint() {
-
+        //NOPE
     }
 
     @Override
@@ -97,7 +91,7 @@ public class ScheduleAppWidgetConfigureActivity extends AppCompatActivity implem
         pinWindget(scheduleModel.getGroup());
     }
 
-    private void pinWindget(String groupName){
+    private void pinWindget(String groupName) {
         Intent resultValue = new Intent(this, ScheduleUpdateService.class);
         resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
         resultValue.setAction(ScheduleUpdateService.TODAY_ACTION + String.valueOf(mAppWidgetId));
@@ -118,6 +112,7 @@ public class ScheduleAppWidgetConfigureActivity extends AppCompatActivity implem
 
     @Override
     public void onRequestWidgetConfigure(String group) {
+        //NOPE
     }
 
     @Override

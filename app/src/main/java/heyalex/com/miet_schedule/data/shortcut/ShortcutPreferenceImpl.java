@@ -19,9 +19,7 @@ import java.util.List;
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.schedule.ScheduleActivity;
 import heyalex.com.miet_schedule.schedule_widget.ScheduleAppWidget;
-import heyalex.com.miet_schedule.schedule_widget.ScheduleAppWidgetConfigureActivity;
 import heyalex.com.miet_schedule.schedule_widget.ScheduleUpdateService;
-import heyalex.com.miet_schedule.util.PrefUtils;
 import timber.log.Timber;
 
 /**

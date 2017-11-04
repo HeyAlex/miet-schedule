@@ -24,10 +24,6 @@ import butterknife.ButterKnife;
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
 
-/**
- * Created by mac on 28.04.17.
- */
-
 public class AddNewGroupActivity extends AppCompatActivity implements AddNewGroupView,
         AddNewGroupAdapter.OnGroupClickedListener {
 
@@ -69,7 +65,7 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
         search_edittext.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                //NOP
             }
 
             @Override
@@ -84,7 +80,7 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                //NOP
             }
         });
     }

@@ -24,7 +24,6 @@ import static heyalex.com.miet_schedule.schedule_widget.ScheduleUpdateService.TO
 /*package*/ class ScheduleRemoteViewBuilder {
 
     private RemoteViews remoteViews;
-
     private ScheduleRemoteViewBuilder(Context context) {
         remoteViews = new RemoteViews(context.getPackageName(), R.layout.schedule_app_widget);
     }
