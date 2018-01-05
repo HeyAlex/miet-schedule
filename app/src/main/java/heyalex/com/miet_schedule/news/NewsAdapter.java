@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +92,9 @@ import static heyalex.com.miet_schedule.util.Preconditions.checkNotNull;
         }
 
         public void bind(final NewsModel newsModel) {
-            Glide.with(context).load(newsModel.getImageUrl()).centerCrop().into(image);
+            Glide.with(context).load(newsModel.getImageUrl())
+                    .apply(RequestOptions.centerCropTransform())
+                    .into(image);
             title.setText(newsModel.getTitle());
             desciption.setText(newsModel.getDescription());
             date.setText(newsModel.getDate());
