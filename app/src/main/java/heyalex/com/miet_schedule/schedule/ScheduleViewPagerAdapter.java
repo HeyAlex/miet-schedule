@@ -5,9 +5,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 
-/**
- * Created by mac on 10.05.17.
- */
 /*package*/ class ScheduleViewPagerAdapter extends FragmentPagerAdapter {
 
     private static final int NUM_ITEMS = 6;
