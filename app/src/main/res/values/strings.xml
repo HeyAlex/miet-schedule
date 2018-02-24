@@ -40,5 +40,9 @@
     <!--AddNewGroup-->
     <string name="addnewgroup_downloading">Загрузка…</string>
     <string name="addnewgroup_downloading_availible_groups">Загружем доступные группы...</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 </resources>

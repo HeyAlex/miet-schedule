@@ -2,59 +2,74 @@ package heyalex.com.miet_schedule.navdrawer;
 
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import heyalex.com.miet_schedule.R;
 import heyalex.com.miet_schedule.ScheduleApp;
 import heyalex.com.miet_schedule.groups.GroupsFragment;
 import heyalex.com.miet_schedule.news.NewsFragment;
-import heyalex.com.miet_schedule.ui.BaseNavigationActivity;
 import heyalex.com.miet_schedule.ui.BaseWebFragement;
 import heyalex.com.miet_schedule.util.NavigationUtil;
 
-public class NavDrawerActivity extends BaseNavigationActivity implements NavDrawerView,
-        NavAdapter.OnNavClickedListener {
+public class NavDrawerActivity extends AppCompatActivity implements NavDrawerView {
+
+    @Nullable
+    @BindView(R.id.toolbar)
+    public Toolbar toolbar;
+
+    @Nullable
+    @BindView(R.id.bottom_navigation)
+    public BottomNavigationView bottomNavbar;
 
     private static final String FRAGMENT_TAG_GROUPS = "FRAGMENT_TAG_GROUPS";
     private static final String FRAGMENT_TAG_ORIOKS = "FRAGMENT_TAG_ORIOKS";
     private static final String FRAGMENT_TAG_NEWS = "FRAGMENT_TAG_NEWS";
     private static final String ORIOKS_URL = "https://orioks.miet.ru/student/student";
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    navigateToScheduleGroups();
+                    return true;
+                case R.id.navigation_dashboard:
+                    navigateToNews();
+                    return true;
+                case R.id.navigation_notifications:
+                    navigateToNews();
+                    return true;
+            }
+            return false;
+        }
+    };
+
     @Inject
     NavDrawerPresenter navDrawerPresenter;
-    private NavAdapter navAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navdrawer_main);
-        navDrawerPresenter.onViewAttached(this);
-    }
-
-    @Override
-    protected void setupNavListView() {
-        navAdapter = new NavAdapter(this, this);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(navAdapter);
-
+        setContentView(R.layout.activity_bottom_nav);
         DaggerNavDrawerComponent.builder()
                 .applicationComponent(ScheduleApp.get(this).getApplicationComponent())
                 .build()
                 .inject(this);
-    }
-
-    @Override
-    public void onNavClicked(int position) {
-        navDrawerPresenter.onNavigationItemClicked(position);
-        if (toolbar != null) {
-            toolbar.setTitle(NavigationUtil.drawerList[position]);
-        }
-        if (drawerLayout != null) {
-            drawerLayout.closeDrawers();
-        }
+        ButterKnife.bind(this);
+        bottomNavbar.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        navDrawerPresenter.onViewAttached(this);
     }
 
     @Override
@@ -66,7 +81,7 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
         }
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_NEWS)
+                .replace(R.id.frame, fragment, FRAGMENT_TAG_NEWS)
                 .commitNow();
     }
 
@@ -79,7 +94,7 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
         }
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_GROUPS)
+                .replace(R.id.frame, fragment, FRAGMENT_TAG_GROUPS)
                 .commitNow();
 
     }
@@ -93,14 +108,13 @@ public class NavDrawerActivity extends BaseNavigationActivity implements NavDraw
         }
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.fl_content, fragment, FRAGMENT_TAG_ORIOKS)
+                .replace(R.id.frame, fragment, FRAGMENT_TAG_ORIOKS)
                 .commitNow();
 
     }
 
     @Override
     public void showCurrentPosition(int position) {
-        navAdapter.setCurrentPos(position);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(NavigationUtil.drawerList[position]);
         }

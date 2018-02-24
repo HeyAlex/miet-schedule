@@ -16,7 +16,7 @@ import timber.log.Timber;
 
 /*package*/ public class ScheduleBuilderHelperImpl implements ScheduleBuilderHelper {
 
-    private final String datePattern = "d MMMM yyyy";
+    private final static String datePattern = "d MMMM yyyy";
     private CycleWeeksLessonModel schedule = null;
     private DateTime today;
 

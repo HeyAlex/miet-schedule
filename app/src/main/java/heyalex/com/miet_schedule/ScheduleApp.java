@@ -23,10 +23,6 @@ import heyalex.com.miet_schedule.schedule.ScheduleModule;
 import heyalex.com.miet_schedule.schedule_builder.ScheduleBuilderModule;
 import timber.log.Timber;
 
-/**
- * Created by mac on 04.04.17.
- */
-
 public class ScheduleApp extends Application {
 
     @NonNull

@@ -4,9 +4,6 @@ import dagger.Module;
 import dagger.Provides;
 import heyalex.com.miet_schedule.schedule.ScheduleScope;
 
-/**
- * Created by alexf on 14.05.2017.
- */
 @Module
 public class ScheduleBuilderModule {
 

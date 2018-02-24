@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.DrawableRes;
+import android.support.v7.content.res.AppCompatResources;
 import android.support.v7.widget.AppCompatDrawableManager;
 
 /**
@@ -18,7 +19,7 @@ public class VectorUtil {
     }
 
     public static Bitmap vectorToBitmap(Context ctx, @DrawableRes int resVector) {
-        Drawable drawable = AppCompatDrawableManager.get().getDrawable(ctx, resVector);
+        Drawable drawable = AppCompatResources.getDrawable(ctx, resVector);
         Bitmap b = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(),
                 Bitmap.Config.ARGB_8888);
         Canvas c = new Canvas(b);
