@@ -87,6 +87,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavDrawerVie
 
     @Override
     public void navigateToScheduleGroups() {
+        toolbar.setTitle(R.string.schedule);
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_GROUPS);
         if (fragment == null) {
             fragment = new GroupsFragment();
