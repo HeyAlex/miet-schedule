@@ -28,7 +28,9 @@ android {
 
     sourceSets {
         main {
-            java.srcDirs = ['src/main/java', 'src/main/java_gen']
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = ['src/main/java', 'src/main/java-gen']
+            res.srcDirs = ['src/main/res']
         }
     }
     repositories {

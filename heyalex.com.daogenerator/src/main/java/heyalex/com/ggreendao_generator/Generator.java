@@ -13,7 +13,7 @@ public class Generator {
         Schema schema = new Schema(1, "heyalex.com.miet_schedule");
         addNews(schema);
         addSchedule(schema);
-        File dir = new File("../some_works/app/src/main/java-gen");
+        File dir = new File("../../miet-schedule/app/src/main/java-gen");
         dir.mkdirs();
         new DaoGenerator().generateAll(schema, dir.getAbsolutePath());
     }
