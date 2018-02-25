@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import java.util.Arrays;
@@ -113,7 +112,6 @@ import heyalex.com.miet_schedule.util.NavigationUtil;
                 mItemImageView.setColorFilter(SELECTED_COLOR);
                 mDrawerItem.setBackgroundColor(WHITE_COLOR);
                 mItemTextView.setTextColor(SELECTED_COLOR);
-                mItemImageView.setImageAlpha();
 
             } else {
                 mDrawerItem.setSelected(false);
