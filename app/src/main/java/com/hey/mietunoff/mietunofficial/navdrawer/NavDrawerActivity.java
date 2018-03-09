@@ -74,6 +74,7 @@ public class NavDrawerActivity extends AppCompatActivity implements NavDrawerVie
 
     @Override
     public void navigateToNews() {
+        toolbar.setTitle(R.string.nav_news);
         Fragment fragment = getSupportFragmentManager().findFragmentByTag(FRAGMENT_TAG_NEWS);
         if (fragment == null) {
             fragment = new NewsFragment();

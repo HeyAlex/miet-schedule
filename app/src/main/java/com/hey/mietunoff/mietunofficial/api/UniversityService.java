@@ -19,7 +19,7 @@ public interface UniversityService {
      *
      * @return {@link ArticleResponse}
      */
-    @GET("rss/news")
+    @GET("/rss/news")
     Single<ArticleResponse> getNews();
 
     /**
