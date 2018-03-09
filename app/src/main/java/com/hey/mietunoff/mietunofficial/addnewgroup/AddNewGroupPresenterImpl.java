@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import heyalex.com.miet_schedule.LessonModel;
+import com.hey.mietunoff.mietunofficial.LessonModel;
 import com.hey.mietunoff.mietunofficial.api.UniversityApiFactory;
 import com.hey.mietunoff.mietunofficial.data.shared_interactor.OnScheduleDownload;
 import com.hey.mietunoff.mietunofficial.data.shared_interactor.ScheduleInteractor;

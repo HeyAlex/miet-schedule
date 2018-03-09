@@ -2,8 +2,8 @@ package com.hey.mietunoff.mietunofficial.data.schedule;
 
 import java.util.List;
 
-import heyalex.com.miet_schedule.ScheduleModel;
-import heyalex.com.miet_schedule.ScheduleModelDao;
+import com.hey.mietunoff.mietunofficial.ScheduleModel;
+import com.hey.mietunoff.mietunofficial.ScheduleModelDao;
 
 /**
  * Specific {@link ScheduleRepository} implementation

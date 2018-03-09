@@ -15,8 +15,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import heyalex.com.miet_schedule.LessonModel;
-import heyalex.com.miet_schedule.ScheduleModel;
+import com.hey.mietunoff.mietunofficial.LessonModel;
+import com.hey.mietunoff.mietunofficial.ScheduleModel;
 
 import com.hey.mietunoff.mietunofficial.data.shortcut.ShortcutPreference;
 import com.hey.mietunoff.mietunofficial.model.schedule.SemesterData;

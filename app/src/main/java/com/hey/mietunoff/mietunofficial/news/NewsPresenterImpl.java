@@ -9,7 +9,7 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-import heyalex.com.miet_schedule.NewsModel;
+import com.hey.mietunoff.mietunofficial.NewsModel;
 import com.hey.mietunoff.mietunofficial.api.UniversityApiFactory;
 import com.hey.mietunoff.mietunofficial.data.news.NewsRepository;
 import com.hey.mietunoff.mietunofficial.model.news.Article;

@@ -1,6 +1,6 @@
 package com.hey.mietunoff.mietunofficial.data.news;
 
-import heyalex.com.miet_schedule.NewsModel;
+import com.hey.mietunoff.mietunofficial.NewsModel;
 import com.hey.mietunoff.mietunofficial.data.BaseRepository;
 
 /**

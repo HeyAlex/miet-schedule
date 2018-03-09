@@ -2,7 +2,7 @@ package com.hey.mietunoff.mietunofficial.model.schedule;
 
 import java.util.Comparator;
 
-import heyalex.com.miet_schedule.LessonModel;
+import com.hey.mietunoff.mietunofficial.LessonModel;
 
 /**
  * Comparator for {@link LessonModel}

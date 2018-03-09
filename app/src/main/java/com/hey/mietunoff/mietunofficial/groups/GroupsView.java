@@ -4,7 +4,7 @@ import com.hey.mietunoff.mietunofficial.schedule_widget.ScheduleAppWidgetConfigu
 
 import java.util.List;
 
-import heyalex.com.miet_schedule.ScheduleModel;
+import com.hey.mietunoff.mietunofficial.ScheduleModel;
 
 /**
  * An interface for {@link GroupsFragment} and

@@ -1,4 +1,4 @@
-package heyalex.com.miet_schedule;
+package com.hey.mietunoff.mietunofficial;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

@@ -20,7 +20,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import heyalex.com.miet_schedule.LessonModel;
+import com.hey.mietunoff.mietunofficial.LessonModel;
 import com.hey.mietunoff.mietunofficial.R;
 import com.hey.mietunoff.mietunofficial.ScheduleApp;
 import com.hey.mietunoff.mietunofficial.model.schedule.DayLessonsModel;

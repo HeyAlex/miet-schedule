@@ -4,7 +4,7 @@ import com.hey.mietunoff.mietunofficial.data.BaseRepository;
 
 import java.util.List;
 
-import heyalex.com.miet_schedule.LessonModel;
+import com.hey.mietunoff.mietunofficial.LessonModel;
 
 /**
  * An interface for lesson repository

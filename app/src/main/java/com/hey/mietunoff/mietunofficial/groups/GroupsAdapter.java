@@ -16,7 +16,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.hey.mietunoff.mietunofficial.R;
-import heyalex.com.miet_schedule.ScheduleModel;
+import com.hey.mietunoff.mietunofficial.ScheduleModel;
 
 import static com.hey.mietunoff.mietunofficial.util.Preconditions.checkNotNull;
 

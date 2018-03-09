@@ -2,7 +2,7 @@ package com.hey.mietunoff.mietunofficial.data.shared_interactor;
 
 import java.util.List;
 
-import heyalex.com.miet_schedule.ScheduleModel;
+import com.hey.mietunoff.mietunofficial.ScheduleModel;
 import com.hey.mietunoff.mietunofficial.model.schedule.CycleWeeksLessonModel;
 
 public interface ScheduleInteractor {

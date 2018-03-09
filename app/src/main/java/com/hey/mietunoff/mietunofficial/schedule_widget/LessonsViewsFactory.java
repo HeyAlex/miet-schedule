@@ -15,7 +15,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import heyalex.com.miet_schedule.LessonModel;
+import com.hey.mietunoff.mietunofficial.LessonModel;
 import com.hey.mietunoff.mietunofficial.R;
 import com.hey.mietunoff.mietunofficial.ScheduleApp;
 
