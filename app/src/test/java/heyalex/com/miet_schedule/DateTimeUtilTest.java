@@ -3,7 +3,7 @@ package heyalex.com.miet_schedule;
 import org.joda.time.LocalDate;
 import org.junit.Test;
 
-import heyalex.com.miet_schedule.util.DateMietHelper;
+import com.hey.mietunoff.mietunofficial.util.DateMietHelper;
 
 /**
  * Created by mac on 8/13/17.

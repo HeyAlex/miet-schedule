@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="heyalex.com.miet_schedule">
+    package="com.hey.mietunoff.mietunofficial">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -9,14 +9,14 @@
     <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
 
     <application
-        android:name=".ScheduleApp"
+        android:name="com.hey.mietunoff.mietunofficial.ScheduleApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".navdrawer.NavDrawerActivity">
+        <activity android:name="com.hey.mietunoff.mietunofficial.navdrawer.NavDrawerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,15 +24,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".addnewgroup.AddNewGroupActivity"
+            android:name="com.hey.mietunoff.mietunofficial.addnewgroup.AddNewGroupActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize" />
-        <activity android:name=".schedule.ScheduleActivity">
+        <activity android:name="com.hey.mietunoff.mietunofficial.schedule.ScheduleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".schedule_widget.ScheduleAppWidgetConfigureActivity"
+            android:name="com.hey.mietunoff.mietunofficial.schedule_widget.ScheduleAppWidgetConfigureActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:launchMode="singleInstance">
             <intent-filter>
@@ -45,13 +45,13 @@
             android:screenOrientation="sensor"
             android:theme="@style/FinestWebViewTheme.Light" />
 
-        <service android:name=".schedule_widget.ScheduleUpdateService" />
+        <service android:name="com.hey.mietunoff.mietunofficial.schedule_widget.ScheduleUpdateService" />
         <service
-            android:name=".schedule_widget.LessonRemoteService"
+            android:name="com.hey.mietunoff.mietunofficial.schedule_widget.LessonRemoteService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
 
-        <receiver android:name=".schedule_widget.ScheduleAlarmReceiver" />
-        <receiver android:name=".schedule_widget.ScheduleAppWidget">
+        <receiver android:name="com.hey.mietunoff.mietunofficial.schedule_widget.ScheduleAlarmReceiver" />
+        <receiver android:name="com.hey.mietunoff.mietunofficial.schedule_widget.ScheduleAppWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
