@@ -5,7 +5,7 @@ import com.hey.mietunoff.mietunofficial.schedule_builder.ScheduleBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
-import heyalex.com.miet_schedule.LessonModel;
+import com.hey.mietunoff.mietunofficial.LessonModel;
 
 /**
  * One day of student's life

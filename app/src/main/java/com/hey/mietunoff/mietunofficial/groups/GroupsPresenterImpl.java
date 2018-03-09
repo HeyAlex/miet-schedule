@@ -4,7 +4,7 @@ import com.hey.mietunoff.mietunofficial.data.shared_interactor.ScheduleInteracto
 
 import java.util.List;
 
-import heyalex.com.miet_schedule.ScheduleModel;
+import com.hey.mietunoff.mietunofficial.ScheduleModel;
 
 /*package*/ class GroupsPresenterImpl implements GroupsPresenter {
 

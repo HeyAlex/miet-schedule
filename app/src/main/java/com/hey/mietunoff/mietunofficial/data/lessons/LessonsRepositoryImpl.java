@@ -3,8 +3,8 @@ package com.hey.mietunoff.mietunofficial.data.lessons;
 import java.util.Collections;
 import java.util.List;
 
-import heyalex.com.miet_schedule.LessonModel;
-import heyalex.com.miet_schedule.LessonModelDao;
+import com.hey.mietunoff.mietunofficial.LessonModel;
+import com.hey.mietunoff.mietunofficial.LessonModelDao;
 import com.hey.mietunoff.mietunofficial.model.schedule.ScheduleComparator;
 
 /**

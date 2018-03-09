@@ -2,7 +2,7 @@ package com.hey.mietunoff.mietunofficial.data.schedule;
 
 import com.hey.mietunoff.mietunofficial.data.BaseRepository;
 
-import heyalex.com.miet_schedule.ScheduleModel;
+import com.hey.mietunoff.mietunofficial.ScheduleModel;
 
 /**
  * An interface for schedule repository

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import heyalex.com.miet_schedule.LessonModel;
+import com.hey.mietunoff.mietunofficial.LessonModel;
 
 import com.hey.mietunoff.mietunofficial.model.schedule.ScheduleComparator;
 import com.hey.mietunoff.mietunofficial.util.DateMietHelper;

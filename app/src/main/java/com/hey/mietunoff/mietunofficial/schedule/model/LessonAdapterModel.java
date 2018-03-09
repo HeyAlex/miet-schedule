@@ -1,6 +1,6 @@
 package com.hey.mietunoff.mietunofficial.schedule.model;
 
-import heyalex.com.miet_schedule.LessonModel;
+import com.hey.mietunoff.mietunofficial.LessonModel;
 
 public class LessonAdapterModel extends TypeAdapterModel {
 

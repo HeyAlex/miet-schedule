@@ -2,7 +2,7 @@ package com.hey.mietunoff.mietunofficial.news;
 
 import java.util.List;
 
-import heyalex.com.miet_schedule.NewsModel;
+import com.hey.mietunoff.mietunofficial.NewsModel;
 
 public interface NewsView {
 

@@ -2,7 +2,7 @@ package com.hey.mietunoff.mietunofficial.news;
 
 import com.hey.mietunoff.mietunofficial.util.BasePresenter;
 
-import heyalex.com.miet_schedule.NewsModel;
+import com.hey.mietunoff.mietunofficial.NewsModel;
 
 /**
  * Created by mac on 28.04.17.

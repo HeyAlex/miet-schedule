@@ -19,8 +19,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import heyalex.com.miet_schedule.DaoMaster;
-import heyalex.com.miet_schedule.DaoSession;
+import com.hey.mietunoff.mietunofficial.DaoMaster;
+import com.hey.mietunoff.mietunofficial.DaoSession;
 
 @Module
 public class DataModule {

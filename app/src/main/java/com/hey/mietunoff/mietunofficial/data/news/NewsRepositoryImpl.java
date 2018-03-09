@@ -2,8 +2,8 @@ package com.hey.mietunoff.mietunofficial.data.news;
 
 import java.util.List;
 
-import heyalex.com.miet_schedule.NewsModel;
-import heyalex.com.miet_schedule.NewsModelDao;
+import com.hey.mietunoff.mietunofficial.NewsModel;
+import com.hey.mietunoff.mietunofficial.NewsModelDao;
 
 /**
  * Specific {@link NewsRepository} implementation

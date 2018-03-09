@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.hey.mietunoff.mietunofficial.R;
 import com.hey.mietunoff.mietunofficial.ScheduleApp;
-import heyalex.com.miet_schedule.ScheduleModel;
+import com.hey.mietunoff.mietunofficial.ScheduleModel;
 import com.hey.mietunoff.mietunofficial.addnewgroup.AddNewGroupActivity;
 import com.hey.mietunoff.mietunofficial.groups.GroupsAdapter;
 import com.hey.mietunoff.mietunofficial.groups.GroupsPresenter;
