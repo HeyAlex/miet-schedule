@@ -13,24 +13,22 @@ import retrofit2.http.Query;
 public class UniversityApiFactory {
     private static final UniversityService instance = new UniversityService() {
 
-        private UniversityService scheduleService
+        private UniversityService universityService
                 = UniversityServiceGenerator.createScheduleService(UniversityService.class);
-        private UniversityService newsService
-                = UniversityServiceGenerator.createNewsService(UniversityService.class);
 
         @Override
         public Single<ArticleResponse> getNews() {
-            return newsService.getNews();
+            return universityService.getNews();
         }
 
         @Override
         public Single<List<String>> getGroupNames() {
-            return scheduleService.getGroupNames();
+            return universityService.getGroupNames();
         }
 
         @Override
         public Single<SemesterData> getScheduleResponse(@Query("group") String groupName) {
-            return scheduleService.getScheduleResponse(groupName);
+            return universityService.getScheduleResponse(groupName);
         }
     };
 

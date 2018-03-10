@@ -1,6 +1,7 @@
 package com.hey.mietunoff.mietunofficial.api;
 
 import com.google.gson.GsonBuilder;
+import com.hey.mietunoff.mietunofficial.api.convertor.UniversityRetrofitConvertor;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -15,31 +16,16 @@ import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
     private final static String SERVICE_MIET_ENDPOINT = "https://miet.ru";
     private static OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-    private static Retrofit.Builder retrofitScheduleBuilder
+    private static Retrofit.Builder retrofitUniversityBuilder
             = new Retrofit.Builder()
             .baseUrl(SERVICE_MIET_ENDPOINT)
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(new GsonBuilder()
-                    .setLenient()
-                    .create()
-            ));
+            .addConverterFactory(new UniversityRetrofitConvertor());
 
-    private static Retrofit.Builder retrofitNewsBuilder
-            = new Retrofit.Builder()
-            .baseUrl(SERVICE_MIET_ENDPOINT)
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .addConverterFactory(SimpleXmlConverterFactory.create());
 
     /*package*/
     static <S> S createScheduleService(Class<S> serviceClass) {
-        Retrofit retrofit = retrofitScheduleBuilder.client(httpClient.build()).build();
+        Retrofit retrofit = retrofitUniversityBuilder.client(httpClient.build()).build();
         return retrofit.create(serviceClass);
     }
-
-    /*package*/
-    static <S> S createNewsService(Class<S> serviceClass) {
-        Retrofit retrofit = retrofitNewsBuilder.client(httpClient.build()).build();
-        return retrofit.create(serviceClass);
-    }
-
 }

@@ -105,6 +105,7 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter, OnSchedul
     @Override
     public void onErrorWhileDownloadingGroup(String groupName) {
         view.showErrorView("");
+        view.hideDownloading();
     }
 
     private class ResponseAvailableGroups extends DisposableSingleObserver<List<String>> {

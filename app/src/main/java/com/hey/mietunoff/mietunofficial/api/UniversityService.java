@@ -2,6 +2,8 @@ package com.hey.mietunoff.mietunofficial.api;
 
 import java.util.List;
 
+import com.hey.mietunoff.mietunofficial.api.convertor.Json;
+import com.hey.mietunoff.mietunofficial.api.convertor.Xml;
 import com.hey.mietunoff.mietunofficial.model.news.Article;
 import com.hey.mietunoff.mietunofficial.model.news.ArticleResponse;
 import com.hey.mietunoff.mietunofficial.model.schedule.SemesterData;
@@ -19,7 +21,7 @@ public interface UniversityService {
      *
      * @return {@link ArticleResponse}
      */
-    @GET("/rss/news")
+    @GET("/rss/news")  @Xml
     Single<ArticleResponse> getNews();
 
     /**
@@ -27,7 +29,7 @@ public interface UniversityService {
      *
      * @return list of strings
      */
-    @GET("schedule/groups")
+    @GET("schedule/groups") @Json
     Single<List<String>> getGroupNames();
 
     /**
@@ -36,6 +38,6 @@ public interface UniversityService {
      * @param groupName associated with schedule
      * @return {@link SemesterData}
      */
-    @GET("schedule/data")
+    @GET("schedule/data") @Json
     Single<SemesterData> getScheduleResponse(@Query("group") String groupName);
 }
