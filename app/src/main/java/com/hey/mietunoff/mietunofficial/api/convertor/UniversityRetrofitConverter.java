@@ -13,13 +13,13 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
-public class UniversityRetrofitConvertor extends Converter.Factory {
+public class UniversityRetrofitConverter extends Converter.Factory {
 
     private final Converter.Factory xml;
     private final Converter.Factory json;
 
     @Inject
-    public UniversityRetrofitConvertor() {
+    public UniversityRetrofitConverter() {
         xml = SimpleXmlConverterFactory.create();
         json = GsonConverterFactory.create(new GsonBuilder()
                 .setLenient()
