@@ -3,7 +3,7 @@ package com.hey.mietunoff.mietunofficial;
 import org.joda.time.LocalDate;
 import org.junit.Test;
 
-import com.hey.mietunoff.mietunofficial.util.DateMietHelper;
+import com.alex.miet.mobile.util.DateMietHelper;
 
 /**
  * Created by mac on 8/13/17.
