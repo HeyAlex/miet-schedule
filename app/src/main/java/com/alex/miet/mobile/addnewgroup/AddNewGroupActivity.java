@@ -14,6 +14,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -29,6 +30,8 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
 
     @BindView(R.id.addnewgroup_root)
     View root;
+    @BindView(R.id.retry_download_groups)
+    TextView retryDownloadGroups;
     @BindView(R.id.group_list)
     RecyclerView recyclerView;
     @BindView(R.id.search_edittext)
@@ -38,7 +41,6 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
     @Inject
     AddNewGroupPresenter presenter;
     private AddNewGroupAdapter groupsAdapter = new AddNewGroupAdapter(this);
-    //private Snackbar downloadingSnackbar;
     private ProgressDialog progressDialog;
 
     @Override
@@ -54,6 +56,7 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
             }
         });
         initViews();
+
 
         if (presenter == null) {
             ScheduleApp.get(this)
@@ -83,6 +86,7 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
                 //NOP
             }
         });
+
     }
 
 
@@ -101,11 +105,6 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
         presenter.onViewDetached();
     }
 
-    private Snackbar initSnackBar(String groupName) {
-        return Snackbar.make(root, getString(R.string.Downloading_add_new_group, groupName)
-                , Snackbar.LENGTH_INDEFINITE);
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -113,6 +112,7 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
 
     @Override
     public void showAvailibleGroups(List<String> groups) {
+        retryDownloadGroups.setVisibility(View.INVISIBLE);
         groupsAdapter.setItems(groups);
     }
 
@@ -146,6 +146,10 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
     }
 
     @Override
+    public void showRetryButton() {
+    }
+
+    @Override
     public void onGroupClickedListener(String groupName) {
         presenter.addNewGroup(groupName);
     }
@@ -164,5 +168,11 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(groupsAdapter);
+        retryDownloadGroups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                presenter.showGroups();
+            }
+        });
     }
 }

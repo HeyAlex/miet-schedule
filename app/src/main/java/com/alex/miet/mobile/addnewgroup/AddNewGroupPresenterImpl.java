@@ -126,6 +126,7 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter, OnSchedul
             if (view != null) {
                 view.hideDownloading();
                 view.showErrorView("при скачивании доступных групп.");
+                view.showRetryButton();
             }
         }
     }
