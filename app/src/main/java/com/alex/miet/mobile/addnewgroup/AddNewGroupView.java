@@ -15,4 +15,6 @@ import java.util.List;
     void hideDownloading();
 
     void finishPickingGroups();
+
+    void showRetryButton();
 }
