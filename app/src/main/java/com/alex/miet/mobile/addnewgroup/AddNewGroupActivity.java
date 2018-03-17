@@ -147,6 +147,7 @@ public class AddNewGroupActivity extends AppCompatActivity implements AddNewGrou
 
     @Override
     public void showRetryButton() {
+        retryDownloadGroups.setVisibility(View.VISIBLE);
     }
 
     @Override
