@@ -19,7 +19,9 @@ import com.alex.miet.mobile.schedule_widget.ScheduleUpdateService;
 import com.alex.miet.mobile.util.PrefUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import timber.log.Timber;
 
@@ -41,9 +43,15 @@ public class ShortcutPreferenceImpl implements ShortcutPreference {
     @Override
     public void addNewDynamicShortcut(String groupName) {
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
-            String id = PrefUtils.getFromPrefs(context, LAST_SAVED_ID, "0");
             ShortcutManager shortcutManager = context.getSystemService(ShortcutManager.class);
             List<ShortcutInfo> dynamicShortcuts = shortcutManager.getDynamicShortcuts();
+            for(ShortcutInfo shourtcut : dynamicShortcuts) {
+                if(Objects.equals(shourtcut.getLongLabel(), groupName)) {
+                    return;
+                }
+            }
+
+            String id = PrefUtils.getFromPrefs(context, LAST_SAVED_ID, "0");
             int scSize = dynamicShortcuts.size();
             Timber.i("Dynamic shortcut list has %d elements.", scSize);
 
@@ -51,16 +59,11 @@ public class ShortcutPreferenceImpl implements ShortcutPreference {
                     ScheduleActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
             int nextId = Integer.parseInt(id) + 1;
-            if (nextId > 4) {
+            if (nextId > 3) {
                 nextId = 0;
             }
             String newId = String.valueOf(nextId);
-
-            for (ShortcutInfo shortcut : dynamicShortcuts) {
-                if (shortcut.getId().equals(newId)) {
-                    dynamicShortcuts.remove(shortcut);
-                }
-            }
+            shortcutManager.removeDynamicShortcuts(Arrays.asList(newId));
 
             PrefUtils.saveToPrefs(context, LAST_SAVED_ID, newId);
             ShortcutInfo scheduleShortcut = new ShortcutInfo.Builder(context, newId)
@@ -71,9 +74,7 @@ public class ShortcutPreferenceImpl implements ShortcutPreference {
                     .build();
 
             //add shortcut on the top of dynamic shortcut list
-            dynamicShortcuts.add(scheduleShortcut);
-
-            shortcutManager.setDynamicShortcuts(dynamicShortcuts);
+            shortcutManager.addDynamicShortcuts(Arrays.asList(scheduleShortcut));
         }
     }
 

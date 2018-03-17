@@ -1,10 +1,14 @@
 package com.alex.miet.mobile.data.shared_interactor;
 
+import com.alex.miet.mobile.LessonModel;
+import com.alex.miet.mobile.ScheduleModel;
 import com.alex.miet.mobile.api.UniversityApiFactory;
 import com.alex.miet.mobile.data.lessons.LessonsRepository;
 import com.alex.miet.mobile.data.schedule.ScheduleRepository;
+import com.alex.miet.mobile.data.shortcut.ShortcutPreference;
 import com.alex.miet.mobile.model.schedule.CycleWeeksLessonModel;
 import com.alex.miet.mobile.model.schedule.Data;
+import com.alex.miet.mobile.model.schedule.SemesterData;
 import com.alex.miet.mobile.schedule_builder.ScheduleBuilder;
 
 import org.joda.time.format.DateTimeFormat;
@@ -14,12 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-
-import com.alex.miet.mobile.LessonModel;
-import com.alex.miet.mobile.ScheduleModel;
-
-import com.alex.miet.mobile.data.shortcut.ShortcutPreference;
-import com.alex.miet.mobile.model.schedule.SemesterData;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
@@ -119,7 +117,13 @@ public class ScheduleInteractorImpl implements ScheduleInteractor {
     @Override
     public CycleWeeksLessonModel getCacheGroup(String groupName) {
         try {
-            return ScheduleBuilder.buildSchedule(groupsRepository.getGroupByName(groupName).getLessons());
+            ScheduleModel schedule = groupsRepository.getGroupByName(groupName);
+            if (schedule == null) {
+                downloadGroup(groupName);
+            } else {
+                return ScheduleBuilder.buildSchedule(schedule.getLessons());
+            }
+            return null;
         } catch (CloneNotSupportedException e) {
             return null; // never happens
         }
