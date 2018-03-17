@@ -17,7 +17,7 @@ import timber.log.Timber;
 
 public class AddNewGroupPresenterImpl implements AddNewGroupPresenter, OnScheduleDownload {
 
-    private final CompositeDisposable scheduleResponseSubscription = new CompositeDisposable();
+    private CompositeDisposable scheduleResponseSubscription = new CompositeDisposable();
     private AddNewGroupView view;
     private String searchQuery = "";
     private List<String> cachedGroups;
@@ -32,6 +32,9 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter, OnSchedul
 
     private void getAvailableGroups() {
         view.showDownloadingAvailibleGroups();
+        if(scheduleResponseSubscription.isDisposed()) {
+            scheduleResponseSubscription = new CompositeDisposable();
+        }
         scheduleResponseSubscription.add(UniversityApiFactory.getUniversityApi().getGroupNames()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -104,7 +107,7 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter, OnSchedul
 
     @Override
     public void onErrorWhileDownloadingGroup(String groupName) {
-        view.showErrorView("");
+        view.showErrorView(groupName);
         view.hideDownloading();
     }
 
@@ -125,9 +128,10 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter, OnSchedul
             Timber.e(e, "An error occurred while trying to take groups");
             if (view != null) {
                 view.hideDownloading();
-                view.showErrorView("при скачивании доступных групп.");
+                view.showErrorView("доступных групп");
                 view.showRetryButton();
             }
+            scheduleResponseSubscription.dispose();
         }
     }
 }
