@@ -67,7 +67,6 @@ public class ScheduleAppWidgetConfigureActivity extends AppCompatActivity implem
                     AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
             if (extras.containsKey(GROUPNAME_KEY)) {
                 pinWindget(extras.getString(GROUPNAME_KEY));
-
             }
         }
 

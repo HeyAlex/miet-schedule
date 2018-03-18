@@ -7,6 +7,7 @@ import android.content.Context;
 import android.os.Build;
 
 import com.alex.miet.mobile.util.PrefUtils;
+
 import timber.log.Timber;
 
 /**
@@ -22,16 +23,17 @@ public class ScheduleAppWidget extends AppWidgetProvider {
             Timber.i("Update widget with id %s", String.valueOf(widget_id));
             String groupName = PrefUtils.getFromPrefs(context, String.valueOf(widget_id), "");
             if (groupName != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    context.startForegroundService(ScheduleUpdateService.getScheduleIntent(context,
-                            ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
-                            groupName));
-                } else {
-                    context.startService(ScheduleUpdateService.getScheduleIntent(context,
-                            ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
-                            groupName));
+                if (!groupName.isEmpty()) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        context.startForegroundService(ScheduleUpdateService.getScheduleIntent(context,
+                                ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
+                                groupName));
+                    } else {
+                        context.startService(ScheduleUpdateService.getScheduleIntent(context,
+                                ScheduleUpdateService.TODAY_ACTION + String.valueOf(widget_id), widget_id,
+                                groupName));
+                    }
                 }
-
             } else {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                     context.startForegroundService(ScheduleUpdateService.getScheduleIntent(context,

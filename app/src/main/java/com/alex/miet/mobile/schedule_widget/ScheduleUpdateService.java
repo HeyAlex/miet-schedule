@@ -12,7 +12,11 @@ import android.os.Build;
 import android.support.annotation.Nullable;
 import android.widget.RemoteViews;
 
+import com.alex.miet.mobile.R;
+import com.alex.miet.mobile.ScheduleApp;
 import com.alex.miet.mobile.data.shared_interactor.ScheduleInteractor;
+import com.alex.miet.mobile.schedule.ScheduleActivity;
+import com.alex.miet.mobile.util.PrefUtils;
 
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -20,10 +24,6 @@ import org.joda.time.Duration;
 
 import javax.inject.Inject;
 
-import com.alex.miet.mobile.R;
-import com.alex.miet.mobile.ScheduleApp;
-
-import com.alex.miet.mobile.schedule.ScheduleActivity;
 import timber.log.Timber;
 
 /**
@@ -34,6 +34,7 @@ public class ScheduleUpdateService extends IntentService {
 
     public static final String TOMORROW_ACTION = "TOMORROW_ACTION";
     public static final String TODAY_ACTION = "TODAY_ACTION";
+    public static final String PIN_ACTION = "PIN_ACTION";
     private static final int NOTIFICATION_ID = 100;
 
     @Inject
@@ -67,11 +68,14 @@ public class ScheduleUpdateService extends IntentService {
 
     public static PendingIntent getScheduleConfigurationPendingIntentForPinning(Context context,
                                                                                 String groupName) {
-        Intent resultValue = new Intent(context, ScheduleAppWidgetConfigureActivity.class);
+        Intent resultValue = new Intent(context, ScheduleUpdateService.class);
         resultValue.putExtra(GROUPNAME_KEY, groupName);
-        Uri data = Uri.parse(resultValue.toUri(Intent.URI_INTENT_SCHEME));
-        resultValue.setData(data);
-        return PendingIntent.getActivity(context, 0, resultValue, PendingIntent.FLAG_CANCEL_CURRENT);
+        resultValue.setAction(PIN_ACTION);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return PendingIntent.getForegroundService(context, 0, resultValue, PendingIntent.FLAG_CANCEL_CURRENT);
+        } else {
+            return PendingIntent.getService(context, 0, resultValue, PendingIntent.FLAG_CANCEL_CURRENT);
+        }
     }
 
     public static PendingIntent getAlarmIntent(Context context, String action, int widgetId,
@@ -148,13 +152,24 @@ public class ScheduleUpdateService extends IntentService {
 
             Timber.i("Schedule widget service update");
             if (intent.getAction() != null) {
+                boolean isTomorrowAction = intent.getAction().startsWith(TOMORROW_ACTION);
+                boolean isTodayAction = intent.getAction().startsWith(TODAY_ACTION);
+
                 String groupName = intent.getStringExtra(GROUPNAME_KEY);
+                if (intent.getAction().equals(PIN_ACTION)) {
+                    isTomorrowAction = false;
+                    isTodayAction = true;
+                    Timber.i(String.valueOf(widgetId));
+                    PrefUtils.saveToPrefs(this, String.valueOf(widgetId), groupName);
+                    ScheduleUpdateService.setupAlarm(this, widgetId, groupName);
+                }
+
                 if (!interactor.isGroupInCache(groupName)) {
                     interactor.downloadGroup(groupName);
                 }
                 RemoteViews views = ScheduleRemoteViewBuilder.newBuilder(this, groupName, widgetId)
-                        .setTomorrowHeader(intent.getAction().startsWith(TOMORROW_ACTION))
-                        .setTodayHeader(intent.getAction().startsWith(TODAY_ACTION))
+                        .setTomorrowHeader(isTomorrowAction)
+                        .setTodayHeader(isTodayAction)
                         .setAdapterForLessons()
                         .build();
                 appWidgetManager.updateAppWidget(widgetId, views);
