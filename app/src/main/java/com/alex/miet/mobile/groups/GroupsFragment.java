@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.alex.miet.mobile.R;
 import com.alex.miet.mobile.ScheduleApp;
-import com.alex.miet.mobile.ScheduleModel;
+import com.alex.miet.mobile.entities.GroupItem;
 import com.alex.miet.mobile.addnewgroup.AddNewGroupActivity;
 import com.alex.miet.mobile.schedule.ScheduleActivity;
 
@@ -77,15 +77,15 @@ public class GroupsFragment extends Fragment implements GroupsView, GroupsAdapte
     }
 
     @Override
-    public void showGroups(List<ScheduleModel> groups) {
+    public void showGroups(List<GroupItem> groups) {
         groupsAdapter.setItems(groups);
     }
 
     @Override
-    public void onGroupClickedListener(ScheduleModel scheduleModel) {
+    public void onGroupClickedListener(GroupItem GroupItem) {
         Intent intent = new Intent(getActivity(), ScheduleActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        intent.putExtra("group", scheduleModel.getGroup());
+        intent.putExtra("group", GroupItem.getGroup());
         startActivity(intent);
     }
 

@@ -1,11 +1,11 @@
 package com.alex.miet.mobile.data.shared_interactor;
 
-import com.alex.miet.mobile.LessonModel;
-import com.alex.miet.mobile.ScheduleModel;
 import com.alex.miet.mobile.api.UniversityApiFactory;
 import com.alex.miet.mobile.data.lessons.LessonsRepository;
 import com.alex.miet.mobile.data.schedule.ScheduleRepository;
 import com.alex.miet.mobile.data.shortcut.ShortcutPreference;
+import com.alex.miet.mobile.entities.GroupItem;
+import com.alex.miet.mobile.entities.LessonItem;
 import com.alex.miet.mobile.model.schedule.CycleWeeksLessonModel;
 import com.alex.miet.mobile.model.schedule.Data;
 import com.alex.miet.mobile.model.schedule.SemesterData;
@@ -48,35 +48,29 @@ public class ScheduleInteractorImpl implements ScheduleInteractor {
     }
 
     /*package*/
-    static List<LessonModel> transformToDaoLessonModel(SemesterData data, String groupName) {
+    static List<LessonItem> transformToDaoLessonModel(SemesterData data, String groupName) {
         final DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss");
 
-        List<LessonModel> lessons = new ArrayList<>();
+        List<LessonItem> lessons = new ArrayList<>();
         for (Data model : data.getData()) {
             String toDate = formatter.parseDateTime(model.getTime().getTimeTo())
                     .toString("HH:mm");
             String fromDate = formatter.parseDateTime(model.getTime().getTimeFrom())
                     .toString("HH:mm");
             String disciplineName = model.getClassModel().getName();
-            LessonModel dataLesson = new LessonModel();
-            dataLesson.setWeek(Integer.valueOf(model.getDayNumber()));
-            dataLesson.setDay(Integer.valueOf(model.getDay()));
-            dataLesson.setGroupName(groupName);
-            dataLesson.setRoom(model.getRoom().getName());
-            dataLesson.setTimeFrom(fromDate);
-            dataLesson.setTimeTo(toDate);
-            dataLesson.setTime(Integer.valueOf(model.getTime().getCode()));
-            dataLesson.setTimeFull(fromDate + " - " + toDate + " (" + model.getTime().getTime() + ")");
-            dataLesson.setDisciplineName(disciplineName);
-            dataLesson.setTeacherFull(model.getClassModel().getTeacherFull());
-            dataLesson.setTeacher(model.getClassModel().getTeacher());
-            dataLesson.setCode(model.getTime().getCode());
+
+            String type;
             if (disciplineName.contains("[Лаб]"))
-                dataLesson.setDisciplineType("Лабораторная работа");
-            else if (disciplineName.contains("[Лек]")) dataLesson.setDisciplineType("Лекция");
-            else if (disciplineName.contains("[Пр]")) dataLesson.setDisciplineType("Практика");
-            else if (disciplineName.contains("Физ")) dataLesson.setDisciplineType("Физ-ра");
-            else dataLesson.setDisciplineType("УВЦ");
+                type = "Лабораторная работа";
+            else if (disciplineName.contains("[Лек]")) type = "Лекция";
+            else if (disciplineName.contains("[Пр]")) type = "Практика";
+            else if (disciplineName.contains("Физ")) type = "Физ-ра";
+            else type = "УВЦ";
+
+            LessonItem dataLesson = new LessonItem(groupName, Integer.valueOf(model.getDayNumber()),
+                    Integer.valueOf(model.getDay()), model.getRoom().getName(), Integer.valueOf(model.getTime().getCode()),
+                    model.getClassModel().getTeacher(), toDate, fromDate,
+                    model.getClassModel().getTeacherFull(), disciplineName, type, model.getTime().getCode());
 
             lessons.add(dataLesson);
         }
@@ -84,8 +78,8 @@ public class ScheduleInteractorImpl implements ScheduleInteractor {
     }
 
     /*package*/
-    static ScheduleModel transformToDaoScheduleModel(SemesterData data, String groupName) {
-        return new ScheduleModel(groupName, data.getSemester());
+    static GroupItem transformToDaoGroupItem(SemesterData data, String groupName) {
+        return new GroupItem(groupName, data.getSemester());
     }
 
     @Override
@@ -117,11 +111,14 @@ public class ScheduleInteractorImpl implements ScheduleInteractor {
     @Override
     public CycleWeeksLessonModel getCacheGroup(String groupName) {
         try {
-            ScheduleModel schedule = groupsRepository.getGroupByName(groupName);
+            GroupItem schedule = groupsRepository.getGroupByName(groupName)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .blockingGet();
             if (schedule == null) {
                 downloadGroup(groupName);
             } else {
-                return ScheduleBuilder.buildSchedule(schedule.getLessons());
+                return ScheduleBuilder.buildSchedule(lessonsRepository.getLessonsForGroup(groupName).blockingGet());
             }
             return null;
         } catch (CloneNotSupportedException e) {
@@ -150,8 +147,8 @@ public class ScheduleInteractorImpl implements ScheduleInteractor {
     }
 
     @Override
-    public List<ScheduleModel> getDownloadedGroups() {
-        return groupsRepository.getAll();
+    public List<GroupItem> getDownloadedGroups() {
+        return groupsRepository.getAll().blockingGet();
     }
 
     @Override
@@ -184,7 +181,7 @@ public class ScheduleInteractorImpl implements ScheduleInteractor {
             lessonsRepository.replaceAllByGroupName(groupName,
                     transformToDaoLessonModel(semestrResponse, groupName));
             groupsRepository.replaceByGroupName(groupName,
-                    transformToDaoScheduleModel(semestrResponse, groupName));
+                    transformToDaoGroupItem(semestrResponse, groupName));
             shortcutPreference.addNewDynamicShortcut(groupName);
             if (callbackView != null) {
                 callbackView.onGroupDownloaded(transformToDaoLessonModel(semestrResponse, groupName),

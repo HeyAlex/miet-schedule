@@ -1,7 +1,11 @@
 package com.alex.miet.mobile.data;
 
+import android.arch.persistence.room.Room;
+import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
+import android.os.Debug;
 
+import com.alex.miet.mobile.MietDatabase;
 import com.alex.miet.mobile.data.lessons.LessonsRepository;
 import com.alex.miet.mobile.data.lessons.LessonsRepositoryImpl;
 import com.alex.miet.mobile.data.news.NewsRepository;
@@ -13,14 +17,10 @@ import com.alex.miet.mobile.data.shared_interactor.ScheduleInteractorImpl;
 import com.alex.miet.mobile.data.shortcut.ShortcutPreference;
 import com.alex.miet.mobile.data.shortcut.ShortcutPreferenceImpl;
 
-import org.greenrobot.greendao.database.Database;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import com.alex.miet.mobile.DaoMaster;
-import com.alex.miet.mobile.DaoSession;
 
 @Module
 public class DataModule {
@@ -33,19 +33,22 @@ public class DataModule {
     private final ShortcutPreference shortcutPreference;
 
     public DataModule(Context context) {
-        DaoSession daoSession = createDaoSession(context);
-        this.newsRepository = new NewsRepositoryImpl(daoSession.getNewsModelDao());
-        this.scheduleRepository = new ScheduleRepositoryImpl(daoSession.getScheduleModelDao());
-        this.lessonsRepository = new LessonsRepositoryImpl(daoSession.getLessonModelDao());
+        MietDatabase db = createRoomDatabase(context);
+        this.newsRepository = new NewsRepositoryImpl(db.newsDao());
+        this.scheduleRepository = new ScheduleRepositoryImpl(db.groupDao());
+        this.lessonsRepository = new LessonsRepositoryImpl(db.lessonDao());
         this.shortcutPreference = new ShortcutPreferenceImpl(context);
         this.scheduleInteractor = new ScheduleInteractorImpl(scheduleRepository, lessonsRepository,
                 shortcutPreference);
     }
 
-    private DaoSession createDaoSession(Context context) {
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(context, DATABASE_NAME);
-        Database db = helper.getWritableDb();
-        return new DaoMaster(db).newSession();
+    private MietDatabase createRoomDatabase(Context context) {
+        RoomDatabase.Builder<MietDatabase> builder = Room.databaseBuilder(context, MietDatabase.class, DATABASE_NAME)
+                .fallbackToDestructiveMigration();
+        if (Debug.isDebuggerConnected()) {
+            builder.allowMainThreadQueries();
+        }
+        return builder.build();
     }
 
     @Provides

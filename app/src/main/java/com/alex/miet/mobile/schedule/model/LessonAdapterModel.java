@@ -1,16 +1,16 @@
 package com.alex.miet.mobile.schedule.model;
 
-import com.alex.miet.mobile.LessonModel;
+import com.alex.miet.mobile.entities.LessonItem;
 
 public class LessonAdapterModel extends TypeAdapterModel {
 
-    private LessonModel lesson;
+    private LessonItem lesson;
 
-    public LessonModel getLesson() {
+    public LessonItem getLesson() {
         return lesson;
     }
 
-    public void setLesson(LessonModel lesson) {
+    public void setLesson(LessonItem lesson) {
         this.lesson = lesson;
     }
 

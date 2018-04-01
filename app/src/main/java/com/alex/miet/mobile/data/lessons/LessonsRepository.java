@@ -4,12 +4,15 @@ import com.alex.miet.mobile.data.BaseRepository;
 
 import java.util.List;
 
-import com.alex.miet.mobile.LessonModel;
+import com.alex.miet.mobile.entities.LessonItem;
+
+import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 /**
  * An interface for lesson repository
  */
-public interface LessonsRepository extends BaseRepository<LessonModel> {
+public interface LessonsRepository extends BaseRepository<LessonItem> {
 
     /**
      * Delete all lessons by group name
@@ -22,9 +25,9 @@ public interface LessonsRepository extends BaseRepository<LessonModel> {
      * Replace all lessons by group name
      *
      * @param groupName associated with lessons
-     * @param lessons   List of LessonModel to replace
+     * @param lessons   List of LessonItem to replace
      */
-    void replaceAllByGroupName(String groupName, Iterable<LessonModel> lessons);
+    void replaceAllByGroupName(String groupName, List<LessonItem> lessons);
 
     /**
      * Get lessons for specific day
@@ -34,7 +37,7 @@ public interface LessonsRepository extends BaseRepository<LessonModel> {
      * @param day       associated with lessons
      * @return empty list if no lessons, else returns list of lessons for a specific day
      */
-    List<LessonModel> getLessonsByWeekAndDay(String groupName, int week, int day);
+    Maybe<List<LessonItem>> getLessonsByWeekAndDay(String groupName, int week, int day);
 
     /**
      * Get lessons for specific week
@@ -43,5 +46,7 @@ public interface LessonsRepository extends BaseRepository<LessonModel> {
      * @param week      associated with lessons
      * @return empty list if no lessons, else returns list of lessons for a specific week
      */
-    List<LessonModel> getLessonsForWeek(String groupName, int week);
+    Maybe<List<LessonItem>> getLessonsForWeek(String groupName, int week);
+
+    Maybe<List<LessonItem>> getLessonsForGroup(String groupName);
 }

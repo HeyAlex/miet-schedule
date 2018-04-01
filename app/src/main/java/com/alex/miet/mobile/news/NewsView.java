@@ -2,11 +2,11 @@ package com.alex.miet.mobile.news;
 
 import java.util.List;
 
-import com.alex.miet.mobile.NewsModel;
+import com.alex.miet.mobile.entities.NewsItem;
 
 public interface NewsView {
 
-    void showNews(List<NewsModel> news);
+    void showNews(List<NewsItem> news);
 
     void showErrorView();
 

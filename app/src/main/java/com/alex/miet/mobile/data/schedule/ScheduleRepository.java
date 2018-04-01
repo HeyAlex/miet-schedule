@@ -2,31 +2,34 @@ package com.alex.miet.mobile.data.schedule;
 
 import com.alex.miet.mobile.data.BaseRepository;
 
-import com.alex.miet.mobile.ScheduleModel;
+import com.alex.miet.mobile.entities.GroupItem;
+
+import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 /**
  * An interface for schedule repository
  */
-public interface ScheduleRepository extends BaseRepository<ScheduleModel> {
+public interface ScheduleRepository extends BaseRepository<GroupItem> {
 
     /**
-     * Get ScheduleModel by group name
+     * Get GroupItem by group name
      *
      * @param groupName that associated with schedule
-     * @return {@link ScheduleModel} that contains all information about schedule for {@param groupName}
+     * @return {@link GroupItem} that contains all information about schedule for {@param groupName}
      */
-    ScheduleModel getGroupByName(String groupName);
+    Maybe<GroupItem> getGroupByName(String groupName);
 
     /**
-     * Replace ScheduleModel by group name
+     * Replace GroupItem by group name
      *
      * @param groupName that associated with schedule
-     * @param model     ScheduleModel to replace
+     * @param model     GroupItem to replace
      */
-    void replaceByGroupName(String groupName, ScheduleModel model);
+    void replaceByGroupName(String groupName, GroupItem model);
 
     /**
-     * Delete ScheduleModel by group name
+     * Delete GroupItem by group name
      *
      * @param groupName that associated with schedule
      */

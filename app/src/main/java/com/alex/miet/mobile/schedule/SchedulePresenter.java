@@ -1,5 +1,6 @@
 package com.alex.miet.mobile.schedule;
 
+import com.alex.miet.mobile.model.schedule.CycleWeeksLessonModel;
 import com.alex.miet.mobile.util.BasePresenter;
 
 /**

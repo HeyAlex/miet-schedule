@@ -16,7 +16,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.alex.miet.mobile.R;
 import com.alex.miet.mobile.ScheduleApp;
-import com.alex.miet.mobile.ScheduleModel;
+import com.alex.miet.mobile.entities.GroupItem;
 import com.alex.miet.mobile.addnewgroup.AddNewGroupActivity;
 import com.alex.miet.mobile.groups.GroupsAdapter;
 import com.alex.miet.mobile.groups.GroupsPresenter;
@@ -81,13 +81,13 @@ public class ScheduleAppWidgetConfigureActivity extends AppCompatActivity implem
     }
 
     @Override
-    public void showGroups(List<ScheduleModel> groups) {
+    public void showGroups(List<GroupItem> groups) {
         groupsAdapter.setItems(groups);
     }
 
     @Override
-    public void onGroupClickedListener(ScheduleModel scheduleModel) {
-        pinWindget(scheduleModel.getGroup());
+    public void onGroupClickedListener(GroupItem GroupItem) {
+        pinWindget(GroupItem.getGroup());
     }
 
     private void pinWindget(String groupName) {

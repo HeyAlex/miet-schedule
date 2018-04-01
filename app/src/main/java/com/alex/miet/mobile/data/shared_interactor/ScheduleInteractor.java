@@ -2,7 +2,7 @@ package com.alex.miet.mobile.data.shared_interactor;
 
 import java.util.List;
 
-import com.alex.miet.mobile.ScheduleModel;
+import com.alex.miet.mobile.entities.GroupItem;
 import com.alex.miet.mobile.model.schedule.CycleWeeksLessonModel;
 
 public interface ScheduleInteractor {
@@ -21,7 +21,7 @@ public interface ScheduleInteractor {
 
     void deleteGroup(String groupName);
 
-    List<ScheduleModel> getDownloadedGroups();
+    List<GroupItem> getDownloadedGroups();
 
     void addNewStaticShortcut(String groupName);
 

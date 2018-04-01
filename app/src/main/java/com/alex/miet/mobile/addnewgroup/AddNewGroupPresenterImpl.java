@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import com.alex.miet.mobile.LessonModel;
+import com.alex.miet.mobile.entities.LessonItem;
 import com.alex.miet.mobile.api.UniversityApiFactory;
 import com.alex.miet.mobile.data.shared_interactor.OnScheduleDownload;
 import com.alex.miet.mobile.data.shared_interactor.ScheduleInteractor;
@@ -96,7 +96,7 @@ public class AddNewGroupPresenterImpl implements AddNewGroupPresenter, OnSchedul
     }
 
     @Override
-    public void onGroupDownloaded(List<LessonModel> lessons, String groupName) {
+    public void onGroupDownloaded(List<LessonItem> lessons, String groupName) {
         if (view != null) {
             view.hideDownloading();
             if (view != null) {

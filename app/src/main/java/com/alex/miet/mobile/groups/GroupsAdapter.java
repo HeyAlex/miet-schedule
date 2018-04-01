@@ -16,13 +16,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.alex.miet.mobile.R;
-import com.alex.miet.mobile.ScheduleModel;
+import com.alex.miet.mobile.entities.GroupItem;
 
 import static com.alex.miet.mobile.util.Preconditions.checkNotNull;
 
 public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsViewHolder> {
 
-    private final List<ScheduleModel> items = new ArrayList<>();
+    private final List<GroupItem> items = new ArrayList<>();
     private Context context;
     private GroupsAdapter.OnGroupClickedListener onGroupClickedListener;
     private boolean isOreo = false;
@@ -62,7 +62,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
         super.onDetachedFromRecyclerView(recyclerView);
     }
 
-    public void setItems(List<ScheduleModel> items) {
+    public void setItems(List<GroupItem> items) {
         this.items.clear();
         this.items.addAll(items);
         notifyDataSetChanged();
@@ -70,7 +70,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
 
     public interface OnGroupClickedListener {
 
-        void onGroupClickedListener(ScheduleModel scheduleModel);
+        void onGroupClickedListener(GroupItem GroupItem);
 
         void onAddNewStaticIcon(String group);
 
@@ -89,7 +89,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final ScheduleModel groupModel) {
+        public void bind(final GroupItem groupModel) {
             final String groupName = groupModel.getGroup();
             group.setText(groupName);
 

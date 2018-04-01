@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alex.miet.mobile.entities.NewsItem;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -16,7 +17,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.alex.miet.mobile.NewsModel;
 import com.alex.miet.mobile.R;
 
 import static com.alex.miet.mobile.util.Preconditions.checkNotNull;
@@ -26,7 +26,7 @@ import static com.alex.miet.mobile.util.Preconditions.checkNotNull;
  */
 /*package*/ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsViewHolder> {
 
-    private final List<NewsModel> items = new ArrayList<>();
+    private final List<NewsItem> items = new ArrayList<>();
     private Context context;
     private OnNewsClickedListener onNewsClickedListener;
 
@@ -63,14 +63,14 @@ import static com.alex.miet.mobile.util.Preconditions.checkNotNull;
         context = null;
     }
 
-    /*package*/ void setItems(List<NewsModel> items) {
+    /*package*/ void setItems(List<NewsItem> items) {
         this.items.clear();
         this.items.addAll(items);
         notifyDataSetChanged();
     }
 
     /*package*/ interface OnNewsClickedListener {
-        void onNewsClicked(NewsModel newsModel);
+        void onNewsClicked(NewsItem newsModel);
     }
 
     /*package*/ class NewsViewHolder extends RecyclerView.ViewHolder {
@@ -91,7 +91,7 @@ import static com.alex.miet.mobile.util.Preconditions.checkNotNull;
             ButterKnife.bind(this, itemView);
         }
 
-        public void bind(final NewsModel newsModel) {
+        public void bind(final NewsItem newsModel) {
             Glide.with(context).load(newsModel.getImageUrl())
                     .apply(RequestOptions.centerCropTransform())
                     .into(image);

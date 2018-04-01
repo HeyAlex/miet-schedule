@@ -1,11 +1,10 @@
 package com.alex.miet.mobile.model.schedule;
 
+import com.alex.miet.mobile.entities.LessonItem;
 import com.alex.miet.mobile.schedule_builder.ScheduleBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.alex.miet.mobile.LessonModel;
 
 /**
  * One day of student's life
@@ -17,7 +16,7 @@ public class DayLessonsModel implements Cloneable {
 
     private String Day;
     private int DayNumber;
-    private List<LessonModel> lessons = new ArrayList<>();
+    private List<LessonItem> lessons = new ArrayList<>();
 
     public String getDay() {
         return Day;
@@ -35,11 +34,11 @@ public class DayLessonsModel implements Cloneable {
         DayNumber = dayNumber;
     }
 
-    public List<LessonModel> getLessons() {
+    public List<LessonItem> getLessons() {
         return lessons;
     }
 
-    public void setLessons(List<LessonModel> lessons) {
+    public void setLessons(List<LessonItem> lessons) {
         this.lessons = lessons;
     }
 

@@ -15,7 +15,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.alex.miet.mobile.LessonModel;
+import com.alex.miet.mobile.entities.LessonItem;
 import com.alex.miet.mobile.R;
 
 /*package*/ class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHolder> {
@@ -69,7 +69,7 @@ import com.alex.miet.mobile.R;
     }
 
     /*package*/ interface OnLessonClicked {
-        void onLessonClickedListener(LessonModel lesson);
+        void onLessonClickedListener(LessonItem lesson);
     }
 
     /*package*/ class ViewHolder extends RecyclerView.ViewHolder {
@@ -90,7 +90,7 @@ import com.alex.miet.mobile.R;
             int i = 0;
             lessonsRoot.removeAllViews();
             if (item.getLessons() != null) {
-                for (LessonModel lesson : item.getLessons()) {
+                for (LessonItem lesson : item.getLessons()) {
                     lessonsRoot.addView(new LessonViewHolder().bind(i, lesson));
                     i++;
                 }
@@ -113,7 +113,7 @@ import com.alex.miet.mobile.R;
             @BindView(R.id.prep_schedule)
             TextView teacher;
 
-            private View bind(int i, final LessonModel lesson) {
+            private View bind(int i, final LessonItem lesson) {
                 LayoutInflater inflater = LayoutInflater.from(context);
                 View view = inflater.inflate(R.layout.lesson_item, (ViewGroup) itemView, false);
                 ButterKnife.bind(this, view);

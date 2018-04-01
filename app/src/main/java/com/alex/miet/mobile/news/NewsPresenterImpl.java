@@ -9,9 +9,9 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-import com.alex.miet.mobile.NewsModel;
 import com.alex.miet.mobile.api.UniversityApiFactory;
 import com.alex.miet.mobile.data.news.NewsRepository;
+import com.alex.miet.mobile.entities.NewsItem;
 import com.alex.miet.mobile.model.news.Article;
 import com.alex.miet.mobile.model.news.ArticleResponse;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -33,7 +33,7 @@ import timber.log.Timber;
     }
 
     @Override
-    public void onNewsClicked(NewsModel newModel) {
+    public void onNewsClicked(NewsItem newModel) {
 
     }
 
@@ -56,7 +56,7 @@ import timber.log.Timber;
         Timber.d("onViewAttached");
         this.view = view;
         this.view.setRefreshing(newsResponseSubscription.size() != 0);
-        this.view.showNews(newsRepository.getAll());
+        this.view.showNews(newsRepository.getAll().blockingGet());
     }
 
     @Override
@@ -78,7 +78,7 @@ import timber.log.Timber;
         @Override
         public void onSuccess(ArticleResponse articleResponse) {
             newsRepository.deleteAll();
-            List<NewsModel> newsModelList = transfromResponseToDaoModel(articleResponse);
+            List<NewsItem> newsModelList = transfromResponseToDaoModel(articleResponse);
             newsRepository.saveAll(newsModelList);
             newsResponseSubscription.clear();
             if (view != null) {
@@ -96,16 +96,13 @@ import timber.log.Timber;
             }
         }
 
-        private List<NewsModel> transfromResponseToDaoModel(ArticleResponse response) {
-            List<NewsModel> models = new ArrayList<>();
+        private List<NewsItem> transfromResponseToDaoModel(ArticleResponse response) {
+            List<NewsItem> models = new ArrayList<>();
 
             for (Article article : response.getAllArticles()) {
-                NewsModel model = new NewsModel();
-                model.setDate(dtf.parseDateTime(article.getPubDate()).toString("d MMMM yyyy HH:mm"));
-                model.setDescription(article.getDescription());
-                model.setImageUrl(article.getEnclosure().getUrl());
-                model.setLink(article.getLink());
-                model.setTitle(article.getTitle());
+                NewsItem model = new NewsItem(null, article.getTitle(),
+                        dtf.parseDateTime(article.getPubDate()).toString("d MMMM yyyy HH:mm"),
+                        article.getLink(), article.getEnclosure().getUrl(), article.getDescription());
                 models.add(model);
             }
 

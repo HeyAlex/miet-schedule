@@ -4,7 +4,7 @@ import com.alex.miet.mobile.schedule_widget.ScheduleAppWidgetConfigureActivity;
 
 import java.util.List;
 
-import com.alex.miet.mobile.ScheduleModel;
+import com.alex.miet.mobile.entities.GroupItem;
 
 /**
  * An interface for {@link GroupsFragment} and
@@ -22,5 +22,5 @@ public interface GroupsView {
      *
      * @param groups that user already downloaded
      */
-    void showGroups(List<ScheduleModel> groups);
+    void showGroups(List<GroupItem> groups);
 }

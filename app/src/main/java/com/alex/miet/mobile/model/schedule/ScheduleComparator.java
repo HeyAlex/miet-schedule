@@ -2,16 +2,17 @@ package com.alex.miet.mobile.model.schedule;
 
 import java.util.Comparator;
 
-import com.alex.miet.mobile.LessonModel;
+import com.alex.miet.mobile.entities.LessonItem;
+import com.alex.miet.mobile.entities.LessonItem;
 
 /**
- * Comparator for {@link LessonModel}
+ * Comparator for {@link LessonItem}
  */
 
-public class ScheduleComparator implements Comparator<LessonModel> {
+public class ScheduleComparator implements Comparator<LessonItem> {
 
     @Override
-    public int compare(LessonModel data, LessonModel t1) {
+    public int compare(LessonItem data, LessonItem t1) {
         return data.getCode().compareTo(t1.getCode());
     }
 }

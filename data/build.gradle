@@ -1,0 +1,38 @@
+apply plugin: 'com.android.library'
+
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 27
+
+    defaultConfig {
+        minSdkVersion 15
+    }
+
+    lintOptions {
+        disable 'GradleCompatible'
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation 'android.arch.persistence.room:runtime:1.0.0'
+    implementation 'android.arch.persistence.room:rxjava2:1.0.0'
+    implementation group: 'joda-time', name: 'joda-time', version: '2.9.9'
+    kapt 'android.arch.persistence.room:compiler:1.0.0'
+    kapt 'com.google.dagger:dagger-compiler:2.14.1'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.2.30'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.9'
+    implementation 'com.google.dagger:dagger:2.13'
+}
+repositories {
+    mavenCentral()
+    google()
+    jcenter()
+    maven { url "https://jitpack.io" }
+}

@@ -15,7 +15,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import com.alex.miet.mobile.LessonModel;
+import com.alex.miet.mobile.entities.LessonItem;
 import com.alex.miet.mobile.R;
 import com.alex.miet.mobile.ScheduleApp;
 
@@ -26,7 +26,7 @@ public class LessonsViewsFactory implements RemoteViewsService.RemoteViewsFactor
 
     @Inject
     LessonsRepository lessonsRepository;
-    private List<LessonModel> lessons = new ArrayList<>();
+    private List<LessonItem> lessons = new ArrayList<>();
     private Context context;
     private String group;
     private int widgetId;
@@ -48,7 +48,7 @@ public class LessonsViewsFactory implements RemoteViewsService.RemoteViewsFactor
                 .getApplicationComponent()
                 .inject(this);
 
-        this.lessons = lessonsRepository.getLessonsByWeekAndDay(group, week, day);
+        this.lessons = lessonsRepository.getLessonsByWeekAndDay(group, week, day).blockingGet();
     }
 
     @Override
@@ -67,7 +67,7 @@ public class LessonsViewsFactory implements RemoteViewsService.RemoteViewsFactor
 
     @Override
     public RemoteViews getViewAt(int position) {
-        final LessonModel lesson = lessons.get(position);
+        final LessonItem lesson = lessons.get(position);
         RemoteViews remoteView = new RemoteViews(context.getPackageName(),
                 R.layout.widget_lesson_item);
         remoteView.setTextViewText(R.id.itogname_schedule, lesson.getDisciplineName());

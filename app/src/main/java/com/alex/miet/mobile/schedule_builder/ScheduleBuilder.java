@@ -1,5 +1,6 @@
 package com.alex.miet.mobile.schedule_builder;
 
+import com.alex.miet.mobile.entities.LessonItem;
 import com.alex.miet.mobile.model.schedule.CycleWeeksLessonModel;
 import com.alex.miet.mobile.model.schedule.DayLessonsModel;
 
@@ -8,8 +9,6 @@ import org.joda.time.DateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import com.alex.miet.mobile.LessonModel;
 
 import com.alex.miet.mobile.model.schedule.ScheduleComparator;
 import com.alex.miet.mobile.util.DateMietHelper;
@@ -20,7 +19,7 @@ import com.alex.miet.mobile.util.NavigationUtil;
  */
 public class ScheduleBuilder {
 
-    public static CycleWeeksLessonModel buildSchedule(List<LessonModel> lessons)
+    public static CycleWeeksLessonModel buildSchedule(List<LessonItem> lessons)
             throws CloneNotSupportedException {
 
         CycleWeeksLessonModel schedule = new CycleWeeksLessonModel();
@@ -52,12 +51,12 @@ public class ScheduleBuilder {
             item3.setDayNumber(i);
             item4.setDayNumber(i);
 
-            List<LessonModel> dataArray1 = new ArrayList<>();
-            List<LessonModel> dataArray2 = new ArrayList<>();
-            List<LessonModel> dataArray3 = new ArrayList<>();
-            List<LessonModel> dataArray4 = new ArrayList<>();
+            List<LessonItem> dataArray1 = new ArrayList<>();
+            List<LessonItem> dataArray2 = new ArrayList<>();
+            List<LessonItem> dataArray3 = new ArrayList<>();
+            List<LessonItem> dataArray4 = new ArrayList<>();
 
-            for (LessonModel data : lessons) {
+            for (LessonItem data : lessons) {
                 if (data.getDay() == i + 1) {
                     switch (data.getWeek()) {
                         case 0: {
@@ -148,7 +147,7 @@ public class ScheduleBuilder {
         return schedule;
     }
 
-    public static DayLessonsModel buildDailySchedule(List<LessonModel> dailyLessons, int day) {
+    public static DayLessonsModel buildDailySchedule(List<LessonItem> dailyLessons, int day) {
         DayLessonsModel dailySchedule = new DayLessonsModel();
         Collections.sort(dailyLessons, new ScheduleComparator());
         dailySchedule.setLessons(dailyLessons);

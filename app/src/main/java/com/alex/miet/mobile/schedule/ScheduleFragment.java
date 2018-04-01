@@ -20,7 +20,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.alex.miet.mobile.LessonModel;
+import com.alex.miet.mobile.entities.LessonItem;
 import com.alex.miet.mobile.R;
 import com.alex.miet.mobile.ScheduleApp;
 import com.alex.miet.mobile.model.schedule.DayLessonsModel;
@@ -117,7 +117,7 @@ public class ScheduleFragment extends Fragment implements ScheduleAdapter.OnLess
     }
 
     @Override
-    public void onLessonClickedListener(LessonModel lesson) {
+    public void onLessonClickedListener(LessonItem lesson) {
         LayoutInflater inflater = (LayoutInflater) getContext()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View customView = inflater.inflate(R.layout.dialog_lesson_item, null);

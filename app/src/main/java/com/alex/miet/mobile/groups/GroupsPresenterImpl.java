@@ -4,7 +4,7 @@ import com.alex.miet.mobile.data.shared_interactor.ScheduleInteractor;
 
 import java.util.List;
 
-import com.alex.miet.mobile.ScheduleModel;
+import com.alex.miet.mobile.entities.GroupItem;
 
 /*package*/ class GroupsPresenterImpl implements GroupsPresenter {
 
@@ -18,7 +18,7 @@ import com.alex.miet.mobile.ScheduleModel;
 
     @Override
     public void showGroups() {
-        final List<ScheduleModel> groups = interactor.getDownloadedGroups();
+        final List<GroupItem> groups = interactor.getDownloadedGroups();
 
         if (view != null) {
             if (groups != null) {
