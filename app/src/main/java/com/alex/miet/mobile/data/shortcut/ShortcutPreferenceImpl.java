@@ -93,7 +93,7 @@ public class ShortcutPreferenceImpl implements ShortcutPreference {
                 ShortcutInfo scheduleShortcut = new ShortcutInfo.Builder(context, groupName)
                         .setShortLabel(groupName)
                         .setLongLabel(groupName)
-                        .setIcon(Icon.createWithResource(context, R.mipmap.ic_launcher))
+                        .setIcon(Icon.createWithResource(context, R.drawable.calendar_clock_dynamic_icon))
                         .setIntent(intent.putExtra("group", groupName))
                         .build();
 
@@ -117,7 +117,7 @@ public class ShortcutPreferenceImpl implements ShortcutPreference {
             addIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
             addIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, groupName);
             addIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE,
-                    Intent.ShortcutIconResource.fromContext(context, R.mipmap.ic_launcher));
+                    Intent.ShortcutIconResource.fromContext(context, R.drawable.calendar_clock_dynamic_icon));
             addIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
             context.sendBroadcast(addIntent);
         }
