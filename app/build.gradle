@@ -22,7 +22,7 @@ android {
         }
         debug {
             buildConfigField "boolean", "USE_CRASHLYTICS", "false"
-            ext.enableCrashlytics = true  //TODO
+            ext.enableCrashlytics = true
         }
     }
 
@@ -33,6 +33,7 @@ android {
             res.srcDirs = ['src/main/res']
         }
     }
+
     repositories {
         maven { url 'https://maven.fabric.io/public' }
         maven { url "https://jitpack.io" }
