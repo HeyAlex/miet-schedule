@@ -11,6 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alex.miet.mobile.NewsModel;
+import com.alex.miet.mobile.R;
+import com.alex.miet.mobile.ScheduleApp;
 import com.thefinestartist.finestwebview.FinestWebView;
 
 import java.util.List;
@@ -19,9 +22,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.alex.miet.mobile.NewsModel;
-import com.alex.miet.mobile.R;
-import com.alex.miet.mobile.ScheduleApp;
 import timber.log.Timber;
 
 public class NewsFragment extends Fragment implements NewsView, NewsAdapter.OnNewsClickedListener,
@@ -75,9 +75,9 @@ public class NewsFragment extends Fragment implements NewsView, NewsAdapter.OnNe
             ScheduleApp.get(getContext())
                     .getNewsComponent()
                     .inject(this);
-            presenter.onRefreshRequest();
         }
         presenter.onViewAttached(this);
+        presenter.onRefreshRequest();
     }
 
     @Override

@@ -1,4 +1,9 @@
 apply plugin: 'com.android.application'
+def haveFabricApiKey = !getPropertyOrDefault("FABRIC_API_KEY", "").isEmpty()
+if (haveFabricApiKey) {
+    apply plugin: 'io.fabric'
+}
+
 
 android {
     compileSdkVersion 27
@@ -10,6 +15,7 @@ android {
         versionCode 30
         versionName "3.0"
 
+        manifestPlaceholders += ["fabric-api-key": getPropertyOrDefault("FABRIC_API_KEY", "")]
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -22,7 +28,7 @@ android {
         }
         debug {
             buildConfigField "boolean", "USE_CRASHLYTICS", "false"
-            ext.enableCrashlytics = true
+            ext.enableCrashlytics = false
         }
     }
 
@@ -35,9 +41,7 @@ android {
     }
 
     repositories {
-        maven { url 'https://maven.fabric.io/public' }
         maven { url "https://jitpack.io" }
-        google()
     }
 }
 
@@ -108,4 +112,9 @@ dependencies {
     compile group: 'joda-time', name: 'joda-time', version: '2.9.9'
 
     androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
+}
+
+String getPropertyOrDefault(String propertyName, String defaultValue) {
+    def propertyValue = project.properties[propertyName]
+    return propertyValue != null ? propertyValue : defaultValue
 }
