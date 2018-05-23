@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 def haveFabricApiKey = !getPropertyOrDefault("FABRIC_API_KEY", "").isEmpty()
 if (haveFabricApiKey) {
     apply plugin: 'io.fabric'
@@ -112,6 +113,11 @@ dependencies {
     compile group: 'joda-time', name: 'joda-time', version: '2.9.9'
 
     androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+
+repositories {
+    mavenCentral()
 }
 
 String getPropertyOrDefault(String propertyName, String defaultValue) {

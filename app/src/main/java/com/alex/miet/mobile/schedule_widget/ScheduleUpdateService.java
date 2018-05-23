@@ -138,7 +138,13 @@ public class ScheduleUpdateService extends IntentService {
     @Override
     public void onCreate() {
         super.onCreate();
-        startForeground(NOTIFICATION_ID, new Notification());
+        Notification notification;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            notification = new Notification.Builder(getApplicationContext(), "").build();
+        } else {
+            notification = new Notification();
+        }
+        startForeground(NOTIFICATION_ID, notification);
         ScheduleApp.get(this)
                 .getApplicationComponent()
                 .inject(this);
