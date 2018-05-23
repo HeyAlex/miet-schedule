@@ -10,19 +10,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
+import com.alex.miet.mobile.R;
+import com.alex.miet.mobile.ScheduleApp;
+import com.alex.miet.mobile.groups.GroupsFragment;
 import com.alex.miet.mobile.news.NewsFragment;
+import com.alex.miet.mobile.ui.BaseWebFragement;
+import com.alex.miet.mobile.util.NavigationUtil;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.alex.miet.mobile.R;
-import com.alex.miet.mobile.ScheduleApp;
-import com.alex.miet.mobile.groups.GroupsFragment;
-
-
-import com.alex.miet.mobile.ui.BaseWebFragement;
-import com.alex.miet.mobile.util.NavigationUtil;
 
 public class NavDrawerActivity extends AppCompatActivity implements NavDrawerView {
 
