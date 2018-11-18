@@ -1,15 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android'
 def haveFabricApiKey = !getPropertyOrDefault("FABRIC_API_KEY", "").isEmpty()
 if (haveFabricApiKey) {
     apply plugin: 'io.fabric'
 }
 
-
 android {
     compileSdkVersion 27
-    buildToolsVersion '26.0.2'
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.alex.miet.mobile"
         minSdkVersion 15
@@ -43,7 +41,9 @@ android {
     }
 
     repositories {
+        maven { url 'https://maven.fabric.io/public' }
         maven { url "https://jitpack.io" }
+        google()
     }
 }
 
@@ -114,9 +114,11 @@ dependencies {
     implementation group: 'joda-time', name: 'joda-time', version: '2.9.9'
 
     androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
+    api project(path: ':data')
+    implementation 'android.arch.persistence.room:runtime:1.0.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.0.1'
 }
-
 repositories {
     mavenCentral()
 }
@@ -124,10 +126,4 @@ repositories {
 String getPropertyOrDefault(String propertyName, String defaultValue) {
     def propertyValue = project.properties[propertyName]
     return propertyValue != null ? propertyValue : defaultValue
-    api project(path: ':data')
-    implementation 'android.arch.persistence.room:runtime:1.0.0'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-}
-repositories {
-    mavenCentral()
 }

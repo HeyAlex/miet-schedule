@@ -8,6 +8,7 @@ import com.alex.miet.mobile.model.news.Article;
 import com.alex.miet.mobile.model.news.ArticleResponse;
 import com.alex.miet.mobile.model.schedule.SemesterData;
 import io.reactivex.Single;
+import kotlinx.coroutines.Deferred;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
