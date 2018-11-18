@@ -84,7 +84,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
         @BindView(R.id.group)
         TextView group;
 
-        public GroupsViewHolder(View itemView) {
+        /*package*/ GroupsViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
         }
@@ -127,6 +127,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
                     }
                 }
             });
+
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

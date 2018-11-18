@@ -75,9 +75,9 @@ public class NewsFragment extends Fragment implements NewsView, NewsAdapter.OnNe
             ScheduleApp.get(getContext())
                     .getNewsComponent()
                     .inject(this);
-            presenter.onRefreshRequest();
         }
         presenter.onViewAttached(this);
+        presenter.onRefreshRequest();
     }
 
     @Override

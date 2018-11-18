@@ -22,14 +22,13 @@ import timber.log.Timber;
 
 /*package*/ class NewsPresenterImpl implements NewsPresenter {
 
-    private final CompositeDisposable newsResponseSubscription = new CompositeDisposable();
+    private CompositeDisposable newsResponseSubscription = null;
     private NewsView view;
     private NewsRepository newsRepository;
 
     @Inject
     /*package*/ NewsPresenterImpl(NewsRepository newsRepository) {
         this.newsRepository = newsRepository;
-        Timber.d("NewsPresenterImpl");
     }
 
     @Override
@@ -39,7 +38,6 @@ import timber.log.Timber;
 
     @Override
     public void onRefreshRequest() {
-        Timber.d("onRefreshRequest");
         newsResponseSubscription.add(UniversityApiFactory.getUniversityApi().getNews()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -53,7 +51,7 @@ import timber.log.Timber;
 
     @Override
     public void onViewAttached(NewsView view) {
-        Timber.d("onViewAttached");
+        newsResponseSubscription = new CompositeDisposable();
         this.view = view;
         this.view.setRefreshing(newsResponseSubscription.size() != 0);
         this.view.showNews(newsRepository.getAll().blockingGet());
@@ -65,7 +63,6 @@ import timber.log.Timber;
         this.view = null;
         newsResponseSubscription.dispose();
     }
-
 
     private class ResponseNewsSubscriber extends DisposableSingleObserver<ArticleResponse> {
 
