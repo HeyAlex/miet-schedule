@@ -9,7 +9,7 @@ import org.joda.time.DateTime;
 public class DateMietHelper {
 
     private final static int semestr1_1 = 6;
-    private final static int semestr1_2 = 26;
+    private final static int semestr1_2 = 27;
     private final static int semestr2_1 = 35;
     private final static int semestr2_2 = 2;
     private final static int fullWeeks = 52;
@@ -17,7 +17,7 @@ public class DateMietHelper {
     /**
      * This method compute a current semester (Autumn and Spring semester) and returns a number of
      * week in global schedule.
-     * For better understanding: Year - 52 weeks. Spring - from 6 to 26 weeks,
+     * For better understanding: Year - 52 weeks. Spring - from 6 to 27 weeks,
      * Autumn - from 35 to 2 weeks
      *
      * @param dateTime date
