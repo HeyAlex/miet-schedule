@@ -1,2 +1,1 @@
 include ':app', ':miet-api', ':miet-timetable', ':data'
-rootProject.name='miet-schedule'
