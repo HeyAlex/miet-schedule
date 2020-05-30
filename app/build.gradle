@@ -1,126 +1,34 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-def haveFabricApiKey = !getPropertyOrDefault("FABRIC_API_KEY", "").isEmpty()
-if (haveFabricApiKey) {
-    apply plugin: 'io.fabric'
-}
 
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 27
-    buildToolsVersion '26.0.2'
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
     defaultConfig {
         applicationId "com.alex.miet.mobile"
-        minSdkVersion 15
-        targetSdkVersion 27
-        versionCode 32
-        versionName "3.2"
-
-        manifestPlaceholders += ["fabric-api-key": getPropertyOrDefault("FABRIC_API_KEY", "")]
-        vectorDrawables.useSupportLibrary = true
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        minSdkVersion 14
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
             minifyEnabled false
-            buildConfigField "boolean", "USE_CRASHLYTICS", "true"
-            ext.enableCrashlytics = true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-        debug {
-            buildConfigField "boolean", "USE_CRASHLYTICS", "false"
-            ext.enableCrashlytics = false
-        }
-    }
-
-    sourceSets {
-        main {
-            manifest.srcFile 'src/main/AndroidManifest.xml'
-            java.srcDirs = ['src/main/java', 'src/main/java_gen']
-            res.srcDirs = ['src/main/res']
-        }
-    }
-
-    repositories {
-        maven { url "https://jitpack.io" }
     }
 }
 
 dependencies {
-    implementation 'com.android.support:support-vector-drawable:27.0.2'
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile 'com.android.support:support-annotations:27.0.2'
-
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-
-    compile 'com.android.support:design:27.0.2'
-    compile 'com.android.support:cardview-v7:27.0.2'
-    compile 'com.android.support:appcompat-v7:27.0.2'
-
-    compile 'com.thefinestartist:finestwebview:1.2.7'
-    // Butter knife
-    compile 'com.jakewharton:butterknife:8.5.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-
-    // Retrofit
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-
-    // Gson
-    compile 'com.squareup.retrofit2:converter-gson:2.2.0'
-
-    //Glide
-    compile 'com.github.bumptech.glide:glide:4.0.0'
-
-    compile('com.crashlytics.sdk.android:crashlytics:2.9.1@aar') {
-        transitive = true;
-    }
-
-    // dagger 2
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.9'
-    compile 'com.google.dagger:dagger:2.13'
-    provided 'javax.annotation:jsr250-api:1.0'
-
-    // timber for logging
-    compile 'com.jakewharton.timber:timber:4.5.1'
-
-    // rx android
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.3'
-    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
-
-    // greenDao
-    compile 'org.greenrobot:greendao:3.2.2'
-
-    compile 'uk.co.samuelwall:material-tap-target-prompt:2.0.1'
-
-    compile('com.squareup.retrofit2:converter-simplexml:2.0.0-beta4') {
-        exclude module: 'stax-api'
-        exclude module: 'stax'
-        exclude module: 'xpp3'
-    }
-
-    testCompile 'junit:junit:4.12'
-
-    // mockito
-    testCompile 'org.mockito:mockito-core:1.10.19'
-    androidTestCompile 'org.mockito:mockito-core:1.10.19'
-    androidTestCompile "com.google.dexmaker:dexmaker:1.2"
-    androidTestCompile "com.google.dexmaker:dexmaker-mockito:1.2"
-
-    //joda-time
-    compile group: 'joda-time', name: 'joda-time', version: '2.9.9'
-
-    androidTestCompile 'com.android.support.test.espresso:espresso-intents:2.2.2'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-}
-
-repositories {
-    mavenCentral()
-}
-
-String getPropertyOrDefault(String propertyName, String defaultValue) {
-    def propertyValue = project.properties[propertyName]
-    return propertyValue != null ? propertyValue : defaultValue
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.3.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 }

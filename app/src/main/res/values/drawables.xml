@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <drawable name="drawable_primary">@color/colorPrimary</drawable>
-    <drawable name="progress_bar_bg">@color/colorAccent</drawable>
-</resources>
