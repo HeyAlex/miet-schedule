@@ -1,1 +1,2 @@
-include ':app', ':miet-api', ':miet-timetable', ':data'
+include ':base'
+include ':app', ':miet-api', ':miet-timetable', ':data', ':data-android'
