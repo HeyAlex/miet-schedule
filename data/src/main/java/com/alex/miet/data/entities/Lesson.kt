@@ -24,7 +24,6 @@ data class Lesson(
     @ColumnInfo(name = "time_from") val timeFrom: String? = null,
     @ColumnInfo(name = "time_to") val timeTo: String? = null,
     @ColumnInfo(name = "discipline_name") val disciplineName: String? = null,
-    @ColumnInfo(name = "discipline_type") val disciplineType: String? = null,
     @ColumnInfo(name = "teacher_fullname") val teacherFull: String? = null,
     @ColumnInfo(name = "teacher") val teacher: String? = null,
     @ColumnInfo(name = "code") val code: Int
