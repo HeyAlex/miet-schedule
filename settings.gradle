@@ -1,2 +1,5 @@
+include ':domain'
+include ':domain'
+include ':add-group'
 include ':base'
 include ':app', ':miet-api', ':miet-timetable', ':data', ':data-android'
