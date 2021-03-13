@@ -51,18 +51,16 @@ class LessonsRepositoryImpl (private val dao: LessonDao) : LessonsRepository {
     }
 
     override fun deleteAllByGroupName(groupName: String) {
-        Single.fromCallable {
             val lessonsByGroup = dao.loadByGroupName(groupName).blockingGet()
             dao.delete(lessonsByGroup)
-        }
     }
 
     override fun replaceAllByGroupName(groupName: String, lessons: List<LessonItem>) {
-        Single.fromCallable {
             val lessonsByGroup = dao.loadByGroupName(groupName).blockingGet()
+        if(lessonsByGroup != null) {
             dao.delete(lessonsByGroup)
-            dao.insert(lessons)
         }
+        dao.insert(lessons)
     }
 
     override fun getLessonsByWeekAndDay(groupName: String, week: Int, day: Int): Maybe<List<LessonItem>> {

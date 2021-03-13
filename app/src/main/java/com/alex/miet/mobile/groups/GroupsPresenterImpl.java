@@ -6,11 +6,19 @@ import java.util.List;
 
 import com.alex.miet.mobile.entities.GroupItem;
 
+import io.reactivex.Maybe;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.observers.DisposableMaybeObserver;
+import io.reactivex.schedulers.Schedulers;
+
 /*package*/ class GroupsPresenterImpl implements GroupsPresenter {
 
     private GroupsView view;
     private ScheduleInteractor interactor;
-
+    private CompositeDisposable mCompositeDisposable = new CompositeDisposable();
 
     /*package*/ GroupsPresenterImpl(ScheduleInteractor interactor) {
         this.interactor = interactor;
@@ -18,19 +26,37 @@ import com.alex.miet.mobile.entities.GroupItem;
 
     @Override
     public void showGroups() {
-        final List<GroupItem> groups = interactor.getDownloadedGroups();
+        mCompositeDisposable.add(
+                interactor.getDownloadedGroups().subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableMaybeObserver<List<GroupItem>>() {
 
-        if (view != null) {
-            if (groups != null) {
-                if (!groups.isEmpty()) {
-                    view.showGroups(groups);
-                } else {
-                    view.showHint();
-                }
-            } else {
-                view.showHint();
-            }
-        }
+                    @Override
+                    public void onSuccess(List<GroupItem> groups) {
+                        if (view != null) {
+                            if (groups != null) {
+                                if (!groups.isEmpty()) {
+                                    view.showGroups(groups);
+                                } else {
+                                    view.showHint();
+                                }
+                            } else {
+                                view.showHint();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                })
+        );
     }
 
     @Override

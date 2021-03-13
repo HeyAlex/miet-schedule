@@ -10,7 +10,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import com.alex.miet.mobile.entities.LessonItem;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.observers.DisposableMaybeObserver;
 
 /**
  * Specific {@link SchedulePresenter} implementation
@@ -43,11 +46,30 @@ import io.reactivex.disposables.CompositeDisposable;
 
     @Override
     public void getCachedScheduleForGroup(String groupName) {
-        CycleWeeksLessonModel schedule = scheduleInteractor.getCacheGroup(groupName);
-        if (view != null) {
-            view.showSchedule(schedule);
-            view.showStatus(false);
-        }
+        scheduleCompositeDisposable.add(
+                scheduleInteractor.getCacheGroup(groupName)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableMaybeObserver<CycleWeeksLessonModel>(){
+
+                    @Override
+                    public void onSuccess(CycleWeeksLessonModel groupItem) {
+                        if (view != null && groupItem != null) {
+                            view.showSchedule(groupItem);
+                            view.showStatus(false);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                }));
+
     }
 
     @Override

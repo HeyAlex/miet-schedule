@@ -45,9 +45,9 @@ public class DataModule {
     private MietDatabase createRoomDatabase(Context context) {
         RoomDatabase.Builder<MietDatabase> builder = Room.databaseBuilder(context, MietDatabase.class, DATABASE_NAME)
                 .fallbackToDestructiveMigration();
-        if (Debug.isDebuggerConnected()) {
-            builder.allowMainThreadQueries();
-        }
+//        if (Debug.isDebuggerConnected()) {
+//            builder.allowMainThreadQueries();
+//        }
         return builder.build();
     }
 

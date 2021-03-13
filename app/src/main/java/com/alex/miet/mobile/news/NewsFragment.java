@@ -22,6 +22,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import com.alex.miet.mobile.R;
 import com.alex.miet.mobile.ScheduleApp;
+
+import io.reactivex.Maybe;
 import timber.log.Timber;
 
 public class NewsFragment extends Fragment implements NewsView, NewsAdapter.OnNewsClickedListener,

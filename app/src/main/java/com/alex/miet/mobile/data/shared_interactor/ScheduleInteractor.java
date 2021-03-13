@@ -5,6 +5,8 @@ import java.util.List;
 import com.alex.miet.mobile.entities.GroupItem;
 import com.alex.miet.mobile.model.schedule.CycleWeeksLessonModel;
 
+import io.reactivex.Maybe;
+
 public interface ScheduleInteractor {
 
     void attach(OnScheduleDownload callbackView);
@@ -13,7 +15,7 @@ public interface ScheduleInteractor {
 
     void downloadGroup(String groupName);
 
-    CycleWeeksLessonModel getCacheGroup(String groupName);
+    Maybe<CycleWeeksLessonModel> getCacheGroup(String groupName);
 
     void stopDownloading();
 
@@ -21,7 +23,7 @@ public interface ScheduleInteractor {
 
     void deleteGroup(String groupName);
 
-    List<GroupItem> getDownloadedGroups();
+    Maybe<List<GroupItem>> getDownloadedGroups();
 
     void addNewStaticShortcut(String groupName);
 

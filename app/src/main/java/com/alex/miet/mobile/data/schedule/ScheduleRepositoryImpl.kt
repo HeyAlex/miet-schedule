@@ -3,7 +3,6 @@ package com.alex.miet.mobile.data.schedule
 import com.alex.miet.mobile.daos.GroupDao
 import com.alex.miet.mobile.entities.GroupItem
 import io.reactivex.Maybe
-import io.reactivex.Single
 
 /**
  * Specific [ScheduleRepository] implementation
@@ -11,15 +10,11 @@ import io.reactivex.Single
 class ScheduleRepositoryImpl(private val dao: GroupDao) : ScheduleRepository {
 
     override fun save(entity: GroupItem) {
-        Single.fromCallable {
-            dao.insert(entity)
-        }
+        dao.insert(entity)
     }
 
     override fun saveAll(entities: List<GroupItem>) {
-        Single.fromCallable {
-            dao.insert(entities)
-        }
+        dao.insert(entities)
     }
 
     override fun getAll(): Maybe<List<GroupItem>> {
@@ -27,27 +22,19 @@ class ScheduleRepositoryImpl(private val dao: GroupDao) : ScheduleRepository {
     }
 
     override fun update(entity: GroupItem) {
-        Single.fromCallable {
-            dao.update(entity)
-        }
+        dao.update(entity)
     }
 
     override fun updateAll(entities: List<GroupItem>) {
-        Single.fromCallable {
-            dao.update(entities)
-        }
+        dao.update(entities)
     }
 
     override fun delete(entity: GroupItem) {
-        Single.fromCallable {
-            dao.delete(entity)
-        }
+        dao.delete(entity)
     }
 
     override fun deleteAll() {
-        Single.fromCallable {
-            dao.deleteAll()
-        }
+        dao.deleteAll()
     }
 
     override fun getGroupByName(groupName: String): Maybe<GroupItem> {
@@ -55,15 +42,13 @@ class ScheduleRepositoryImpl(private val dao: GroupDao) : ScheduleRepository {
     }
 
     override fun replaceByGroupName(groupName: String, model: GroupItem) {
-        Single.fromCallable {
-            deleteByGroupName(groupName)
-            dao.insert(model)
-        }
+        deleteByGroupName(groupName)
+        dao.insert(model)
     }
 
     override fun deleteByGroupName(groupName: String) {
-        Single.fromCallable {
-            val scheduleByGroup = dao.getGroupByName(groupName).blockingGet()
+        val scheduleByGroup = dao.getGroupByName(groupName).blockingGet()
+        if (scheduleByGroup != null) {
             delete(scheduleByGroup)
         }
     }

@@ -1,5 +1,11 @@
 package com.alex.miet.mobile.news;
 
+import com.alex.miet.mobile.api.UniversityApiFactory;
+import com.alex.miet.mobile.data.news.NewsRepository;
+import com.alex.miet.mobile.entities.NewsItem;
+import com.alex.miet.mobile.model.news.Article;
+import com.alex.miet.mobile.model.news.ArticleResponse;
+
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
 
@@ -9,13 +15,10 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-import com.alex.miet.mobile.api.UniversityApiFactory;
-import com.alex.miet.mobile.data.news.NewsRepository;
-import com.alex.miet.mobile.entities.NewsItem;
-import com.alex.miet.mobile.model.news.Article;
-import com.alex.miet.mobile.model.news.ArticleResponse;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Function;
+import io.reactivex.observers.DisposableMaybeObserver;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
@@ -27,7 +30,7 @@ import timber.log.Timber;
     private NewsRepository newsRepository;
 
     @Inject
-    /*package*/ NewsPresenterImpl(NewsRepository newsRepository) {
+        /*package*/ NewsPresenterImpl(NewsRepository newsRepository) {
         this.newsRepository = newsRepository;
     }
 
@@ -40,6 +43,16 @@ import timber.log.Timber;
     public void onRefreshRequest() {
         newsResponseSubscription.add(UniversityApiFactory.getUniversityApi().getNews()
                 .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .map(new Function<ArticleResponse, List<NewsItem>>() {
+                    @Override
+                    public List<NewsItem> apply(ArticleResponse articleResponse) {
+                        newsRepository.deleteAll();
+                        List<NewsItem> newsModelList = transfromResponseToDaoModel(articleResponse);
+                        newsRepository.saveAll(newsModelList);
+                        return newsModelList;
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new ResponseNewsSubscriber()));
     }
@@ -50,11 +63,26 @@ import timber.log.Timber;
     }
 
     @Override
-    public void onViewAttached(NewsView view) {
+    public void onViewAttached(final NewsView view) {
         newsResponseSubscription = new CompositeDisposable();
         this.view = view;
         this.view.setRefreshing(newsResponseSubscription.size() != 0);
-        this.view.showNews(newsRepository.getAll().blockingGet());
+        newsResponseSubscription.add(newsRepository.getAll().subscribeWith(new DisposableMaybeObserver<List<NewsItem>>() {
+            @Override
+            public void onSuccess(List<NewsItem> listMaybe) {
+                view.showNews(listMaybe);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+        }));
     }
 
     @Override
@@ -64,24 +92,19 @@ import timber.log.Timber;
         newsResponseSubscription.dispose();
     }
 
-    private class ResponseNewsSubscriber extends DisposableSingleObserver<ArticleResponse> {
+    private class ResponseNewsSubscriber extends DisposableSingleObserver<List<NewsItem>> {
 
-        final DateTimeFormatter dtf = DateTimeFormat.forPattern("EEE, d MMM yyyy HH:mm:ss Z")
-                .withLocale(Locale.ENGLISH);
 
         /*package*/ ResponseNewsSubscriber() {
         }
 
         @Override
-        public void onSuccess(ArticleResponse articleResponse) {
-            newsRepository.deleteAll();
-            List<NewsItem> newsModelList = transfromResponseToDaoModel(articleResponse);
-            newsRepository.saveAll(newsModelList);
-            newsResponseSubscription.clear();
+        public void onSuccess(List<NewsItem> articleResponse) {
             if (view != null) {
                 view.setRefreshing(false);
-                view.showNews(newsModelList);
+                view.showNews(articleResponse);
             }
+            newsResponseSubscription.clear();
         }
 
         @Override
@@ -92,18 +115,22 @@ import timber.log.Timber;
                 view.showErrorView();
             }
         }
+    }
 
-        private List<NewsItem> transfromResponseToDaoModel(ArticleResponse response) {
-            List<NewsItem> models = new ArrayList<>();
+    final DateTimeFormatter dtf = DateTimeFormat.forPattern("EEE, d MMM yyyy HH:mm:ss Z")
+            .withLocale(Locale.ENGLISH);
 
-            for (Article article : response.getAllArticles()) {
-                NewsItem model = new NewsItem(null, article.getTitle(),
-                        dtf.parseDateTime(article.getPubDate()).toString("d MMMM yyyy HH:mm"),
-                        article.getLink(), article.getEnclosure().getUrl(), article.getDescription());
-                models.add(model);
-            }
 
-            return models;
+    public List<NewsItem> transfromResponseToDaoModel(ArticleResponse response) {
+        List<NewsItem> models = new ArrayList<>();
+
+        for (Article article : response.getAllArticles()) {
+            NewsItem model = new NewsItem(null, article.getTitle(),
+                    dtf.parseDateTime(article.getPubDate()).toString("d MMMM yyyy HH:mm"),
+                    article.getLink(), article.getEnclosure().getUrl(), article.getDescription());
+            models.add(model);
         }
+
+        return models;
     }
 }

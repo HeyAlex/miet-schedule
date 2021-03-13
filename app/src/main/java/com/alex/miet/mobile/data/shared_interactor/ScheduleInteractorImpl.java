@@ -19,9 +19,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Maybe;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
@@ -79,7 +81,7 @@ public class ScheduleInteractorImpl implements ScheduleInteractor {
 
     /*package*/
     static GroupItem transformToDaoGroupItem(SemesterData data, String groupName) {
-        return new GroupItem(groupName, data.getSemester());
+        return new GroupItem(groupName, "");
     }
 
     @Override
@@ -93,7 +95,7 @@ public class ScheduleInteractorImpl implements ScheduleInteractor {
     }
 
     @Override
-    public void downloadGroup(String groupName) {
+    public void downloadGroup(final String groupName) {
         if (scheduleDisposable != null) {
             if (!scheduleDisposable.isDisposed()) {
                 scheduleDisposable.dispose();
@@ -102,6 +104,15 @@ public class ScheduleInteractorImpl implements ScheduleInteractor {
         scheduleDisposable = UniversityApiFactory.getUniversityApi()
                 .getScheduleResponse(groupName)
                 .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .map(new Function<SemesterData, List<LessonItem>>() {
+                    @Override
+                    public List<LessonItem> apply(SemesterData semesterData) throws Exception {
+                        groupsRepository.replaceByGroupName(groupName, transformToDaoGroupItem(semesterData, groupName));
+                        lessonsRepository.replaceAllByGroupName(groupName, transformToDaoLessonModel(semesterData, groupName));
+                        return transformToDaoLessonModel(semesterData, groupName);
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeWith(new ResponseScheduleObserver(groupName));
 
@@ -109,21 +120,21 @@ public class ScheduleInteractorImpl implements ScheduleInteractor {
     }
 
     @Override
-    public CycleWeeksLessonModel getCacheGroup(String groupName) {
-        try {
-            GroupItem schedule = groupsRepository.getGroupByName(groupName)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .blockingGet();
-            if (schedule == null) {
-                downloadGroup(groupName);
-            } else {
-                return ScheduleBuilder.buildSchedule(lessonsRepository.getLessonsForGroup(groupName).blockingGet());
-            }
-            return null;
-        } catch (CloneNotSupportedException e) {
-            return null; // never happens
-        }
+    public Maybe<CycleWeeksLessonModel> getCacheGroup(String groupName) {
+        return groupsRepository.getGroupByName(groupName)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .map(new Function<GroupItem, CycleWeeksLessonModel>() {
+                    @Override
+                    public CycleWeeksLessonModel apply(GroupItem groupItem) throws Exception {
+                        if (groupItem == null) {
+                            downloadGroup(groupItem.getGroup());
+                            return null;
+                        } else {
+                            return ScheduleBuilder.buildSchedule(lessonsRepository.getLessonsForGroup(groupItem.getGroup()).blockingGet());
+                        }
+                    }
+                });
     }
 
     @Override
@@ -147,8 +158,8 @@ public class ScheduleInteractorImpl implements ScheduleInteractor {
     }
 
     @Override
-    public List<GroupItem> getDownloadedGroups() {
-        return groupsRepository.getAll().blockingGet();
+    public Maybe<List<GroupItem>> getDownloadedGroups() {
+        return groupsRepository.getAll();
     }
 
     @Override
@@ -166,7 +177,7 @@ public class ScheduleInteractorImpl implements ScheduleInteractor {
         shortcutPreference.requestWidgetPin(groupName);
     }
 
-    public class ResponseScheduleObserver extends DisposableSingleObserver<SemesterData> {
+    public class ResponseScheduleObserver extends DisposableSingleObserver<List<LessonItem>> {
 
         private String groupName;
 
@@ -176,15 +187,11 @@ public class ScheduleInteractorImpl implements ScheduleInteractor {
 
 
         @Override
-        public void onSuccess(SemesterData semestrResponse) {
+        public void onSuccess(List<LessonItem> semestrResponse) {
             Timber.i("Schedule for '%s' have successfully recived.", groupName);
-            lessonsRepository.replaceAllByGroupName(groupName,
-                    transformToDaoLessonModel(semestrResponse, groupName));
-            groupsRepository.replaceByGroupName(groupName,
-                    transformToDaoGroupItem(semestrResponse, groupName));
             shortcutPreference.addNewDynamicShortcut(groupName);
             if (callbackView != null) {
-                callbackView.onGroupDownloaded(transformToDaoLessonModel(semestrResponse, groupName),
+                callbackView.onGroupDownloaded(semestrResponse,
                         groupName);
             }
             scheduleDisposbleSubscription.delete(this);
