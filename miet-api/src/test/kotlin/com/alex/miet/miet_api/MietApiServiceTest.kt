@@ -1,6 +1,5 @@
 package com.alex.miet.miet_api
 
-import com.alex.miet.miet_api.network.MietApiService
 import kotlinx.coroutines.runBlocking
 import okhttp3.OkHttpClient
 import org.junit.Test

@@ -1,7 +1,4 @@
 package com.alex.miet.miet_api.convertor
 
-import java.lang.annotation.Retention
-import java.lang.annotation.RetentionPolicy
-
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(AnnotationRetention.RUNTIME)
 annotation class Json 
