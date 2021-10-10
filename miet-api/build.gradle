@@ -1,13 +1,16 @@
-apply plugin: 'kotlin'
-apply plugin: 'kotlin-kapt'
+plugins {
+    id 'java-library'
+    id 'kotlin'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+}
+
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation project(':base')
-    kapt "com.google.dagger:dagger-compiler:$dagger_version"
-    implementation('com.squareup.retrofit2:retrofit:2.9.0')
     implementation('com.squareup.retrofit2:converter-simplexml:2.9.0')
-    implementation('com.squareup.retrofit2:converter-gson:2.9.0')
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.7'
-    implementation 'junit:junit:4.13'
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
 }
