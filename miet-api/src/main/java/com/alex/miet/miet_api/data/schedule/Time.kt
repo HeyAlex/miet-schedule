@@ -1,11 +1,24 @@
 package com.alex.miet.miet_api.data.schedule
 
+
 import com.google.gson.annotations.SerializedName
 
+data class Time(
 
-data class Time (
-    @SerializedName("Time") val time : String,
-    @SerializedName("Code") val code : Int,
-    @SerializedName("TimeFrom") val timeFrom : String,
-    @SerializedName("TimeTo") val timeTo : String
+    /**
+     * number of exercise in all schedule time
+     */
+    @SerializedName("Code") val code: Int,
+    /**
+     * String of representation of number of exercise in all schedule time
+     */
+    @SerializedName("Time") val time: String,
+    /**
+     * Lesson time start
+     */
+    @SerializedName("TimeFrom") val timeFrom: String,
+    /**
+     * Lesson time end
+     */
+    @SerializedName("TimeTo") val timeTo: String
 )

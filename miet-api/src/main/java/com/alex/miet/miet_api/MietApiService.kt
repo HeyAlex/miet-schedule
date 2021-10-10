@@ -1,6 +1,6 @@
-package com.alex.miet.miet_api.network
+package com.alex.miet.miet_api
 
-import com.alex.miet.miet_api.model.Semester
+import com.alex.miet.miet_api.data.schedule.Semester
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
