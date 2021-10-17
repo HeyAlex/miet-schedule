@@ -1,6 +1,6 @@
 package com.alex.miet.miet_api
 
-import com.alex.miet.miet_api.data.schedule.Semester
+import com.alex.miet.miet_api.data.schedule.Schedule
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -20,10 +20,10 @@ interface MietApiService {
      * Returns a schedule response
      *
      * @param groupName associated with schedule
-     * @return [Semester]
+     * @return [Schedule]
      */
     @GET("schedule/data")
-    suspend fun schedule(@Query("group") groupName: String): Semester
+    suspend fun schedule(@Query("group") groupName: String): Schedule
 
     companion object {
         private const val MIET_ENDPOINT = "https://miet.ru/"

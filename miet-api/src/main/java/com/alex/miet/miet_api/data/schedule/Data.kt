@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 
 /**
- * This class is response holder with lesson information, includes in [Semester]
+ * This class is response holder with lesson information, includes in [Schedule]
  * Contains information about room, time, week and day
  */
 data class Data(

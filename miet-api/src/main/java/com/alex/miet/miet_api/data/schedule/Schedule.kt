@@ -2,7 +2,7 @@ package com.alex.miet.miet_api.data.schedule
 
 import com.google.gson.annotations.SerializedName
 
-data class Semester(
+data class Schedule(
 
     /**
      * Schedule times of studies
