@@ -16,8 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.alex.miet.miet_api.MietApiService
-import com.alex.miet.mobile.network.ScheduleRemoteRepositoryImpl
-import com.alex.miet.mobile.ui.theme.MietScheduleV2Theme
+import com.alex.miet.mobile.network.ScheduleRemoteDataSourceImpl
+import com.alex.miet.mobile.ui.theme.MietScheduleTheme
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
@@ -25,9 +25,9 @@ import okhttp3.OkHttpClient
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val scheduleRepo = ScheduleRemoteRepositoryImpl(MietApiService.create(OkHttpClient()))
+        val scheduleRepo = ScheduleRemoteDataSourceImpl(MietApiService.create(OkHttpClient()))
         setContent {
-            MietScheduleV2Theme {
+            MietScheduleTheme {
 
                 val coroutineScope = rememberCoroutineScope()
                 var groups by remember { mutableStateOf(emptyList<String>()) }
@@ -74,7 +74,7 @@ fun GroupItem(group: String) {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    MietScheduleV2Theme {
+    MietScheduleTheme {
 
     }
 }

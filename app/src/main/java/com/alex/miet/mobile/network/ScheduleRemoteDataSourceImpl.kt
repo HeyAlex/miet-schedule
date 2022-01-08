@@ -8,10 +8,12 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import java.lang.Exception
 
-class ScheduleRemoteRepositoryImpl(val mietApi: MietApiService) : ScheduleRemoteRepository {
+class ScheduleRemoteDataSourceImpl(val mietApi: MietApiService) : ScheduleRemoteDataSource {
     override fun getGroupNames(): Flow<Result<List<String>>> {
         return flow {
             try {
+                emit(Result.success(mietApi.groups()))
+                //dowork
                 emit(Result.success(mietApi.groups()))
             } catch (ex: Exception) {
                 emit(Result.failure<List<String>>(ex))

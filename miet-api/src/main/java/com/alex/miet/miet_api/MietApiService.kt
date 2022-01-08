@@ -11,7 +11,7 @@ interface MietApiService {
     /**
      * Returns a list of available group names
      *
-     * @return list of strings
+     * @return list of groups name
      */
     @GET("schedule/groups")
     suspend fun groups(): List<String>
