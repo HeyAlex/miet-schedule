@@ -1,4 +1,4 @@
-package com.miet.schedule_db.entities
+package com.miet.alex.data.entities
 
 import androidx.room.*
 
@@ -10,7 +10,7 @@ import androidx.room.*
     foreignKeys = [
         (ForeignKey(
             entity = GroupItem::class,
-            parentColumns = arrayOf("group_name"),
+            parentColumns = arrayOf("id"),
             childColumns = arrayOf("group_name"),
             onUpdate = ForeignKey.CASCADE,
             onDelete = ForeignKey.CASCADE
@@ -18,7 +18,7 @@ import androidx.room.*
     ]
 )
 data class LessonItem(
-    @PrimaryKey(autoGenerate = false)
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name = "id") override val id: Long = 0,
     @ColumnInfo(name = "group_name")
     val group_name: String,
     @ColumnInfo(name = "week")
@@ -43,7 +43,7 @@ data class LessonItem(
     val disciplineType: String,
     @ColumnInfo(name = "code")
     val code: String? = null
-) {
+) : MietEntity {
 
     @Ignore
     var timeFull: String? = "$timeFrom - $timeTo ($time)"

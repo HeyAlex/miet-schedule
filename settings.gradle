@@ -9,4 +9,5 @@ dependencyResolutionManagement {
 rootProject.name = "mietScheduleV2"
 include ':app'
 include ':miet-api'
-include ':schedule-db'
+include ':data-android'
+include ':data'
