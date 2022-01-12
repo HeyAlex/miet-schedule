@@ -4,7 +4,7 @@ import androidx.room.*
 import com.miet.alex.data.entities.GroupItem
 
 @Dao
-abstract class GroupDao : BaseDao<GroupItem> {
+abstract class GroupDao : BaseDao<GroupItem>() {
     @Query("SELECT * FROM group_table WHERE group_name = :name")
     abstract suspend fun getGroupByName(name: String): GroupItem
 

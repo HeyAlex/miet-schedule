@@ -3,7 +3,7 @@ package com.miet.alex.data.daos
 import androidx.room.*
 import com.miet.alex.data.entities.MietEntity
 
-interface BaseDao<in E: MietEntity> {
+abstract class BaseDao<in E: MietEntity> {
 
     @Insert
     abstract suspend fun insert(entity: E): Long
@@ -23,7 +23,7 @@ interface BaseDao<in E: MietEntity> {
     @Transaction
     open suspend fun withTransaction(tx: suspend () -> Unit) = tx()
 
-    suspend fun insertOrUpdate(entity: E): Long {
+    private suspend fun insertOrUpdate(entity: E): Long {
         return if (entity.id == 0L) {
             insert(entity)
         } else {

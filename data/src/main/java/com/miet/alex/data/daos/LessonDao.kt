@@ -5,7 +5,7 @@ import androidx.room.Query
 import com.miet.alex.data.entities.LessonItem
 
 @Dao
-abstract class LessonDao : BaseDao<LessonItem> {
+abstract class LessonDao : BaseDao<LessonItem>() {
     @Query("DELETE FROM lessons")
     abstract suspend fun deleteAll()
 
