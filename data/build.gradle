@@ -3,7 +3,12 @@ plugins {
 }
 
 dependencies {
+    implementation project(path: ':miet-api')
+    implementation project(path: ':miet-api')
+    implementation project(path: ':base')
+    api project(':miet-api')
+
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
     def room_version = "2.4.0"
     api "androidx.room:room-common:$room_version"
-    api project(':miet-api')
 }

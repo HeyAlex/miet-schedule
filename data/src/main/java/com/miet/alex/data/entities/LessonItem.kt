@@ -38,11 +38,7 @@ data class LessonItem(
     @ColumnInfo(name = "teacherFull")
     val teacherFull: String,
     @ColumnInfo(name = "disciplineName")
-    val disciplineName: String,
-    @ColumnInfo(name = "disciplineType")
-    val disciplineType: String,
-    @ColumnInfo(name = "code")
-    val code: String? = null
+    val disciplineName: String
 ) : MietEntity {
 
     @Ignore

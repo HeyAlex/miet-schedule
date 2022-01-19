@@ -1,10 +1,13 @@
 package com.miet.alex.data.repositories
 
+import com.alex.miet.miet_api.MietApiService
 import com.miet.alex.data.entities.LessonItem
+import com.miet.alex.data.mappers.LessonMapper
 
-interface LessonDataSource {
-    suspend fun deleteAllByGroupName(groupName: String)
-    suspend fun getLessonsByWeekAndDay(groupName: String, week: Int, day: Int): List<LessonItem>
-    suspend fun getLessonsForWeek(groupName: String, week: Int): List<LessonItem>
-    suspend fun getLessonsForGroup(groupName: String): List<LessonItem>
+class LessonDataSource(
+    private val mietApiService: MietApiService,
+    private val lessonMapper: LessonMapper
+) {
+    suspend fun getLessons(groupName: String): Pair<String, List<LessonItem>> =
+        lessonMapper.map(mietApiService.schedule(groupName))
 }

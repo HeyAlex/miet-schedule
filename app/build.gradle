@@ -49,6 +49,7 @@ android {
 
 dependencies {
     implementation project(path: ':miet-api')
+    implementation project(':data')
 
     implementation group: 'joda-time', name: 'joda-time', version: '2.10.2'
 
