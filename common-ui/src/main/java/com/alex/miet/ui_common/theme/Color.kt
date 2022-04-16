@@ -1,4 +1,4 @@
-package com.alex.miet.mobile.ui.theme
+package com.alex.miet.ui_common.theme
 
 import androidx.compose.ui.graphics.Color
 

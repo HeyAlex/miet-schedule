@@ -3,12 +3,14 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
     }
 }
+
 rootProject.name = "mietScheduleV2"
 include ':app'
 include ':miet-api'
 include ':data-android'
 include ':data'
 include ':base'
+include ':ui-groups'
+include ':common-ui'

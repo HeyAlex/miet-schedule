@@ -1,7 +1,6 @@
 package com.alex.miet.mobile.ui
 
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -15,30 +14,44 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.core.app.ComponentActivity
 import com.alex.miet.miet_api.MietApiService
-import com.alex.miet.mobile.network.ScheduleRemoteDataSourceImpl
-import com.alex.miet.mobile.ui.theme.MietScheduleTheme
-import kotlinx.coroutines.flow.collect
+import com.alex.miet.ui_common.theme.MietScheduleTheme
+import com.miet.alex.data.entities.GroupItem
+import com.miet.alex.data.mappers.GroupNameMapper
+import com.miet.alex.data.repositories.GroupsDataSource
+import com.miet.alex.data.repositories.GroupsRepository
+import com.miet.alex.data.repositories.GroupsStore
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import okhttp3.OkHttpClient
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val scheduleRepo = ScheduleRemoteDataSourceImpl(MietApiService.create(OkHttpClient()))
+//        val scheduleRepo = ScheduleRemoteDataSourceImpl(MietApiService.create(OkHttpClient()))
+//        val lessonsRepository = LessonsRepository(MietApiService.create(OkHttpClient()))
+
+
+        val api = MietApiService.create(OkHttpClient())
+        val dataSource = GroupsDataSource(api, GroupNameMapper())
+        val store = GroupsStore()
+
+        val groupsRepository = GroupsRepository(dataSource, )
+
         setContent {
             MietScheduleTheme {
 
                 val coroutineScope = rememberCoroutineScope()
-                var groups by remember { mutableStateOf(emptyList<String>()) }
+                var groups by remember { mutableStateOf(emptyList<GroupItem>()) }
 
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     coroutineScope.launch {
-                        scheduleRepo.getGroupNames().collect { result ->
-                            result.onSuccess {
-                                groups = it
-                            }
+                        groupsRepository.loadGroups().onEach { result ->
+                            groups = result
                         }
                     }
                     LazyColumn(
@@ -47,7 +60,7 @@ class MainActivity : ComponentActivity() {
                         items(
                             groups,
                             itemContent = {
-                                GroupItem(it)
+                                GroupItem(it.group)
                             })
                     }
                 }
