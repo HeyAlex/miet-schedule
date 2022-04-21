@@ -1,22 +1,16 @@
 package com.miet.alex.data.repositories
 
-import com.miet.alex.data.entities.GroupItem
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
 
-class GroupsRepository(
+class GroupsRepository @Inject constructor(
     private val groupsDataSource: GroupsDataSource,
-    private val groupsStore: GroupsStore
+    private val groupsStore: LocalGroupDataSource
 ) {
-//    suspend fun observeGroups() = groupsStore.getGroups()
+    fun observeGroups() = groupsStore.getGroups()
 
-    suspend fun loadGroups() : Flow<List<GroupItem>> {
-        return flow {
-            emit(groupsStore.getGroups())
-            val groups = groupsDataSource.getGroups()
-            emit(groups)
-            groupsStore.insertOrUpdateGroups(groups)
-        }
+    suspend fun loadGroups() {
+        val groups = groupsDataSource.getGroups()
+        groupsStore.insertOrUpdateGroups(groups)
 
     }
 }

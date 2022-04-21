@@ -13,5 +13,5 @@ abstract class GroupDao : BaseDao<GroupItem>() {
     abstract suspend fun deleteAll()
 
     @Query("SELECT * FROM group_table")
-    abstract suspend fun loadAll(): List<GroupItem>
+    abstract fun loadAll(): Flow<List<GroupItem>>
 }

@@ -5,7 +5,7 @@ plugins {
 dependencies {
     implementation project(path: ':miet-api')
     implementation project(path: ':miet-api')
-    implementation project(path: ':base')
+    implementation project(':base')
     api project(':miet-api')
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'

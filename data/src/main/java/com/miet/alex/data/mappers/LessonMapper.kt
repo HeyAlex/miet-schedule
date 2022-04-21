@@ -9,8 +9,8 @@ class LessonMapper(val formatter: ScheduleTimeFormatter) :
     override suspend fun map(from: Schedule): Pair<String, List<LessonItem>> {
 
         val lessons = from.data.map {
-            val toDate: String = formatter.formatDateTime(it.time.timeTo)
-            val fromDate: String = formatter.formatDateTime(it.time.timeFrom)
+            val toDate: String = "formatter.formatDateTime(it.time.timeTo)"
+            val fromDate: String = "formatter.formatDateTime(it.time.timeFrom)"
             val disciplineName: String = it.classRoom.name
             LessonItem(
                 group_name = it.group.name,

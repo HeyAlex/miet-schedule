@@ -1,17 +1,34 @@
 package com.alex.miet.mobile.inject
 
+import com.alex.miet.base.ScheduleTimeFormatter
 import com.alex.miet.miet_api.MietApiService
+import com.miet.alex.data.mappers.GroupNameMapper
+import com.miet.alex.data.mappers.LessonMapper
+import dagger.Lazy
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
-import javax.inject.Named
+import org.joda.time.format.DateTimeFormat
 import javax.inject.Singleton
 
 @Module
 object MietModule {
-    @Singleton
+
     @Provides
+    @Singleton
     fun provideMietApi(
-        client: OkHttpClient,
+        client: Lazy<OkHttpClient>,
     ): MietApiService = MietApiService.create(client)
+
+    @Provides
+    @Singleton
+    fun provideLessonMapper(): LessonMapper {
+        return LessonMapper(ScheduleTimeFormatter(DateTimeFormat.forPattern("HH:mm")))
+    }
+
+    @Provides
+    @Singleton
+    fun provideGroupMapper(): GroupNameMapper {
+        return GroupNameMapper()
+    }
 }

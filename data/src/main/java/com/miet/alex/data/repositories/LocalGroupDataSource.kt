@@ -2,8 +2,9 @@ package com.miet.alex.data.repositories
 
 import com.miet.alex.data.daos.GroupDao
 import com.miet.alex.data.entities.GroupItem
+import javax.inject.Inject
 
-class GroupsStore(private val groupDao: GroupDao) {
+class LocalGroupDataSource @Inject constructor(private val groupDao: GroupDao) {
 
     suspend fun getGroup(groupName: String): GroupItem? = groupDao.getGroupByName(groupName)
 
@@ -13,5 +14,5 @@ class GroupsStore(private val groupDao: GroupDao) {
 
     suspend fun update(group: GroupItem) = groupDao.update(group)
 
-    suspend fun getGroups() = groupDao.loadAll()
+    fun getGroups() = groupDao.loadAll()
 }

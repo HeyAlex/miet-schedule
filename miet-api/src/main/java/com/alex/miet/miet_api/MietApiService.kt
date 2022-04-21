@@ -1,6 +1,7 @@
 package com.alex.miet.miet_api
 
 import com.alex.miet.miet_api.data.schedule.Schedule
+import dagger.Lazy
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -27,10 +28,10 @@ interface MietApiService {
 
     companion object {
         private const val MIET_ENDPOINT = "https://miet.ru/"
-        fun create(client: OkHttpClient): MietApiService {
+        fun create(client: Lazy<OkHttpClient>): MietApiService {
             val retrofit = Retrofit.Builder()
+                .callFactory { client.get().newCall(it) }
                 .baseUrl(MIET_ENDPOINT)
-                .client(client)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
 

@@ -3,8 +3,9 @@ package com.miet.alex.data.repositories
 import com.miet.alex.data.daos.LessonDao
 import com.miet.alex.data.entities.LessonItem
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class LessonStore(private val lessonDao: LessonDao) {
+class LocalLessonDataSource @Inject constructor(private val lessonDao: LessonDao) {
     suspend fun save(lessons: List<LessonItem>) = lessonDao.insertOrUpdate(lessons)
 
     suspend fun deleteAllByGroupName(groupName: String) = lessonDao.deleteByGroup(groupName)

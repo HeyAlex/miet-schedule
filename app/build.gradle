@@ -1,7 +1,5 @@
 plugins {
     id 'com.android.application'
-    id 'dagger.hilt.android.plugin'
-
     id 'kotlin-android'
     id 'kotlin-kapt'
 }
@@ -41,7 +39,7 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion '1.5.31'
+        kotlinCompilerVersion '1.6.10'
     }
     packagingOptions {
         resources {
@@ -51,9 +49,11 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':miet-api')
+    implementation project(':miet-api')
     implementation project(':data')
+    implementation project(':data-android')
     implementation project(':common-ui')
+    implementation project(':base')
 
     implementation group: 'joda-time', name: 'joda-time', version: '2.10.2'
 
@@ -74,14 +74,17 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
     implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
 
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2'
+
+
     testImplementation 'junit:junit:4.13.2'
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.1'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
 
-
-    implementation "com.google.dagger:hilt-android:2.40.5"
-    kapt "com.google.dagger:hilt-compiler:2.40.5"
+    def dagger_version = "2.41"
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
 }
