@@ -3,8 +3,6 @@ plugins {
 }
 
 dependencies {
-    implementation project(path: ':miet-api')
-    implementation project(path: ':miet-api')
     implementation project(':base')
     api project(':miet-api')
 

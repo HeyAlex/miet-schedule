@@ -9,6 +9,7 @@ import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import org.joda.time.format.DateTimeFormat
+import org.joda.time.format.DateTimeFormatter
 import javax.inject.Singleton
 
 @Module
@@ -22,13 +23,7 @@ object MietModule {
 
     @Provides
     @Singleton
-    fun provideLessonMapper(): LessonMapper {
-        return LessonMapper(ScheduleTimeFormatter(DateTimeFormat.forPattern("HH:mm")))
-    }
-
-    @Provides
-    @Singleton
-    fun provideGroupMapper(): GroupNameMapper {
-        return GroupNameMapper()
+    fun provideDateTimeFormatter(): DateTimeFormatter {
+        return  DateTimeFormat.forPattern("yyyy-MM-dd'T'HH:mm:ss")
     }
 }

@@ -30,7 +30,9 @@ interface MietApiService {
         private const val MIET_ENDPOINT = "https://miet.ru/"
         fun create(client: Lazy<OkHttpClient>): MietApiService {
             val retrofit = Retrofit.Builder()
-                .callFactory { client.get().newCall(it) }
+                .callFactory {
+                    client.get().newCall(it)
+                }
                 .baseUrl(MIET_ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

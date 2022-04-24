@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(color = MaterialTheme.colors.background) {
                     coroutineScope.launch {
-//                        lessonsRepository.loadLessons("ИВТ-13")
+                        lessonsRepository.loadLessons("ИВТ-13")
                         lessonsRepository.observeLessons("ИВТ-13").collect {
                             groups = it
                         }
